@@ -29,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
           SizedBox(height: 20),
           RowSelection(
             notifyParent: refresh,
-            numberOfSessions: currentSessionList.length,
+            listLength: currentSessionList.length,
           ),
           SizedBox(height: 50),
           SessionList(session: currentSessionList[_index]),

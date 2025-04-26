@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-// TODO: disable index++ if rowIndex == numberOfSessions
+// TODO: disable index++ if rowIndex == listLength
 
 // Define function that accepts int to send back and returns void
 typedef IntCallback = void Function(int index);
 
 class RowSelection extends StatefulWidget {
   final IntCallback notifyParent;
-  final int numberOfSessions;
-  const RowSelection({required this.notifyParent, required this.numberOfSessions, super.key});
+  final int listLength;
+  const RowSelection({required this.notifyParent, required this.listLength, super.key});
 
   @override
   State<RowSelection> createState() => _RowSelectionState();
