@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:training_schedule_app/pages/home.dart';
+import 'package:training_schedule_app/presentation/screens/old/home.dart';
+import 'package:training_schedule_app/presentation/screens/home_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(fontFamily:'Poppins'),
-      home: HomePage(),
+      home: HomeScreen(),
     );
   }
 }
