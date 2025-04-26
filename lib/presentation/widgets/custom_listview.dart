@@ -3,8 +3,8 @@ import 'package:training_schedule_app/models/session.dart';
 
 // TODO: rewrite to be more generic so it can be used for both week overviews as well as session overviews
 
-class SessionList extends StatelessWidget {
-  const SessionList({super.key, required this.session});
+class CustomListView extends StatelessWidget {
+  const CustomListView({super.key, required this.session});
 
   final Session session;
 

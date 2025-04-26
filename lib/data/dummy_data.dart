@@ -14,6 +14,11 @@ final List<Session> sessionList = [
     description: 'Second day of training',
     date: DateTime.now(),
     blockList: blockList2,
+  ),Session(
+    title: 'Third day',
+    description: 'Third day of training',
+    date: DateTime.now(),
+    blockList: blockList3,
   ),
 ];
 
@@ -56,6 +61,27 @@ final List<Block> blockList2 = [
     description: 'Weights and supersets',
     date: DateTime.now(),
     exerciseList: exerciseList5,
+  ),
+];
+
+final List<Block> blockList3 = [
+  Block(
+    title: 'Warm-up',
+    description: 'Warm-up',
+    date: DateTime.now(),
+    exerciseList: exerciseList,
+  ),
+  Block(
+    title: 'Kilterboard',
+    description: 'The one with the pretty lights',
+    date: DateTime.now(),
+    exerciseList: exerciseList6,
+  ),
+  Block(
+    title: 'Strength training',
+    description: 'Weights and supersets',
+    date: DateTime.now(),
+    exerciseList: exerciseList7,
   ),
 ];
 
@@ -156,6 +182,48 @@ final List<Exercise> exerciseList5 = [
   ),
   Exercise(
     title: 'Superset windshield wipers and dumb bells press',
+    reps: 6,
+    sets: 3,
+    restTime: 120,
+    activeTime: 90,
+    load: 10,
+    description: '6 of each',
+  ),
+];
+
+final List<Exercise> exerciseList6 = [
+  Exercise(
+    title: '4x4',
+    reps: 4,
+    sets: 4,
+    restTime: 240,
+    activeTime: 180,
+    load: 0,
+    description: '4x4',
+  ),
+];
+
+final List<Exercise> exerciseList7 = [
+  Exercise(
+    title: 'Handstands',
+    reps: 10,
+    sets: 3,
+    restTime: 60,
+    activeTime: 300,
+    load: 0,
+    description: 'Attempting handstands, against wall and H-stands.',
+  ),
+  Exercise(
+    title: 'Superset wall angels and IYT',
+    reps: 6,
+    sets: 3,
+    restTime: 120,
+    activeTime: 60,
+    load: 0,
+    description: 'with TRX',
+  ),
+  Exercise(
+    title: 'Superset weighted pullups and dips',
     reps: 6,
     sets: 3,
     restTime: 120,

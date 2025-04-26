@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 
-// TODO: disable index++ if rowIndex == listLength
-
 // Define function that accepts int to send back and returns void
 typedef IntCallback = void Function(int index);
 
 class RowSelection extends StatefulWidget {
   final IntCallback notifyParent;
   final int listLength;
-  const RowSelection({required this.notifyParent, required this.listLength, super.key});
+  const RowSelection({
+    required this.notifyParent,
+    required this.listLength,
+    super.key,
+  });
 
   @override
   State<RowSelection> createState() => _RowSelectionState();
@@ -50,35 +52,37 @@ class _RowSelectionState extends State<RowSelection> {
               widget.notifyParent(rowIndex);
             }
           },
-          child: Card(
-            color: Colors.blue,
+          child: SizedBox(
+            width: 75,
+            height: 100,
             child: () {
               if (rowIndex > 0) {
-                return Container(
-                  width: 60,
-                  height: 80,
-                  child: Center(
-                    child: Text(
-                      (rowIndex).toString(),
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
+                return Card(
+                  color: Colors.blue,
+                  child: SizedBox(
+                    child: Center(
+                      child: Text(
+                        (rowIndex).toString(),
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
                 );
               }
-              return SizedBox(width: 60, height: 80);
             }(),
           ),
         ),
+
         // Only widget in the row that doesn't need to be tapped
-        Card(
-          color: Colors.blue,
-          child: Container(
-            width: 75,
-            height: 100,
+        SizedBox(
+          width: 90,
+          height: 120,
+          child: Card(
+            color: Colors.blue,
             child: Center(
               child: Text(
                 (rowIndex + 1).toString(),
@@ -96,28 +100,34 @@ class _RowSelectionState extends State<RowSelection> {
             rowIndex++;
             widget.notifyParent(rowIndex);
           },
-          child: Card(
-            color: Colors.blue,
-            child: Container(
-              width: 60,
-              height: 80,
-              child: Center(
-                child: Text(
-                  (rowIndex + 2).toString(),
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
+          child: SizedBox(
+            width: 75,
+            height: 100,
+            child: () {
+              if (rowIndex < widget.listLength -1) {
+                return Card(
+                  color: Colors.blue,
+                  child: Center(
+                    child: Text(
+                      (rowIndex + 2).toString(),
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            ),
+                );
+              }
+            }(),
           ),
         ),
         GestureDetector(
           onTap: () {
-            rowIndex++;
-            widget.notifyParent(rowIndex);
+            if (rowIndex < widget.listLength -1) {
+              rowIndex++;
+              widget.notifyParent(rowIndex);
+            }
           },
           child: Container(
             alignment: Alignment.center,

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:training_schedule_app/presentation/screens/old/home.dart';
-import 'package:training_schedule_app/presentation/screens/home_screen.dart';
+import 'package:training_schedule_app/presentation/screens/day_screen.dart';
 
 void main() {
   runApp(const MyApp());
