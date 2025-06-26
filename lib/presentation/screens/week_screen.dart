@@ -3,14 +3,14 @@ import 'package:training_schedule_app/data/dummy_data.dart';
 import 'package:training_schedule_app/presentation/widgets/row_selection.dart';
 import 'package:training_schedule_app/presentation/widgets/custom_listview.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class WeekScreen extends StatefulWidget {
+  const WeekScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<WeekScreen> createState() => _WeekScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _WeekScreenState extends State<WeekScreen> {
   int _index = 0;
   void refresh(int val) {
     setState(() => _index = val);
@@ -41,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
   AppBar appBar() {
     return AppBar(
       title: Text(
-        'Today\'s session',
+        'This week',
         style: TextStyle(
           color: Colors.black,
           fontSize: 18,
