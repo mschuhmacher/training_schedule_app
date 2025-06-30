@@ -2,23 +2,26 @@ import 'package:training_schedule_app/models/block.dart';
 import 'package:training_schedule_app/models/exercise.dart';
 import 'package:training_schedule_app/models/session.dart';
 
+
+// TODO: add weeks to data structure
+// Plan >> Week >> Session >> Block >> Exercise
 final List<Session> sessionList = [
   Session(
     title: 'Today',
     description: 'First day of training',
     date: DateTime.now(),
-    blockList: blockList,
+    list: blockList,
   ),
   Session(
     title: 'Tomorrow',
     description: 'Second day of training',
     date: DateTime.now(),
-    blockList: blockList2,
+    list: blockList2,
   ),Session(
     title: 'Third day',
     description: 'Third day of training',
     date: DateTime.now(),
-    blockList: blockList3,
+    list: blockList3,
   ),
 ];
 
@@ -27,19 +30,19 @@ final List<Block> blockList = [
     title: 'Warm-up',
     description: 'Warm-up',
     date: DateTime.now(),
-    exerciseList: exerciseList,
+    list: exerciseList,
   ),
   Block(
     title: 'Kilterboard',
     description: 'The one with the pretty lights',
     date: DateTime.now(),
-    exerciseList: exerciseList2,
+    list: exerciseList2,
   ),
   Block(
     title: 'Strength training',
     description: 'Weights and supersets',
     date: DateTime.now(),
-    exerciseList: exerciseList3,
+    list: exerciseList3,
   ),
 ];
 
@@ -48,19 +51,19 @@ final List<Block> blockList2 = [
     title: 'Warm-up',
     description: 'Warm-up',
     date: DateTime.now(),
-    exerciseList: exerciseList,
+    list: exerciseList,
   ),
   Block(
     title: 'Kilterboard',
     description: 'The one with the pretty lights',
     date: DateTime.now(),
-    exerciseList: exerciseList4,
+    list: exerciseList4,
   ),
   Block(
     title: 'Strength training',
     description: 'Weights and supersets',
     date: DateTime.now(),
-    exerciseList: exerciseList5,
+    list: exerciseList5,
   ),
 ];
 
@@ -69,19 +72,19 @@ final List<Block> blockList3 = [
     title: 'Warm-up',
     description: 'Warm-up',
     date: DateTime.now(),
-    exerciseList: exerciseList,
+    list: exerciseList,
   ),
   Block(
     title: 'Kilterboard',
     description: 'The one with the pretty lights',
     date: DateTime.now(),
-    exerciseList: exerciseList6,
+    list: exerciseList6,
   ),
   Block(
     title: 'Strength training',
     description: 'Weights and supersets',
     date: DateTime.now(),
-    exerciseList: exerciseList7,
+    list: exerciseList7,
   ),
 ];
 

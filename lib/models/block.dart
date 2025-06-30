@@ -5,13 +5,13 @@ class Block {
     required this.title,
     required this.description,
     required this.date,
-    required this.exerciseList,
+    required this.list,
   });
 
   final String title;
   final String description;
   final DateTime date;
-  final List<Exercise> exerciseList;
+  final List<Exercise> list;
 
   Block copyWith(
       {String? newTitle,
@@ -22,6 +22,6 @@ class Block {
         title: newTitle ?? title,
         description: newDescription ?? description,
         date: newDate ?? date,
-        exerciseList: newExerciseList ?? exerciseList);
+        list: newExerciseList ?? list);
   }
 }

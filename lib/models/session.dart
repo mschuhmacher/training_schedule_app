@@ -5,13 +5,13 @@ class Session {
     required this.title,
     required this.description,
     required this.date,
-    required this.blockList,
+    required this.list,
   });
 
   final String title;
   final String description;
   final DateTime date;
-  final List<Block> blockList;
+  final List<Block> list;
 
   Session copyWith(
       {String? newTitle,
@@ -22,6 +22,6 @@ class Session {
         title: newTitle ?? title,
         description: newDescription ?? description,
         date: newDate ?? date,
-        blockList: newBlockList ?? blockList);
+        list: newBlockList ?? list);
   }
 }
