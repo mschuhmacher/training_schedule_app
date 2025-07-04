@@ -1,148 +1,163 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:training_schedule_app/models/training_plan_model.dart';
 
-// Define function that accepts int to send back and returns void
-typedef IntCallback = void Function(int index);
+// TODO: generalize. Needs to support week and session scrolling
+// maybe through passing a week or session parameter, and then adding switch statements?
+// Does complicate the logic in this file instead of a logic file.
 
-class RowSelection extends StatefulWidget {
-  final IntCallback notifyParent;
-  final int listLength;
+Color? cardColor = Colors.white;
+
+class RowSelection extends StatelessWidget {
   const RowSelection({
-    required this.notifyParent,
-    required this.listLength,
+    required this.index,
+    required this.itemLength,
+    required this.decrement,
+    required this.increment,
     super.key,
   });
 
-  @override
-  State<RowSelection> createState() => _RowSelectionState();
-}
-
-class _RowSelectionState extends State<RowSelection> {
-  int rowIndex = 0;
+  final int index;
+  final int itemLength;
+  final void Function() decrement;
+  final void Function() increment;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        // TODO: replace sizedbox with expanded/flexbile widgets?
-        SizedBox(width: 10),
-        GestureDetector(
-          onTap: () {
-            if (rowIndex > 0) {
-              rowIndex--;
-              widget.notifyParent(rowIndex);
-            }
-          },
-          child: Container(
-            alignment: Alignment.center,
-            child: Card(
-              color: Colors.blue,
+    return Consumer<TrainingPlanModel>(
+      builder: (context, trainingData, child) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            // TODO: replace sizedbox with expanded/flexbile widgets?
+            SizedBox(width: 10),
+            GestureDetector(
+              onTap: () {
+                if (index > 0) {
+                  decrement();
+                }
+              },
+              child: MyRowArrow(icon: Icons.arrow_back),
+            ),
+            GestureDetector(
+              onTap: () {
+                if (index > 0) {
+                  decrement();
+                }
+              },
               child: SizedBox(
-                width: 30,
-                height: 30,
-                child: Icon(Icons.arrow_back, size: 22),
+                width: 75,
+                height: 100,
+                child: () {
+                  if (index > 0) {
+                    return MyRowCard(title: index.toString());
+                  }
+                }(),
               ),
             ),
-          ),
-        ),
-        GestureDetector(
-          onTap: () {
-            if (rowIndex > 0) {
-              rowIndex--;
-              widget.notifyParent(rowIndex);
-            }
-          },
-          child: SizedBox(
-            width: 75,
-            height: 100,
-            child: () {
-              if (rowIndex > 0) {
-                return Card(
-                  color: Colors.blue,
-                  child: SizedBox(
-                    child: Center(
-                      child: Text(
-                        (rowIndex).toString(),
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                );
-              }
-            }(),
-          ),
-        ),
 
-        // Only widget in the row that doesn't need to be tapped
-        SizedBox(
-          width: 90,
-          height: 120,
-          child: Card(
-            color: Colors.blue,
-            child: Center(
-              child: Text(
-                (rowIndex + 1).toString(),
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+            // Only widget in the row that doesn't need to be tapped
+            SizedBox(
+              width: 90,
+              height: 120,
+              child: MyRowCard(title: (index + 1).toString()),
             ),
-          ),
-        ),
-        GestureDetector(
-          onTap: () {
-            rowIndex++;
-            widget.notifyParent(rowIndex);
-          },
-          child: SizedBox(
-            width: 75,
-            height: 100,
-            child: () {
-              if (rowIndex < widget.listLength -1) {
-                return Card(
-                  color: Colors.blue,
-                  child: Center(
-                    child: Text(
-                      (rowIndex + 2).toString(),
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                );
-              }
-            }(),
-          ),
-        ),
-        GestureDetector(
-          onTap: () {
-            if (rowIndex < widget.listLength -1) {
-              rowIndex++;
-              widget.notifyParent(rowIndex);
-            }
-          },
-          child: Container(
-            alignment: Alignment.center,
-            child: Card(
-              color: Colors.blue,
+            GestureDetector(
+              onTap: () {
+                increment();
+              },
               child: SizedBox(
-                width: 30,
-                height: 30,
-                child: Icon(Icons.arrow_forward, size: 22),
+                width: 75,
+                height: 100,
+                child: () {
+                  if (index < itemLength - 1) {
+                    return MyRowCard(title: (index + 2).toString());
+                  }
+                }(),
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                if (index < itemLength - 1) {
+                  increment();
+                }
+              },
+              child: MyRowArrow(icon: Icons.arrow_forward),
+            ),
+            SizedBox(width: 10),
+          ],
+        );
+      },
+    );
+  }
+}
+
+class MyRowArrow extends StatelessWidget {
+  const MyRowArrow({required this.icon, super.key});
+
+  final IconData icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 2),
+      child: Opacity(
+        opacity: 0.75,
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            color: cardColor,
+            boxShadow: [
+              BoxShadow(
+                spreadRadius: .5,
+                blurRadius: 5,
+                offset: Offset.fromDirection(1, 5),
+              ),
+            ],
+          ),
+          child: SizedBox(width: 30, height: 30, child: Icon(icon, size: 22)),
+        ),
+      ),
+    );
+  }
+}
+
+class MyRowCard extends StatelessWidget {
+  const MyRowCard({super.key, required this.title});
+
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 2.0),
+      child: Opacity(
+        opacity: 0.75,
+        child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              color: cardColor,
+              boxShadow: [
+                BoxShadow(
+                  spreadRadius: .5,
+                  blurRadius: 5,
+                  offset: Offset.fromDirection(1, 5),
+                ),
+              ],
+            ),
+          child: Center(
+            child: Text(
+              title,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ),
         ),
-        SizedBox(width: 10),
-      ],
+      ),
     );
   }
 }

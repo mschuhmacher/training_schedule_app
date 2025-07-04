@@ -1,25 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:training_schedule_app/presentation/widgets/row_selection.dart';
+import 'package:provider/provider.dart';
+import 'package:training_schedule_app/models/training_plan_model.dart';
 
 class CustomListView extends StatelessWidget {
-  const CustomListView({super.key, required this.item, required this.route,});
+  const CustomListView({
+    super.key,
+    required this.item,
+    this.setIndex,
+    required this.route,
+  });
   final List<dynamic> item;
   final dynamic route;
+  final void Function(int index)? setIndex;
 
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
       shrinkWrap: true,
       itemBuilder: (context, index) {
-        // TODO: check whether this styling can be achieved by a Flutter widget, instead of padding, opacity, container, column
-        return GestureDetector(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => route),
+        return Consumer<TrainingPlanModel>(
+          builder: (context, trainingData, child) {
+            return GestureDetector(
+              onTap: () {
+                if (setIndex != null) {
+                  setIndex!(index);
+                }
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => route),
+                );
+              },
+              child: MyListViewCard(item: item, index: index),
             );
           },
-          child: MyListViewCard(item: item, index: index),
         );
       },
       separatorBuilder: (context, index) => SizedBox(height: 10),
@@ -29,11 +43,7 @@ class CustomListView extends StatelessWidget {
 }
 
 class MyListViewCard extends StatelessWidget {
-  const MyListViewCard({
-    super.key,
-    required this.item,
-    required this.index
-  });
+  const MyListViewCard({super.key, required this.item, required this.index});
 
   final List item;
   final int index;
@@ -51,8 +61,8 @@ class MyListViewCard extends StatelessWidget {
             color: Colors.white,
             boxShadow: [
               BoxShadow(
-                spreadRadius: 2,
-                blurRadius: 10,
+                spreadRadius: .5,
+                blurRadius: 5,
                 offset: Offset.fromDirection(1, 5),
               ),
             ],

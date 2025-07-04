@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:training_schedule_app/data/dummy_data.dart';
+import 'package:training_schedule_app/models/training_plan_model.dart';
 import 'package:training_schedule_app/presentation/screens/workout_screen.dart';
 import 'package:training_schedule_app/presentation/widgets/app_bar.dart';
 import 'package:training_schedule_app/presentation/widgets/row_selection.dart';
@@ -16,17 +18,7 @@ class SessionScreen extends StatefulWidget {
 
 class _SessionScreenState extends State<SessionScreen> {
 
-
-
-  // TODO: figure out how to pass the index from customList to sessionScreen, so that the correct session is displayed
      int index = 0;
-    // if (widget.index != null) {
-    //    index = widget.index;
-    // } else {index = 0;}
-  //  late int index = widget.index;
-  void refresh(int val) {
-    setState(() => index = val);
-  }
 
   // grabs the sessionList from dummy_data.dart.
   final currentSessionList = sessionList;
@@ -34,26 +26,28 @@ class _SessionScreenState extends State<SessionScreen> {
   @override
   Widget build(BuildContext context) {
 
-
-
-
-    return Scaffold(
-      appBar: MyAppBar(title: '${currentSessionList[index].title}\'s session'),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(height: 20),
-          RowSelection(
-            notifyParent: refresh,
-            listLength: currentSessionList.length,
-          ),
-          SizedBox(height: 50),
-          CustomListView(
-            item: currentSessionList[index].list,
-            route: WorkoutScreen(),
-          ),
-        ],
-      ),
+    return Consumer<TrainingPlanModel>(
+      builder: (context, trainingData, child) {return Scaffold(
+        appBar: MyAppBar(title: '${currentSessionList[trainingData.sessionIndex].title}\'s session'), //TODO: change to week #, session #
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 20),
+            RowSelection(
+              index: trainingData.sessionIndex,
+              itemLength: trainingData.weekLength,
+              decrement: trainingData.decrementSessionIndex,
+              increment: trainingData.incrementSessionIndex,
+            ),
+            SizedBox(height: 50),
+            CustomListView(
+              item: currentSessionList[trainingData.sessionIndex].list,
+              route: WorkoutScreen(),
+            ),
+          ],
+        ),
+      );}
+      
     );
   }
 

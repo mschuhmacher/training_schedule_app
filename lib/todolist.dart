@@ -4,6 +4,9 @@
 // Training plan >> week >> day (session) >> exercises 
 // Currently got a nice UI to show the sessions and their exercises
 
+// STATUS
+// think about what the weekScreen and sessionScreen are for. What is their goal, what do they display?
+
 // FEATURES TO BUILD
 // VIEWS:
 // - Homescreen
