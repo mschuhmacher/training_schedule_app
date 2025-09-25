@@ -60,7 +60,7 @@ final List<Block> blockList2 = [
     list: exerciseList4,
   ),
   Block(
-    title: 'Strength training',
+    title: 'Supersets',
     description: 'Weights and supersets',
     date: DateTime.now(),
     list: exerciseList5,
