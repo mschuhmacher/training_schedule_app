@@ -10,8 +10,7 @@ class WorkoutBottomRow extends StatelessWidget {
   });
 
   final List sessionList;
-
-// TODO: do I need to pass all above parameters when it's a consumer?
+  
   @override
   Widget build(BuildContext context) {
     return Consumer<TrainingPlanModel>(
