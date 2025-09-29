@@ -2,95 +2,108 @@ import 'package:training_schedule_app/models/block.dart';
 import 'package:training_schedule_app/models/exercise.dart';
 import 'package:training_schedule_app/models/session.dart';
 
-
-
-
 // TODO: add weeks to data structure
+// TODO: change to full list of exercises, and in blocks only grab specific ones.
 // Plan >> Week >> Session >> Block >> Exercise
+
 final List<Session> sessionList = [
   Session(
-    title: 'Today',
-    description: 'First day of training',
+    title: 'Training session 1',
+    description: 'Flash tries and projecting',
     date: DateTime.now(),
-    list: blockList,
+    list: flashAndProject,
   ),
   Session(
-    title: 'Tomorrow',
-    description: 'Second day of training',
+    title: 'Training session 2',
+    description: 'Powerendurance',
     date: DateTime.now(),
-    list: blockList2,
-  ),Session(
-    title: 'Third day',
-    description: 'Third day of training',
+    list: powerenduranceAndFingers,
+  ),
+  Session(
+    title: 'Training session 3',
+    description: 'Unstructured climbing',
     date: DateTime.now(),
-    list: blockList3,
+    list: unstructuredClimbing,
   ),
 ];
 
-final List<Block> blockList = [
+final List<Block> flashAndProject = [
   Block(
     title: 'Warm-up',
-    description: 'Warm-up',
+    description: 'Warming up',
     date: DateTime.now(),
-    list: exerciseList,
+    list: warmupExercises,
   ),
   Block(
-    title: 'Kilterboard',
-    description: 'The one with the pretty lights',
+    title: 'Klimmen',
+    description: 'Flashen en Projecten',
     date: DateTime.now(),
-    list: exerciseList2,
+    list: flashAndProjectExercises,
+  ),
+
+  Block(
+    title: 'Strength training',
+    description: 'Weights and supersets',
+    date: DateTime.now(),
+    list: handstandAndSupersetExercises,
+  ),
+];
+
+final List<Block> powerenduranceAndFingers = [
+  Block(
+    title: 'Warm-up',
+    description: 'Warming up',
+    date: DateTime.now(),
+    list: warmupExercises,
+  ),
+  Block(
+    title: 'Fingerboard',
+    description: 'Pickups with loading pin',
+    date: DateTime.now(),
+    list: kilterboardPyramidExercise,
+  ),
+  Block(
+    title: 'Powerendurance',
+    description: 'Max 2 pogingen per boulder',
+    date: DateTime.now(),
+    list: flashAndProjectExercises,
   ),
   Block(
     title: 'Strength training',
     description: 'Weights and supersets',
     date: DateTime.now(),
-    list: exerciseList3,
+    list: handstandAndFullBodyExercises,
   ),
 ];
 
-final List<Block> blockList2 = [
+final List<Block> unstructuredClimbing = [
   Block(
     title: 'Warm-up',
-    description: 'Warm-up',
+    description: 'Warming up',
     date: DateTime.now(),
-    list: exerciseList,
+    list: warmupExercises,
   ),
   Block(
-    title: 'Kilterboard',
-    description: 'The one with the pretty lights',
+    title: 'Fingerboard',
+    description: 'Pickups with loading pin',
     date: DateTime.now(),
-    list: exerciseList4,
+    list: kilterboardPyramidExercise,
+  ),
+  Block(
+    title: 'Vrij klimmen',
+    description: 'Lekker ongestructureerd',
+    date: DateTime.now(),
+    list: pe4x4Exercise,
   ),
   Block(
     title: 'Strength training',
     description: 'Weights and supersets',
     date: DateTime.now(),
-    list: exerciseList5,
+    list: handstandAndBackExercises,
   ),
 ];
 
-final List<Block> blockList3 = [
-  Block(
-    title: 'Warm-up',
-    description: 'Warm-up',
-    date: DateTime.now(),
-    list: exerciseList,
-  ),
-  Block(
-    title: 'Kilterboard',
-    description: 'The one with the pretty lights',
-    date: DateTime.now(),
-    list: exerciseList6,
-  ),
-  Block(
-    title: 'Strength training',
-    description: 'Weights and supersets',
-    date: DateTime.now(),
-    list: exerciseList7,
-  ),
-];
-
-final List<Exercise> exerciseList = [
+final List<Exercise> warmupExercises = [
   Exercise(
     title: 'Hangboard repeaters',
     reps: 3,
@@ -111,29 +124,28 @@ final List<Exercise> exerciseList = [
   ),
 ];
 
-final List<Exercise> exerciseList2 = [
+final List<Exercise> flashAndProjectExercises = [
   Exercise(
-    title: 'Board 10',
-    reps: 4,
-    sets: 10,
-    restTime: 300,
-    activeTime: 120,
-    load: 0,
-    description:
-        '5 around flash grade, 5 project grade. Max 4 attempts per climb, must attempt all climbs',
-  ),
-  Exercise(
-    title: 'Campussing',
+    title: 'Flash game',
     reps: 2,
-    sets: 3,
+    sets: 10,
     restTime: 120,
     activeTime: 60,
     load: 0,
-    description: 'Static campussing',
+    description: '10 flash climbs, max 2 attempts.',
+  ),
+  Exercise(
+    title: 'Projecting',
+    reps: 3,
+    sets: 2,
+    restTime: 120,
+    activeTime: 60,
+    load: 0,
+    description: 'Projecting on 2 climbs. 7B-7C level.',
   ),
 ];
 
-final List<Exercise> exerciseList3 = [
+final List<Exercise> handstandAndSupersetExercises = [
   Exercise(
     title: 'Handstands',
     reps: 10,
@@ -154,7 +166,7 @@ final List<Exercise> exerciseList3 = [
   ),
 ];
 
-final List<Exercise> exerciseList4 = [
+final List<Exercise> kilterboardPyramidExercise = [
   Exercise(
     title: 'Pyramids',
     reps: 30,
@@ -166,7 +178,7 @@ final List<Exercise> exerciseList4 = [
   ),
 ];
 
-final List<Exercise> exerciseList5 = [
+final List<Exercise> handstandAndFullBodyExercises = [
   Exercise(
     title: 'Handstands',
     reps: 10,
@@ -196,7 +208,7 @@ final List<Exercise> exerciseList5 = [
   ),
 ];
 
-final List<Exercise> exerciseList6 = [
+final List<Exercise> pe4x4Exercise = [
   Exercise(
     title: '4x4',
     reps: 4,
@@ -208,7 +220,7 @@ final List<Exercise> exerciseList6 = [
   ),
 ];
 
-final List<Exercise> exerciseList7 = [
+final List<Exercise> handstandAndBackExercises = [
   Exercise(
     title: 'Handstands',
     reps: 10,

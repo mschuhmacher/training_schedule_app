@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:training_schedule_app/presentation/screens/session_detailed_screen.dart';
+import 'package:training_schedule_app/presentation/screens/session_overview_screen.dart';
 import 'package:training_schedule_app/presentation/screens/week_screen.dart';
 import 'package:training_schedule_app/presentation/widgets/table_calendar.dart';
 
@@ -18,10 +20,10 @@ class HomeScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => WeekScreen()),
+                  MaterialPageRoute(builder: (context) => SessionOverviewScreen()),
                 );
               },
-              child: Text('Training plan'),
+              child: Text('Start session'),
             ),
             Spacer(),
           ],

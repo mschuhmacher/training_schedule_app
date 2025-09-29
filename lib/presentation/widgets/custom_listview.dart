@@ -7,7 +7,7 @@ class CustomListView extends StatelessWidget {
     super.key,
     required this.item,
     this.setIndex,
-    required this.route,
+    this.route,
   });
   final List<dynamic> item;
   final dynamic route;
@@ -23,13 +23,16 @@ class CustomListView extends StatelessWidget {
             return GestureDetector(
               onTap: () {
                 if (setIndex != null) {
+                  // setIndex in not a required parameter
                   setIndex!(index);
                 }
-
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => route),
-                );
+                if (route != null) {
+                  // route is not a required parameter.
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => route),
+                  );
+                }
               },
               child: MyListViewCard(item: item, index: index),
             );

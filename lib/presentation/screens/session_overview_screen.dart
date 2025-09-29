@@ -7,15 +7,15 @@ import 'package:training_schedule_app/presentation/widgets/app_bar.dart';
 import 'package:training_schedule_app/presentation/widgets/row_selection.dart';
 import 'package:training_schedule_app/presentation/widgets/custom_listview.dart';
 
-class WeekScreen extends StatefulWidget {
-  const WeekScreen({super.key});
+class SessionOverviewScreen extends StatefulWidget {
+  const SessionOverviewScreen({super.key});
 
   @override
-  State<WeekScreen> createState() => _WeekScreenState();
+  State<SessionOverviewScreen> createState() => _SessionOverviewScreenState();
 }
 
-class _WeekScreenState extends State<WeekScreen> {
-  // grabs the sessionList from dummy_data.dart.
+class _SessionOverviewScreenState extends State<SessionOverviewScreen> {
+  // grabs the sessionList from MVP_dummy_data.dart.
   final currentSessionList = sessionList;
 
   @override
@@ -24,18 +24,11 @@ class _WeekScreenState extends State<WeekScreen> {
       builder: (context, trainingData, child) {
         return Scaffold(
           // Stful because of AppBar title
-          appBar: MyAppBar(title: 'Week ${trainingData.weekIndex + 1}'),
+          appBar: MyAppBar(title: 'Session Overview'),
           body: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 20),
-                RowSelection(
-                  index: trainingData.weekIndex,
-                  itemLength: trainingData.weekLength,
-                  decrement: trainingData.decrementWeekIndex,
-                  increment: trainingData.incrementWeekIndex,
-                ),
                 SizedBox(height: 50),
                 CustomListView(
                   item: currentSessionList,

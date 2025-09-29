@@ -1,0 +1,56 @@
+import 'package:flutter/material.dart';
+import 'package:training_schedule_app/presentation/widgets/row_selection.dart';
+import 'package:provider/provider.dart';
+import 'package:training_schedule_app/models/training_plan_model.dart';
+
+class WorkoutBottomRow extends StatelessWidget {
+  const WorkoutBottomRow({
+    super.key,
+    required this.sessionIndex,
+    required this.blockIndex,
+    required this.sessionList,
+    required this.decrement,
+    required this.increment,
+  });
+
+  final int sessionIndex;
+  final int blockIndex;
+  final List sessionList;
+  final void Function() decrement;
+  final void Function() increment;
+
+
+// TODO: do I need to pass all above parameters when it's a consumer?
+  @override
+  Widget build(BuildContext context) {
+        return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        GestureDetector(
+          onTap: () {
+            if (blockIndex > 0) {
+              decrement();
+            }
+          },
+          child: () {
+            if (blockIndex > 0) {
+              return MyRowArrow(icon: Icons.arrow_back);
+            }
+            return Text('');
+          }(),
+        ),
+        GestureDetector(
+          onTap: () {
+            if (blockIndex >= 0 &&
+                blockIndex < sessionList[sessionIndex].list.length - 1) {
+              increment();
+            }
+          },
+          child: MyRowArrow(icon: Icons.arrow_forward),
+          // TODO: add case / switch for forward arrow vs finish button
+        ),
+      ],
+    );
+    
+  }
+}
