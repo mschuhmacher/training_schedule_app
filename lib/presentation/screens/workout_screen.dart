@@ -4,8 +4,7 @@ import 'package:training_schedule_app/models/block.dart';
 import 'package:training_schedule_app/presentation/widgets/app_bar.dart';
 import 'package:training_schedule_app/data/MVP_dummy_data.dart';
 import 'package:training_schedule_app/models/training_plan_model.dart';
-import 'package:training_schedule_app/presentation/widgets/row_selection.dart';
-import 'package:training_schedule_app/presentation/widgets/workout_bottom_row';
+import 'package:training_schedule_app/presentation/widgets/workout_bottom_row.dart';
 
 class WorkoutScreen extends StatefulWidget {
   WorkoutScreen({super.key});
@@ -91,6 +90,4 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
       },
     );
   }
-
-  // TODO: extract to widget in separate file.
 }

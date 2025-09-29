@@ -36,12 +36,7 @@ class _SessionDetailedScreenState extends State<SessionDetailedScreen> {
               // mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(height: 20),
-                RowSelection(
-                  index: trainingData.sessionIndex,
-                  itemLength: trainingData.weekLength,
-                  decrement: trainingData.decrementSessionIndex,
-                  increment: trainingData.incrementSessionIndex,
-                ),
+                RowSelection(caseStatement: 'Session'),
                 SizedBox(height: 50),
                 StartSessionButton(),
                 SizedBox(height: 20),

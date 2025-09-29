@@ -30,12 +30,7 @@ class _WeekScreenState extends State<WeekScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: 20),
-                RowSelection(
-                  index: trainingData.weekIndex,
-                  itemLength: trainingData.weekLength,
-                  decrement: trainingData.decrementWeekIndex,
-                  increment: trainingData.incrementWeekIndex,
-                ),
+                RowSelection(caseStatement: 'Week'),
                 SizedBox(height: 50),
                 CustomListView(
                   item: currentSessionList,

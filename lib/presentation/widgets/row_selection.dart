@@ -9,23 +9,36 @@ import 'package:training_schedule_app/models/training_plan_model.dart';
 Color? cardColor = Colors.white;
 
 class RowSelection extends StatelessWidget {
-  const RowSelection({
-    required this.index,
-    required this.itemLength,
-    required this.decrement,
-    required this.increment,
-    super.key,
-  });
+  const RowSelection({required this.caseStatement, super.key});
 
-  final int index;
-  final int itemLength;
-  final void Function() decrement;
-  final void Function() increment;
+  final String caseStatement;
 
   @override
   Widget build(BuildContext context) {
     return Consumer<TrainingPlanModel>(
       builder: (context, trainingData, child) {
+        int index = 0;
+        int itemLength = 0;
+        void Function() decrement = () {};
+        void Function() increment = () {};
+
+        switch (caseStatement) {
+          case 'Week':
+            {
+              index = trainingData.weekIndex;
+              itemLength = trainingData.weekLength;
+              decrement = trainingData.decrementWeekIndex;
+              increment = trainingData.incrementWeekIndex;
+            }
+          case 'Session':
+            {
+              index = trainingData.sessionIndex;
+              itemLength = trainingData.weekLength;
+              decrement = trainingData.decrementSessionIndex;
+              increment = trainingData.incrementSessionIndex;
+            }
+        }
+
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -134,17 +147,17 @@ class MyRowCard extends StatelessWidget {
       child: Opacity(
         opacity: 0.75,
         child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              color: cardColor,
-              boxShadow: [
-                BoxShadow(
-                  spreadRadius: .5,
-                  blurRadius: 5,
-                  offset: Offset.fromDirection(1, 5),
-                ),
-              ],
-            ),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            color: cardColor,
+            boxShadow: [
+              BoxShadow(
+                spreadRadius: .5,
+                blurRadius: 5,
+                offset: Offset.fromDirection(1, 5),
+              ),
+            ],
+          ),
           child: Center(
             child: Text(
               title,
