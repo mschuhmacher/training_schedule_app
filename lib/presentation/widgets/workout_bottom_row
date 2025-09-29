@@ -6,34 +6,26 @@ import 'package:training_schedule_app/models/training_plan_model.dart';
 class WorkoutBottomRow extends StatelessWidget {
   const WorkoutBottomRow({
     super.key,
-    required this.sessionIndex,
-    required this.blockIndex,
     required this.sessionList,
-    required this.decrement,
-    required this.increment,
   });
 
-  final int sessionIndex;
-  final int blockIndex;
   final List sessionList;
-  final void Function() decrement;
-  final void Function() increment;
-
 
 // TODO: do I need to pass all above parameters when it's a consumer?
   @override
   Widget build(BuildContext context) {
-        return Row(
+    return Consumer<TrainingPlanModel>(
+      builder: (context, trainingData, child){return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         GestureDetector(
           onTap: () {
-            if (blockIndex > 0) {
-              decrement();
+            if (trainingData.blockIndex > 0) {
+              trainingData.decrementBlockIndex();
             }
           },
           child: () {
-            if (blockIndex > 0) {
+            if (trainingData.blockIndex > 0) {
               return MyRowArrow(icon: Icons.arrow_back);
             }
             return Text('');
@@ -41,16 +33,18 @@ class WorkoutBottomRow extends StatelessWidget {
         ),
         GestureDetector(
           onTap: () {
-            if (blockIndex >= 0 &&
-                blockIndex < sessionList[sessionIndex].list.length - 1) {
-              increment();
+            if (trainingData.blockIndex >= 0 &&
+                trainingData.blockIndex < sessionList[trainingData.sessionIndex].list.length - 1) {
+              trainingData.incrementBlockIndex();
             }
           },
           child: MyRowArrow(icon: Icons.arrow_forward),
           // TODO: add case / switch for forward arrow vs finish button
         ),
       ],
+    );}
     );
+        
     
   }
 }
