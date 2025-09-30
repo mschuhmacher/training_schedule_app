@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:training_schedule_app/data/MVP_dummy_data.dart';
 import 'package:training_schedule_app/models/training_plan_model.dart';
-import 'package:training_schedule_app/presentation/screens/workout_screen.dart';
 import 'package:training_schedule_app/presentation/widgets/app_bar.dart';
 import 'package:training_schedule_app/presentation/widgets/row_selection.dart';
 import 'package:training_schedule_app/presentation/widgets/custom_listview.dart';
@@ -29,8 +28,8 @@ class _SessionDetailedScreenState extends State<SessionDetailedScreen> {
       builder: (context, trainingData, child) {
         return Scaffold(
           appBar: MyAppBar(
-            title: '${currentSessionList[trainingData.sessionIndex].title}',
-          ), //TODO: change to week #, session #
+            title: currentSessionList[trainingData.sessionIndex].title,
+          ),
           body: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:training_schedule_app/presentation/widgets/my_arrow_button.dart';
-import 'package:training_schedule_app/presentation/widgets/row_selection.dart';
 import 'package:provider/provider.dart';
 import 'package:training_schedule_app/models/training_plan_model.dart';
 

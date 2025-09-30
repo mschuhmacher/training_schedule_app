@@ -28,7 +28,8 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
             currentBlock.list
                 .map(
                   (name) => Text(
-                    '${name.title} \n${name.description}',
+                    // TODO: change to two Text widgets for different styling between title and description
+                    '${name.title} \n${name.description} \n',
                     style: TextStyle(color: Colors.white),
                     textAlign: TextAlign.center,
                   ),
