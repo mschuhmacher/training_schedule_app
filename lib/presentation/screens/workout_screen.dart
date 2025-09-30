@@ -7,7 +7,7 @@ import 'package:training_schedule_app/models/training_plan_model.dart';
 import 'package:training_schedule_app/presentation/widgets/workout_bottom_row.dart';
 
 class WorkoutScreen extends StatefulWidget {
-  WorkoutScreen({super.key});
+  const WorkoutScreen({super.key});
 
   @override
   State<WorkoutScreen> createState() => _WorkoutScreenState();
@@ -26,7 +26,13 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                 .blockIndex];
         List<Widget> exerciseWidgets =
             currentBlock.list
-                .map((name) => Text('${name.title} \n${name.description}'))
+                .map(
+                  (name) => Text(
+                    '${name.title} \n${name.description}',
+                    style: TextStyle(color: Colors.white),
+                    textAlign: TextAlign.center,
+                  ),
+                )
                 .toList();
         List<Widget> blockNames =
             currentSessionList[trainingData.sessionIndex].list
@@ -51,29 +57,43 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
               children: [
                 Expanded(flex: 1, child: Container()),
                 Expanded(
+                  flex: 4,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(12.0, 12.0, 36.0, 12.0),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: List.from(blockNames)
+                          ..addAll([Text('\n ${currentBlock.description}')]),
+                        // Create new list from block names and add the block description to it with a whiteline in between
+                      ),
+                    ),
+                  ),
+                ),
+                // Expanded(flex: 1, child: Container()),
+                Expanded(
+                  flex: 12,
+                  child: Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.blueGrey[700],
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(200), // large curve
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children:
+                            <Widget>[SizedBox(height: 100)] + exerciseWidgets,
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
                   flex: 2,
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Column(
-                      children: List.from(blockNames)
-                        ..addAll([Text('\n ${currentBlock.description}')]),
-                      // Create new list from block names and add the block description to it with a whiteline in between
-                    ),
-                  ),
-                ),
-                Expanded(flex: 1, child: Container()),
-                Expanded(
-                  flex: 5,
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: exerciseWidgets,
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
                   child: Padding(
                     padding: const EdgeInsets.only(
                       left: 36.0,

@@ -4,7 +4,6 @@ import 'package:training_schedule_app/data/MVP_dummy_data.dart';
 import 'package:training_schedule_app/models/training_plan_model.dart';
 import 'package:training_schedule_app/presentation/screens/session_detailed_screen.dart';
 import 'package:training_schedule_app/presentation/widgets/app_bar.dart';
-import 'package:training_schedule_app/presentation/widgets/row_selection.dart';
 import 'package:training_schedule_app/presentation/widgets/custom_listview.dart';
 
 class SessionOverviewScreen extends StatefulWidget {

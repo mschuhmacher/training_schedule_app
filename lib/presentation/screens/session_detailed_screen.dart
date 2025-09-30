@@ -6,6 +6,7 @@ import 'package:training_schedule_app/presentation/screens/workout_screen.dart';
 import 'package:training_schedule_app/presentation/widgets/app_bar.dart';
 import 'package:training_schedule_app/presentation/widgets/row_selection.dart';
 import 'package:training_schedule_app/presentation/widgets/custom_listview.dart';
+import 'package:training_schedule_app/presentation/widgets/start_session_button.dart';
 
 class SessionDetailedScreen extends StatefulWidget {
   final dynamic index;
@@ -33,7 +34,6 @@ class _SessionDetailedScreenState extends State<SessionDetailedScreen> {
           body: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
-              // mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(height: 20),
                 RowSelection(caseStatement: 'Session'),
@@ -42,47 +42,13 @@ class _SessionDetailedScreenState extends State<SessionDetailedScreen> {
                 SizedBox(height: 20),
                 CustomListView(
                   item: currentSessionList[trainingData.sessionIndex].list,
-                  route: WorkoutScreen(),
+                  // route: WorkoutScreen(),
                 ),
               ],
             ),
           ),
         );
       },
-    );
-  }
-}
-
-class StartSessionButton extends StatelessWidget {
-  const StartSessionButton({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      child: Padding(
-        padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-        child: Opacity(
-          opacity: 0.75,
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => WorkoutScreen()),
-              );
-            },
-            child: Text(
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
-              'Start session',
-            ),
-          ),
-        ),
-      ),
     );
   }
 }

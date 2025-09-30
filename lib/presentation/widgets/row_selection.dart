@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:training_schedule_app/models/training_plan_model.dart';
+import 'package:training_schedule_app/presentation/widgets/my_arrow_button.dart';
 
 // TODO: generalize. Needs to support week and session scrolling
 // maybe through passing a week or session parameter, and then adding switch statements?
@@ -50,7 +51,7 @@ class RowSelection extends StatelessWidget {
                   decrement();
                 }
               },
-              child: MyRowArrow(icon: Icons.arrow_back),
+              child: MyArrowButton(icon: Icons.arrow_back),
             ),
             GestureDetector(
               onTap: () {
@@ -95,42 +96,12 @@ class RowSelection extends StatelessWidget {
                   increment();
                 }
               },
-              child: MyRowArrow(icon: Icons.arrow_forward),
+              child: MyArrowButton(icon: Icons.arrow_forward),
             ),
             SizedBox(width: 10),
           ],
         );
       },
-    );
-  }
-}
-
-class MyRowArrow extends StatelessWidget {
-  const MyRowArrow({required this.icon, super.key});
-
-  final IconData icon;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 2),
-      child: Opacity(
-        opacity: 0.75,
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            color: cardColor,
-            boxShadow: [
-              BoxShadow(
-                spreadRadius: .5,
-                blurRadius: 5,
-                offset: Offset.fromDirection(1, 5),
-              ),
-            ],
-          ),
-          child: SizedBox(width: 30, height: 30, child: Icon(icon, size: 22)),
-        ),
-      ),
     );
   }
 }
