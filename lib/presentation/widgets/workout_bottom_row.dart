@@ -36,10 +36,18 @@ class WorkoutBottomRow extends StatelessWidget {
                         sessionList[trainingData.sessionIndex].list.length -
                             1) {
                   trainingData.incrementBlockIndex();
+                } else if (trainingData.blockIndex ==
+                    sessionList[trainingData.sessionIndex].list.length - 1) {
+                  //TODO: implement finish function here
                 }
               },
-              child: MyArrowButton(icon: Icons.arrow_forward, size: 40),
-              // TODO: add case / switch for forward arrow vs finish button
+              child: () {
+                if (trainingData.blockIndex <
+                    sessionList[trainingData.sessionIndex].list.length - 1) {
+                  return MyArrowButton(icon: Icons.arrow_forward, size: 40);
+                }
+                return MyArrowButton(icon: Icons.check_box, size: 40);
+              }(),
             ),
           ],
         );
