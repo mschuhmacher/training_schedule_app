@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:training_schedule_app/models/training_plan_model.dart';
+import 'package:training_schedule_app/presentation/screens/session_detailed_screen.dart';
 import 'package:training_schedule_app/presentation/screens/workout_screen.dart';
 
 class StartSessionButton extends StatelessWidget {
-  const StartSessionButton({super.key});
+  final String routeName;
+
+  const StartSessionButton({super.key, required this.routeName});
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +24,29 @@ class StartSessionButton extends StatelessWidget {
                 onPressed: () {
                   // reset blockIndex before navigating to workoutscreen
                   trainingData.setBlockIndex(0);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => WorkoutScreen()),
-                  );
+
+                  switch (routeName) {
+                    case 'session_detailed_screen':
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SessionDetailedScreen(),
+                        ),
+                      );
+                      break;
+                    case 'workout_screen':
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => WorkoutScreen(),
+                        ),
+                      );
+                      break;
+                    default:
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Unknown route')),
+                      );
+                  }
                 },
                 child: Text(
                   style: TextStyle(

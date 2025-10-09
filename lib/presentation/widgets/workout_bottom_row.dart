@@ -8,6 +8,8 @@ class WorkoutBottomRow extends StatelessWidget {
 
   final List sessionList;
 
+  // TODO: change to bottomAppBar
+
   @override
   Widget build(BuildContext context) {
     return Consumer<TrainingPlanModel>(
@@ -37,7 +39,7 @@ class WorkoutBottomRow extends StatelessWidget {
                   trainingData.incrementBlockIndex();
                 } else if (trainingData.blockIndex ==
                     sessionList[trainingData.sessionIndex].list.length - 1) {
-                  //TODO: implement finish function here
+                  //TODO: implement logbook function here
                 }
               },
               child: () {

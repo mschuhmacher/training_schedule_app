@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:training_schedule_app/presentation/screens/session_detailed_screen.dart';
+import 'package:training_schedule_app/presentation/widgets/start_session_button.dart';
 import 'package:training_schedule_app/presentation/widgets/table_calendar.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -15,17 +16,8 @@ class HomeScreen extends StatelessWidget {
             MyTableCalendar(),
             Spacer(),
             // TODO: merge button below with start_session_button
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => SessionDetailedScreen(),
-                  ),
-                );
-              },
-              child: Text('Start session'),
-            ),
+            StartSessionButton(routeName: 'session_detailed_screen'),
+
             Spacer(),
           ],
         ),

@@ -4,7 +4,7 @@ import 'package:training_schedule_app/models/block.dart';
 import 'package:training_schedule_app/presentation/widgets/app_bar.dart';
 import 'package:training_schedule_app/data/MVP_dummy_data.dart';
 import 'package:training_schedule_app/models/training_plan_model.dart';
-import 'package:training_schedule_app/presentation/widgets/workout_bottom_row.dart';
+import 'package:training_schedule_app/presentation/widgets/workout_bottom_appbar.dart';
 
 class WorkoutScreen extends StatefulWidget {
   const WorkoutScreen({super.key});
@@ -61,18 +61,25 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                   flex: 4,
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(12.0, 12.0, 36.0, 12.0),
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: List.from(blockNames)
-                          ..addAll([Text('\n ${currentBlock.description}')]),
-                        // Create new list from block names and add the block description to it with a whiteline in between
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: FractionallySizedBox(
+                        widthFactor: 0.9,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: List.from(blockNames)..addAll([
+                            Text(
+                              '\n ${currentBlock.description}',
+                              textAlign: TextAlign.end,
+                            ),
+                          ]),
+                          // Create new list from block names and add the block description to it with a whiteline in between
+                        ),
                       ),
                     ),
                   ),
                 ),
-                // Expanded(flex: 1, child: Container()),
+
                 Expanded(
                   flex: 12,
                   child: Container(
@@ -93,19 +100,11 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                     ),
                   ),
                 ),
-                Expanded(
-                  flex: 2,
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      left: 36.0,
-                      right: 36.0,
-                      bottom: 24.0,
-                    ),
-                    child: WorkoutBottomRow(sessionList: currentSessionList),
-                  ),
-                ),
               ],
             ),
+          ),
+          bottomNavigationBar: WorkoutBottomAppbar(
+            sessionList: currentSessionList,
           ),
         );
       },

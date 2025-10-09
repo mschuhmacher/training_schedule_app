@@ -37,7 +37,7 @@ class _SessionDetailedScreenState extends State<SessionDetailedScreen> {
                 SizedBox(height: 20),
                 RowSelection(caseStatement: 'Session'),
                 SizedBox(height: 50),
-                StartSessionButton(),
+                StartSessionButton(routeName: 'workout_screen'),
                 SizedBox(height: 20),
                 CustomListView(
                   item: currentSessionList[trainingData.sessionIndex].list,
