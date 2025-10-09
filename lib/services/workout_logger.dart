@@ -38,16 +38,21 @@ class WorkoutLogger {
 
   /// 🔹 Read all workout logs from file
   static Future<List<Session>> readLogs() async {
-    final path = await _getFilePath();
-    final file = File(path);
+    try {
+      final path = await _getFilePath();
+      final file = File(path);
 
-    if (!await file.exists()) return [];
+      if (!await file.exists()) return [];
 
-    final content = await file.readAsString();
-    if (content.isEmpty) return [];
+      final content = await file.readAsString();
+      if (content.isEmpty) return [];
 
-    final List<dynamic> jsonList = jsonDecode(content);
-    return jsonList.map((e) => Session.fromJson(e)).toList();
+      final List<dynamic> jsonList = jsonDecode(content);
+      return jsonList.map((e) => Session.fromJson(e)).toList();
+    } catch (e) {
+      print('Error reading workouts: $e');
+      return [];
+    }
   }
 
   /// 🔹 Clear all logs (for testing or reset)
