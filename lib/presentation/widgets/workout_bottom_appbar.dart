@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:training_schedule_app/presentation/widgets/my_arrow_button.dart';
 import 'package:training_schedule_app/models/training_plan_model.dart';
+import 'package:training_schedule_app/services/workout_logger.dart';
 
 class WorkoutBottomAppbar extends StatelessWidget {
   final List sessionList;
@@ -35,7 +36,7 @@ class WorkoutBottomAppbar extends StatelessWidget {
                     }(),
                   ),
                   GestureDetector(
-                    onTap: () {
+                    onTap: () async {
                       if (trainingData.blockIndex >= 0 &&
                           trainingData.blockIndex <
                               sessionList[trainingData.sessionIndex]
@@ -46,7 +47,16 @@ class WorkoutBottomAppbar extends StatelessWidget {
                       } else if (trainingData.blockIndex ==
                           sessionList[trainingData.sessionIndex].list.length -
                               1) {
-                        //TODO: implement logbook function here
+                        await WorkoutLogger.logWorkout(
+                          sessionList[trainingData.sessionIndex],
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Workout saved to log!'),
+                          ),
+                        );
+
+                        Navigator.pop(context);
                       }
                     },
                     child: () {
