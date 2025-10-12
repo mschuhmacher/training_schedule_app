@@ -19,6 +19,7 @@ class _MyWeeklyCalendarState extends State<MyWeeklyCalendar> {
   StartingDayOfWeek _startingDayOfWeek = StartingDayOfWeek.monday;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
+  bool noSessionsToday = true;
 
   @override
   void initState() {
@@ -28,6 +29,8 @@ class _MyWeeklyCalendarState extends State<MyWeeklyCalendar> {
     _selectedSessions = ValueNotifier(
       getSessionsForDay(widget.sessions, _selectedDay!),
     ); //change to forRange
+    bool noSessionsToday =
+        getSessionsForDay(widget.sessions, _selectedDay!).isEmpty;
   }
 
   @override
@@ -82,30 +85,35 @@ class _MyWeeklyCalendarState extends State<MyWeeklyCalendar> {
         ),
         Spacer(),
         Expanded(
-          child: ValueListenableBuilder<List<Session>>(
-            valueListenable: _selectedSessions,
-            builder: (context, value, _) {
-              return ListView.builder(
-                itemCount: value.length,
-                itemBuilder: (context, index) {
-                  return Container(
-                    margin: const EdgeInsets.symmetric(
-                      horizontal: 12.0,
-                      vertical: 4.0,
-                    ),
-                    decoration: BoxDecoration(
-                      border: Border.all(),
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
-                    child: ListTile(
-                      onTap: () => print('${value[index]}'),
-                      title: Text('${value[index]}'),
-                    ),
-                  );
-                },
-              );
-            },
-          ),
+          child:
+              noSessionsToday
+                  ? const Center(
+                    child: Text('No climbing sessions logged yet.'),
+                  )
+                  : ValueListenableBuilder<List<Session>>(
+                    valueListenable: _selectedSessions,
+                    builder: (context, value, _) {
+                      return ListView.builder(
+                        itemCount: value.length,
+                        itemBuilder: (context, index) {
+                          return Container(
+                            margin: const EdgeInsets.symmetric(
+                              horizontal: 12.0,
+                              vertical: 4.0,
+                            ),
+                            decoration: BoxDecoration(
+                              border: Border.all(),
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                            child: ListTile(
+                              onTap: () => print('${value[index]}'),
+                              title: Text('${value[index]}'),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  ),
         ),
       ],
     );

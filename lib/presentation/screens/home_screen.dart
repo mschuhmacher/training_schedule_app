@@ -56,8 +56,12 @@ class _HomeScreenState extends State<HomeScreen> {
             Spacer(),
             StartSessionButton(routeName: 'session_detailed_screen'),
             Spacer(),
-            MyWeeklyCalendar(sessions: loggedSessions),
-            Spacer(),
+            Expanded(
+              flex: 12,
+              child: MyWeeklyCalendar(sessions: loggedSessions),
+            ),
+            // Spacer(),
+
             // Expanded(
             //   flex: 6,
             //   child:
@@ -79,8 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
             //             },
             //           ),
             // ),
-            Spacer(flex: 2),
-
+            // Spacer(flex: 2),
             Spacer(flex: 2),
           ],
         ),
