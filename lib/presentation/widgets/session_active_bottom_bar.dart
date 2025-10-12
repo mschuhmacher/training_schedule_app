@@ -22,55 +22,50 @@ class ActiveSessionBottomBar extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  GestureDetector(
-                    onTap: () {
-                      if (trainingData.blockIndex > 0) {
-                        trainingData.decrementBlockIndex();
-                      }
-                    },
-                    child: () {
-                      if (trainingData.blockIndex > 0) {
-                        return MyArrowButton(icon: Icons.arrow_back, size: 40);
-                      }
-                      return Text('');
-                    }(),
-                  ),
-                  GestureDetector(
-                    onTap: () async {
-                      if (trainingData.blockIndex >= 0 &&
+                  trainingData.blockIndex > 0
+                      ? GestureDetector(
+                        onTap: trainingData.decrementBlockIndex,
+                        child: MyArrowButton(icon: Icons.arrow_back, size: 40),
+                      )
+                      : SizedBox.shrink(),
+
+                  (trainingData.blockIndex >= 0 &&
                           trainingData.blockIndex <
                               sessionList[trainingData.sessionIndex]
                                       .list
                                       .length -
-                                  1) {
-                        trainingData.incrementBlockIndex();
-                      } else if (trainingData.blockIndex ==
-                          sessionList[trainingData.sessionIndex].list.length -
-                              1) {
-                        await SessionLogger.logSession(
-                          sessionList[trainingData.sessionIndex],
-                        );
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Workout saved to log!'),
-                          ),
-                        );
-
-                        Navigator.pop(context);
-                      }
-                    },
-                    child: () {
-                      if (trainingData.blockIndex <
-                          sessionList[trainingData.sessionIndex].list.length -
-                              1) {
-                        return MyArrowButton(
+                                  1)
+                      ? GestureDetector(
+                        onTap: trainingData.incrementBlockIndex,
+                        child: MyArrowButton(
                           icon: Icons.arrow_forward,
                           size: 40,
-                        );
-                      }
-                      return MyArrowButton(icon: Icons.check_box, size: 40);
-                    }(),
-                  ),
+                        ),
+                      )
+                      : GestureDetector(
+                        onTap: () async {
+                          await SessionLogger.logSession(
+                            sessionList[trainingData.sessionIndex],
+                          );
+                          // Only use the buildContext is it still mounted. Meaning, the widget is still in the Widgettree.
+                          // If user leaves screen before await is done, mounted would be false
+                          if (context.mounted) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Workout saved to log!'),
+                              ),
+                            );
+                            // Keeps popping routes until the current route is the first route. Not named,so no errors.
+
+                            Navigator.popUntil(
+                              context,
+                              (route) => route.isFirst,
+                              // TODO: insert reloading logged sessions when returning to home screen
+                            );
+                          }
+                        },
+                        child: MyArrowButton(icon: Icons.check_box, size: 40),
+                      ),
                 ],
               ),
             ),
