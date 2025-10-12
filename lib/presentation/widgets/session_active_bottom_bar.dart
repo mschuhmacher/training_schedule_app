@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:training_schedule_app/presentation/widgets/my_arrow_button.dart';
 import 'package:training_schedule_app/models/training_plan_model.dart';
-import 'package:training_schedule_app/services/workout_logger.dart';
+import 'package:training_schedule_app/services/session_logger.dart';
 
-class WorkoutBottomAppbar extends StatelessWidget {
+class ActiveSessionBottomBar extends StatelessWidget {
   final List sessionList;
 
-  const WorkoutBottomAppbar({super.key, required this.sessionList});
+  const ActiveSessionBottomBar({super.key, required this.sessionList});
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class WorkoutBottomAppbar extends StatelessWidget {
                       } else if (trainingData.blockIndex ==
                           sessionList[trainingData.sessionIndex].list.length -
                               1) {
-                        await WorkoutLogger.logWorkout(
+                        await SessionLogger.logSession(
                           sessionList[trainingData.sessionIndex],
                         );
                         ScaffoldMessenger.of(context).showSnackBar(

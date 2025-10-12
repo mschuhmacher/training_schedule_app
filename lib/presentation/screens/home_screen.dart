@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:training_schedule_app/models/session.dart';
 import 'package:training_schedule_app/presentation/widgets/start_session_button.dart';
 import 'package:training_schedule_app/presentation/widgets/table_calendar.dart';
-import 'package:training_schedule_app/services/workout_logger.dart';
+import 'package:training_schedule_app/services/session_logger.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,18 +12,18 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<Session> loggedWorkouts = [];
+  List<Session> loggedSessions = [];
 
   @override
   void initState() {
     super.initState();
-    _loadLoggedWorkouts();
+    _loadLoggedSessions();
   }
 
-  Future<void> _loadLoggedWorkouts() async {
-    final workouts = await WorkoutLogger.readLogs();
+  Future<void> _loadLoggedSessions() async {
+    final sessions = await SessionLogger.readLogs();
     setState(() {
-      loggedWorkouts = workouts;
+      loggedSessions = sessions;
     });
   }
 
@@ -39,16 +39,18 @@ class _HomeScreenState extends State<HomeScreen> {
             Expanded(
               flex: 6,
               child:
-                  loggedWorkouts.isEmpty
-                      ? const Center(child: Text('No workouts logged yet.'))
+                  loggedSessions.isEmpty
+                      ? const Center(
+                        child: Text('No climbing sessions logged yet.'),
+                      )
                       : ListView.builder(
-                        itemCount: loggedWorkouts.length,
+                        itemCount: loggedSessions.length,
                         itemBuilder: (context, index) {
-                          final workout = loggedWorkouts[index];
+                          final session = loggedSessions[index];
                           return ListTile(
-                            title: Text(workout.title),
+                            title: Text(session.title),
                             subtitle: Text(
-                              'Date: ${workout.date.toLocal().toString().split(" ")[0]} • ${workout.list.length} blocks',
+                              'Date: ${session.date.toLocal().toString().split(" ")[0]} • ${session.list.length} blocks',
                             ),
                             trailing: const Icon(Icons.fitness_center),
                           );

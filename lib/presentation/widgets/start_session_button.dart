@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:training_schedule_app/models/training_plan_model.dart';
 import 'package:training_schedule_app/presentation/screens/session_detailed_screen.dart';
-import 'package:training_schedule_app/presentation/screens/workout_screen.dart';
+import 'package:training_schedule_app/presentation/screens/session_active_screen.dart';
 
 class StartSessionButton extends StatelessWidget {
   final String routeName;
@@ -38,7 +38,7 @@ class StartSessionButton extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => WorkoutScreen(),
+                          builder: (context) => ActiveSessionScreen(),
                         ),
                       );
                       break;

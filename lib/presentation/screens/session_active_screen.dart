@@ -4,16 +4,16 @@ import 'package:training_schedule_app/models/block.dart';
 import 'package:training_schedule_app/presentation/widgets/app_bar.dart';
 import 'package:training_schedule_app/data/MVP_dummy_data.dart';
 import 'package:training_schedule_app/models/training_plan_model.dart';
-import 'package:training_schedule_app/presentation/widgets/workout_bottom_appbar.dart';
+import 'package:training_schedule_app/presentation/widgets/session_active_bottom_bar.dart';
 
-class WorkoutScreen extends StatefulWidget {
-  const WorkoutScreen({super.key});
+class ActiveSessionScreen extends StatefulWidget {
+  const ActiveSessionScreen({super.key});
 
   @override
-  State<WorkoutScreen> createState() => _WorkoutScreenState();
+  State<ActiveSessionScreen> createState() => _ActiveSessionScreenState();
 }
 
-class _WorkoutScreenState extends State<WorkoutScreen> {
+class _ActiveSessionScreenState extends State<ActiveSessionScreen> {
   final currentSessionList = sessionList;
 
   @override
@@ -103,7 +103,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
               ],
             ),
           ),
-          bottomNavigationBar: WorkoutBottomAppbar(
+          bottomNavigationBar: ActiveSessionBottomBar(
             sessionList: currentSessionList,
           ),
         );

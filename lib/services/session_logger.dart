@@ -3,15 +3,15 @@ import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import '../models/session.dart';
 
-class WorkoutLogger {
+class SessionLogger {
   // Finds or creates the local JSON file
   static Future<String> _getFilePath() async {
     final directory = await getApplicationDocumentsDirectory();
-    return '${directory.path}/workout_log.json';
+    return '${directory.path}/session_log.json';
   }
 
   /// 🔹 Save a completed workout session to the log file
-  static Future<void> logWorkout(Session session) async {
+  static Future<void> logSession(Session session) async {
     final path = await _getFilePath();
     final file = File(path);
 
@@ -33,7 +33,7 @@ class WorkoutLogger {
     existingLogs.add(sessionJson);
     await file.writeAsString(jsonEncode(existingLogs), flush: true);
 
-    print('✅ Workout logged successfully to: $path');
+    print('✅ Session logged successfully to: $path');
   }
 
   /// 🔹 Read all workout logs from file
@@ -50,7 +50,7 @@ class WorkoutLogger {
       final List<dynamic> jsonList = jsonDecode(content);
       return jsonList.map((e) => Session.fromJson(e)).toList();
     } catch (e) {
-      print('Error reading workouts: $e');
+      print('Error reading logged sessions: $e');
       return [];
     }
   }
@@ -61,7 +61,7 @@ class WorkoutLogger {
     final file = File(path);
     if (await file.exists()) {
       await file.writeAsString(jsonEncode([]));
-      print('🧹 Workout log cleared');
+      print('🧹 Session log cleared');
     }
   }
 }
