@@ -3,6 +3,9 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:training_schedule_app/models/session.dart';
 import 'package:training_schedule_app/utils/date_utils.dart';
 
+/// the getSessions functions are not working properly. Test with logging a session today and then restarting the app.
+/// Should display, but bool is still false
+
 class MyWeeklyCalendar extends StatefulWidget {
   final List<Session> sessions;
 

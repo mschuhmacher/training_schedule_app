@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:training_schedule_app/models/training_plan_model.dart';
+import 'package:training_schedule_app/providers/session_provider.dart';
 import 'package:training_schedule_app/presentation/widgets/my_arrow_button.dart';
 
 // TODO: generalize. Needs to support week and session scrolling
@@ -16,7 +16,7 @@ class RowSelection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<TrainingPlanModel>(
+    return Consumer<SessionProvider>(
       builder: (context, trainingData, child) {
         int index = 0;
         int itemLength = 0;

@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:training_schedule_app/models/block.dart';
 import 'package:training_schedule_app/presentation/widgets/app_bar.dart';
 import 'package:training_schedule_app/data/MVP_dummy_data.dart';
-import 'package:training_schedule_app/models/training_plan_model.dart';
+import 'package:training_schedule_app/providers/session_provider.dart';
 import 'package:training_schedule_app/presentation/widgets/session_active_bottom_bar.dart';
 
 class ActiveSessionScreen extends StatefulWidget {
@@ -18,7 +18,7 @@ class _ActiveSessionScreenState extends State<ActiveSessionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<TrainingPlanModel>(
+    return Consumer<SessionProvider>(
       builder: (context, trainingData, child) {
         // Retrieving the needed data for the workout screen
         Block currentBlock =

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:training_schedule_app/presentation/widgets/my_arrow_button.dart';
-import 'package:training_schedule_app/models/training_plan_model.dart';
+import 'package:training_schedule_app/providers/session_provider.dart';
 import 'package:training_schedule_app/services/session_logger.dart';
 
 class ActiveSessionBottomBar extends StatelessWidget {
@@ -11,7 +11,7 @@ class ActiveSessionBottomBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<TrainingPlanModel>(
+    return Consumer<SessionProvider>(
       builder: (context, trainingData, child) {
         return SizedBox(
           height: 100,

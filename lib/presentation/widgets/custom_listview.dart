@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:training_schedule_app/models/training_plan_model.dart';
+import 'package:training_schedule_app/providers/training_plan_model.dart';
 
 class CustomListView extends StatelessWidget {
   const CustomListView({
@@ -18,7 +18,7 @@ class CustomListView extends StatelessWidget {
     return ListView.separated(
       shrinkWrap: true,
       itemBuilder: (context, index) {
-        return Consumer<TrainingPlanModel>(
+        return Consumer<SessionProvider>(
           builder: (context, trainingData, child) {
             return GestureDetector(
               onTap: () {

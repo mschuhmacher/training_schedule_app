@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:training_schedule_app/models/training_plan_model.dart';
+import 'package:training_schedule_app/providers/session_provider.dart';
 import 'package:training_schedule_app/presentation/screens/session_detailed_screen.dart';
 import 'package:training_schedule_app/presentation/screens/session_active_screen.dart';
 
@@ -17,7 +17,7 @@ class StartSessionButton extends StatelessWidget {
         padding: const EdgeInsets.only(left: 20.0, right: 20.0),
         child: Opacity(
           opacity: 0.75,
-          child: Consumer<TrainingPlanModel>(
+          child: Consumer<SessionProvider>(
             builder: (context, trainingData, child) {
               return ElevatedButton(
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.white),

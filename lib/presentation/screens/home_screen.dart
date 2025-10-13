@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:training_schedule_app/models/session.dart';
+import 'package:training_schedule_app/presentation/widgets/my_calendar.dart';
 import 'package:training_schedule_app/presentation/widgets/start_session_button.dart';
 import 'package:training_schedule_app/presentation/widgets/table_calendar.dart';
 import 'package:training_schedule_app/services/session_logger.dart';
@@ -13,20 +14,20 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<Session> loggedSessions = [];
+  // List<Session> loggedSessions = [];
 
-  @override
-  void initState() {
-    super.initState();
-    _loadLoggedSessions();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _loadLoggedSessions();
+  // }
 
-  Future<void> _loadLoggedSessions() async {
-    final sessions = await SessionLogger.readLogs();
-    setState(() {
-      loggedSessions = sessions;
-    });
-  }
+  // Future<void> _loadLoggedSessions() async {
+  //   final sessions = await SessionLogger.readLogs();
+  //   setState(() {
+  //     loggedSessions = sessions;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -56,10 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Spacer(),
             StartSessionButton(routeName: 'session_detailed_screen'),
             Spacer(),
-            Expanded(
-              flex: 12,
-              child: MyWeeklyCalendar(sessions: loggedSessions),
-            ),
+            Expanded(flex: 12, child: MyCalendar()),
             // Spacer(),
 
             // Expanded(
