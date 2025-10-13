@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:training_schedule_app/models/session.dart';
-import 'package:training_schedule_app/utils/date_utils.dart';
 
 class MyCalendar extends StatefulWidget {
   const MyCalendar({super.key});
@@ -19,7 +17,7 @@ class _MyCalendarState extends State<MyCalendar> {
   @override
   Widget build(BuildContext context) {
     return TableCalendar(
-      firstDay: DateTime.utc(2010, 10, 16),
+      firstDay: DateTime.utc(2010, 10, 16), //TODO: change to be dynamic
       lastDay: DateTime.utc(2030, 3, 14),
       focusedDay: _focusedDay,
       calendarFormat: _calendarFormat,
