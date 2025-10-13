@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:training_schedule_app/providers/training_plan_model.dart';
+import 'package:training_schedule_app/providers/session_provider.dart';
 
 class CustomListView extends StatelessWidget {
   const CustomListView({
