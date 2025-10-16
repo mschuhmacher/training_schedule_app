@@ -21,8 +21,8 @@ class _MyCalendarState extends State<MyCalendar> {
     return Consumer<SessionProvider>(
       builder: (BuildContext context, sessionData, Widget? child) {
         return TableCalendar(
-          firstDay: DateTime.utc(2010, 10, 16), //TODO: change to be dynamic
-          lastDay: DateTime.utc(2030, 3, 14),
+          firstDay: DateTime.now().subtract(Duration(days: 365 * 30)),
+          lastDay: DateTime.now().add(Duration(days: 365 * 10)),
           focusedDay: _focusedDay,
           calendarFormat: _calendarFormat,
           startingDayOfWeek: _startingDayOfWeek,
