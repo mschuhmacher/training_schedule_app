@@ -22,17 +22,10 @@
 
 
 /// for the calendar view and the logged sessions
-/// 1. load the logged sessions (in a model?)
-/// 2. get current day and calculate the
-///   2.1 first day of the week
-///   2.2 first of the month
-///   2.3 first of last week (two week format)
 /// 3. get sessions for the selected time period
-///   3.1 get sessions for the day
-///   3.2 get sessions for the week
+///   
 ///   3.3 get sessions for the range depending on the format
 ///   3.4 get sessions for the previous time periods
-/// 4. display the sessions in a listview
 
 
 

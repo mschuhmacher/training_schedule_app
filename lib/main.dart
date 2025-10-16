@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:table_calendar/table_calendar.dart';
 import 'package:training_schedule_app/providers/session_provider.dart';
 import 'package:training_schedule_app/presentation/screens/home_screen.dart';
 
 void main() {
   runApp(
     ChangeNotifierProvider(
-      create:
-          (context) =>
-              SessionProvider()
-                ..loadLoggedSessions(), // load logged sessions on start-up
+      create: (context) => SessionProvider(),
       child: const MyApp(),
     ),
   );

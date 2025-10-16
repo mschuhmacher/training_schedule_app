@@ -3,9 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:training_schedule_app/models/session.dart';
 import 'package:training_schedule_app/presentation/widgets/my_calendar.dart';
 import 'package:training_schedule_app/presentation/widgets/start_session_button.dart';
-import 'package:training_schedule_app/presentation/widgets/table_calendar.dart';
 import 'package:training_schedule_app/providers/session_provider.dart';
-import 'package:training_schedule_app/services/session_logger.dart';
 import 'package:training_schedule_app/utils/date_utils.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -17,6 +15,15 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   @override
+  void initState() {
+    super.initState();
+    Future.microtask(() async {
+      if (!mounted) return;
+      await Provider.of<SessionProvider>(context, listen: false).init();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Consumer<SessionProvider>(
       builder: (BuildContext context, sessionData, Widget? child) {
@@ -25,13 +32,8 @@ class _HomeScreenState extends State<HomeScreen> {
             body: Center(child: CircularProgressIndicator()),
           );
         }
-        DateTime currentDay = DateTime.now();
-        DateTime startDay = startOfLastWeek(currentDay);
-        List<Session> selectedSessions = getSessionsForRange(
-          sessionData.loggedSessions,
-          startDay,
-          currentDay,
-        );
+
+        List<Session> selectedSessions = sessionData.selectedSessions;
 
         return Scaffold(
           appBar: AppBar(title: SizedBox(), centerTitle: true),
@@ -65,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Spacer(),
                 StartSessionButton(routeName: 'session_detailed_screen'),
                 Spacer(),
-                Expanded(flex: 6, child: MyCalendar()),
+                Expanded(flex: 20, child: MyCalendar()),
                 Spacer(),
 
                 Expanded(
@@ -75,6 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ? const Center(
                             child: Text('No climbing sessions logged yet.'),
                           )
+                          // TODO: move listView to separate widget file
                           : ListView.builder(
                             itemCount: selectedSessions.length,
                             itemBuilder: (context, index) {
