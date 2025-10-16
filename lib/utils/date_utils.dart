@@ -1,53 +1,51 @@
 import 'package:training_schedule_app/models/session.dart';
 
-class StartDayUtils {
-  static DateTime startOfWeek(DateTime date) {
-    int weekStart = DateTime.monday;
-    int difference = date.weekday - weekStart;
-    if (difference < 0) difference += 7;
-    return DateTime(
-      date.year,
-      date.month,
-      date.day,
-    ).subtract(Duration(days: difference));
-  }
+DateTime startOfWeek(DateTime date) {
+  int weekStart = DateTime.monday;
+  int difference = date.weekday - weekStart;
+  if (difference < 0) difference += 7;
+  return DateTime(
+    date.year,
+    date.month,
+    date.day,
+  ).subtract(Duration(days: difference));
+}
 
-  static DateTime startOfLastWeek(DateTime date) {
-    int weekStart = DateTime.monday;
-    int difference = date.weekday - weekStart + 7;
-    // if (difference < 0) difference += 7; // Only needed if weekStart is Sundays
-    return DateTime(
-      date.year,
-      date.month,
-      date.day,
-    ).subtract(Duration(days: difference));
-  }
+DateTime startOfLastWeek(DateTime date) {
+  int weekStart = DateTime.monday;
+  int difference = date.weekday - weekStart + 7;
+  // if (difference < 0) difference += 7; // Only needed if weekStart is Sundays
+  return DateTime(
+    date.year,
+    date.month,
+    date.day,
+  ).subtract(Duration(days: difference));
+}
 
-  static DateTime firstOfMonth(DateTime date) {
-    return DateTime(date.year, date.month, 1);
-  }
+DateTime firstOfMonth(DateTime date) {
+  return DateTime(date.year, date.month, 1);
+}
 
-  static DateTime endOfWeek(DateTime date) {
-    int weekEnd = DateTime.sunday;
-    int difference = weekEnd - date.weekday;
-    // if (difference < 0) difference += 7;
-    return DateTime(
-      date.year,
-      date.month,
-      date.day,
-    ).add(Duration(days: difference));
-  }
+DateTime endOfWeek(DateTime date) {
+  int weekEnd = DateTime.sunday;
+  int difference = weekEnd - date.weekday;
+  // if (difference < 0) difference += 7;
+  return DateTime(
+    date.year,
+    date.month,
+    date.day,
+  ).add(Duration(days: difference));
+}
 
-  static DateTime lastOfMonth(DateTime date) {
-    // Move to the first day of the next month
-    DateTime firstOfNextMonth =
-        (date.month < 12)
-            ? DateTime(date.year, date.month + 1, 1)
-            : DateTime(date.year + 1, 1, 1);
+DateTime lastOfMonth(DateTime date) {
+  // Move to the first day of the next month
+  DateTime firstOfNextMonth =
+      (date.month < 12)
+          ? DateTime(date.year, date.month + 1, 1)
+          : DateTime(date.year + 1, 1, 1);
 
-    // Subtract one day to get the last day of the current month
-    return firstOfNextMonth.subtract(const Duration(days: 1));
-  }
+  // Subtract one day to get the last day of the current month
+  return firstOfNextMonth.subtract(const Duration(days: 1));
 }
 
 List<DateTime> daysInRange(DateTime first, DateTime last) {

@@ -4,7 +4,6 @@ import 'package:training_schedule_app/models/session.dart';
 import 'package:training_schedule_app/presentation/widgets/my_calendar.dart';
 import 'package:training_schedule_app/presentation/widgets/start_session_button.dart';
 import 'package:training_schedule_app/providers/session_provider.dart';
-import 'package:training_schedule_app/utils/date_utils.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

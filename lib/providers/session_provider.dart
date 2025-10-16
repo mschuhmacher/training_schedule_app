@@ -13,7 +13,7 @@ class SessionProvider extends ChangeNotifier {
   // startDay in a constructor because it uses currentDay to initialize.
   SessionProvider() {
     currentDay = DateTime.now();
-    startDay = StartDayUtils.startOfWeek(currentDay);
+    startDay = startOfWeek(currentDay);
     endDay = currentDay;
   }
 
@@ -66,16 +66,16 @@ class SessionProvider extends ChangeNotifier {
     // And set endDay to the end of the week / month respectively
     switch (format) {
       case CalendarFormat.week:
-        startDay = StartDayUtils.startOfWeek(endDay);
-        endDay = StartDayUtils.endOfWeek(endDay);
+        startDay = startOfWeek(endDay);
+        endDay = endOfWeek(endDay);
         break;
       case CalendarFormat.twoWeeks:
-        startDay = StartDayUtils.startOfLastWeek(endDay);
-        endDay = StartDayUtils.endOfWeek(endDay);
+        startDay = startOfLastWeek(endDay);
+        endDay = endOfWeek(endDay);
         break;
       case CalendarFormat.month:
-        startDay = StartDayUtils.firstOfMonth(endDay);
-        endDay = StartDayUtils.lastOfMonth(endDay);
+        startDay = firstOfMonth(endDay);
+        endDay = lastOfMonth(endDay);
         break;
     }
     _selectedSessions = getSessionsForRange(_loggedSessions, startDay, endDay);
