@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:training_schedule_app/providers/session_provider.dart';
+import 'package:training_schedule_app/utils/date_utils.dart';
+
+/// TODO: add in eventLoader func. to add a marker (e.g. a dot) to each day on which a session was completed
 
 class MyCalendar extends StatefulWidget {
   const MyCalendar({super.key});
@@ -50,6 +53,10 @@ class _MyCalendarState extends State<MyCalendar> {
           //     });
           //   }
           // },
+
+          /// TODO: BUG calendar shows current and next week in twoWeeks format.
+          /// But selectedSessions gets session for last week and current week.
+          /// So a mismatch between dates shown and sessions shown. Cannot figure out how to change which weeks are shown...
           onFormatChanged: (format) {
             if (_calendarFormat != format) {
               _calendarFormat = format;

@@ -63,10 +63,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
 
-                Spacer(),
+                SizedBox(height: 60),
                 StartSessionButton(routeName: 'session_detailed_screen'),
-                Spacer(),
-                Expanded(flex: 20, child: MyCalendar()),
+                SizedBox(height: 30),
+                MyCalendar(),
                 Spacer(),
 
                 Expanded(

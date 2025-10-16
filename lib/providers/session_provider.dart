@@ -72,12 +72,15 @@ class SessionProvider extends ChangeNotifier {
       case CalendarFormat.twoWeeks:
         startDay = startOfLastWeek(endDay);
         endDay = endOfWeek(endDay);
+
         break;
       case CalendarFormat.month:
         startDay = firstOfMonth(endDay);
         endDay = lastOfMonth(endDay);
         break;
     }
+    // print('StartDay: $startDay');
+    // print('EndDay: $endDay');
     _selectedSessions = getSessionsForRange(_loggedSessions, startDay, endDay);
 
     notifyListeners();
