@@ -14,7 +14,7 @@ class ActiveSessionScreen extends StatefulWidget {
 }
 
 class _ActiveSessionScreenState extends State<ActiveSessionScreen> {
-  final currentSessionList = sessionList;
+  final currentSessionList = presetSessions;
 
   @override
   Widget build(BuildContext context) {

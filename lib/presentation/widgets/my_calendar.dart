@@ -26,9 +26,20 @@ class _MyCalendarState extends State<MyCalendar> {
         return TableCalendar(
           firstDay: DateTime.now().subtract(Duration(days: 365 * 30)),
           lastDay: DateTime.now().add(Duration(days: 365 * 10)),
+
           focusedDay: _focusedDay,
           calendarFormat: _calendarFormat,
           startingDayOfWeek: _startingDayOfWeek,
+          rowHeight: 45,
+
+          /// Manually disabling the twoWeeks format.
+          /// I only want to display twoWeeks if it can show last week and current week,
+          /// but it can only show this week and next week. Since it is used to show loggedSessions,
+          /// it doesn't make sense to display a future week.
+          availableCalendarFormats: const {
+            CalendarFormat.month: 'Month',
+            CalendarFormat.week: 'Week',
+          },
 
           /// LEAVE CODE FOR NOW, REVISIT LATER
           /// onDaySelected is disabled. Comment in to enable.

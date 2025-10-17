@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:training_schedule_app/data/MVP_dummy_data.dart';
 import 'package:training_schedule_app/providers/session_provider.dart';
-import 'package:training_schedule_app/presentation/screens/session_detailed_screen.dart';
+import 'package:training_schedule_app/presentation/screens/session_select_screen.dart';
 import 'package:training_schedule_app/presentation/widgets/app_bar.dart';
 import 'package:training_schedule_app/presentation/widgets/row_selection.dart';
 import 'package:training_schedule_app/presentation/widgets/custom_listview.dart';
@@ -16,7 +16,7 @@ class WeekScreen extends StatefulWidget {
 
 class _WeekScreenState extends State<WeekScreen> {
   // grabs the sessionList from dummy_data.dart.
-  final currentSessionList = sessionList;
+  final currentSessionList = presetSessions;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class _WeekScreenState extends State<WeekScreen> {
                 CustomListView(
                   item: currentSessionList,
                   setIndex: trainingData.setSessionIndex,
-                  route: SessionDetailedScreen(),
+                  route: SessionSelectScreen(),
                 ),
               ],
             ),

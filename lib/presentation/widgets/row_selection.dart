@@ -3,10 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:training_schedule_app/providers/session_provider.dart';
 import 'package:training_schedule_app/presentation/widgets/my_arrow_button.dart';
 
-// TODO: generalize. Needs to support week and session scrolling
-// maybe through passing a week or session parameter, and then adding switch statements?
-// Does complicate the logic in this file instead of a logic file.
-
 Color? cardColor = Colors.white;
 
 class RowSelection extends StatelessWidget {
@@ -17,7 +13,7 @@ class RowSelection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<SessionProvider>(
-      builder: (context, trainingData, child) {
+      builder: (context, sessionData, child) {
         int index = 0;
         int itemLength = 0;
         void Function() decrement = () {};
@@ -26,17 +22,17 @@ class RowSelection extends StatelessWidget {
         switch (caseStatement) {
           case 'Week':
             {
-              index = trainingData.weekIndex;
-              itemLength = trainingData.weekLength;
-              decrement = trainingData.decrementWeekIndex;
-              increment = trainingData.incrementWeekIndex;
+              index = sessionData.weekIndex;
+              itemLength = sessionData.weekLength;
+              decrement = sessionData.decrementWeekIndex;
+              increment = sessionData.incrementWeekIndex;
             }
           case 'Session':
             {
-              index = trainingData.sessionIndex;
-              itemLength = trainingData.weekLength;
-              decrement = trainingData.decrementSessionIndex;
-              increment = trainingData.incrementSessionIndex;
+              index = sessionData.sessionIndex;
+              itemLength = sessionData.weekLength;
+              decrement = sessionData.decrementSessionIndex;
+              increment = sessionData.incrementSessionIndex;
             }
         }
 
