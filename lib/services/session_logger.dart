@@ -1,18 +1,19 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
+import 'package:training_schedule_app/data/default_data.dart';
 import '../models/session.dart';
 
 class SessionLogger {
-  // Finds or creates the local JSON file
-  static Future<String> _getFilePath() async {
+  /// Finds or creates the local JSON file for the logged sessions
+  static Future<String> _getSessionLogFilePath() async {
     final directory = await getApplicationDocumentsDirectory();
     return '${directory.path}/session_log.json';
   }
 
   /// 🔹 Save a completed workout session to the log file
   static Future<void> logSession(Session session) async {
-    final path = await _getFilePath();
+    final path = await _getSessionLogFilePath();
     final file = File(path);
 
     List<dynamic> existingLogs = [];
@@ -37,9 +38,9 @@ class SessionLogger {
   }
 
   /// 🔹 Read all workout logs from file
-  static Future<List<Session>> readLogs() async {
+  static Future<List<Session>> readLoggedSessions() async {
     try {
-      final path = await _getFilePath();
+      final path = await _getSessionLogFilePath();
       final file = File(path);
 
       if (!await file.exists()) return [];
@@ -56,8 +57,8 @@ class SessionLogger {
   }
 
   /// 🔹 Clear all logs (for testing or reset)
-  static Future<void> clearLogs() async {
-    final path = await _getFilePath();
+  static Future<void> clearLoggedSessions() async {
+    final path = await _getSessionLogFilePath();
     final file = File(path);
     if (await file.exists()) {
       await file.writeAsString(jsonEncode([]));

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:training_schedule_app/data/MVP_dummy_data.dart';
+import 'package:training_schedule_app/data/default_data.dart';
 import 'package:training_schedule_app/providers/session_provider.dart';
 import 'package:training_schedule_app/presentation/widgets/app_bar.dart';
 import 'package:training_schedule_app/presentation/widgets/row_selection.dart';
@@ -20,7 +20,7 @@ class _SessionSelectScreenState extends State<SessionSelectScreen> {
   int index = 0;
 
   // grabs the sessionList from MVP_dummy_data.dart.
-  final currentSessionList = presetSessions;
+  final currentSessionList = defaultSessions;
 
   @override
   Widget build(BuildContext context) {

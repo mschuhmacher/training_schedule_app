@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:training_schedule_app/models/session.dart';
 import 'package:training_schedule_app/presentation/widgets/my_calendar.dart';
 import 'package:training_schedule_app/presentation/widgets/start_session_button.dart';
+import 'package:training_schedule_app/providers/preset_provider.dart';
 import 'package:training_schedule_app/providers/session_provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -19,6 +20,9 @@ class _HomeScreenState extends State<HomeScreen> {
     Future.microtask(() async {
       if (!mounted) return;
       await Provider.of<SessionProvider>(context, listen: false).init();
+
+      if (!mounted) return;
+      await Provider.of<PresetProvider>(context, listen: false).init();
     });
   }
 

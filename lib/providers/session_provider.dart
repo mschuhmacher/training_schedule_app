@@ -6,6 +6,9 @@ import 'package:training_schedule_app/services/session_logger.dart';
 import 'package:training_schedule_app/utils/date_utils.dart';
 
 class SessionProvider extends ChangeNotifier {
+  /// The below variables and functions all pertain to retrieving the logged sessions and
+  /// loading the sessions within a certain timeframe, depending on the calenderFormat
+
   late DateTime currentDay;
   late DateTime startDay;
   late DateTime endDay;
@@ -40,6 +43,8 @@ class SessionProvider extends ChangeNotifier {
     _isLoading = true;
     notifyListeners();
 
+    // TODO: add in writing the defaultData here
+
     await loadLoggedSessions();
     updateSelectedSessions(format: CalendarFormat.week);
 
@@ -49,7 +54,7 @@ class SessionProvider extends ChangeNotifier {
 
   Future<void> loadLoggedSessions() async {
     // readLogs is non-nullable, if errors then returns empty list
-    _loggedSessions = await SessionLogger.readLogs();
+    _loggedSessions = await SessionLogger.readLoggedSessions();
     // await Future.delayed(Duration(seconds: 2)); // for testing the progressIndicator on HomeScreen
   }
 
@@ -85,6 +90,10 @@ class SessionProvider extends ChangeNotifier {
 
     notifyListeners();
   }
+
+  /// All below variables and functions pertain to global state management of the sessions.
+  /// There is also functionality to keep track of the weeks in a training plan, but that is not utilized right now.
+  ///
 
   //TODO: change to local JSON of saved planned sessions to do in a workout. Current planned sessions can be a standard file.
   final List<Session> _presetData = sessionList;

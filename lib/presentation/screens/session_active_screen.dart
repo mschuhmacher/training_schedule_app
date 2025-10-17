@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:training_schedule_app/models/block.dart';
 import 'package:training_schedule_app/presentation/widgets/app_bar.dart';
-import 'package:training_schedule_app/data/MVP_dummy_data.dart';
+import 'package:training_schedule_app/data/default_data.dart';
 import 'package:training_schedule_app/providers/session_provider.dart';
 import 'package:training_schedule_app/presentation/widgets/session_active_bottom_bar.dart';
 
@@ -14,7 +14,7 @@ class ActiveSessionScreen extends StatefulWidget {
 }
 
 class _ActiveSessionScreenState extends State<ActiveSessionScreen> {
-  final currentSessionList = presetSessions;
+  final currentSessionList = defaultSessions;
 
   @override
   Widget build(BuildContext context) {

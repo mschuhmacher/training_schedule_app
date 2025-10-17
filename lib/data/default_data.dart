@@ -2,17 +2,13 @@ import 'package:training_schedule_app/models/block.dart';
 import 'package:training_schedule_app/models/exercise.dart';
 import 'package:training_schedule_app/models/session.dart';
 
-// TODO: add weeks to data structure
-// TODO: change to full list of exercises, and in blocks only grab specific ones.
-// Plan >> Week >> Session >> Block >> Exercise
-
-final List<Session> presetSessions = [
+final List<Session> defaultSessions = [
   Session(
     title: 'Projecting session',
     description: 'Flash tries and projecting',
     date: DateTime.now(),
     list:
-        allBlocks
+        defaultBlocks
             .where(
               (w) => [
                 'Warm-up',
@@ -27,7 +23,7 @@ final List<Session> presetSessions = [
     description: 'Powerendurance',
     date: DateTime.now(),
     list:
-        allBlocks
+        defaultBlocks
             .where(
               (w) => [
                 'Warm-up',
@@ -43,7 +39,7 @@ final List<Session> presetSessions = [
     description: 'Unstructured climbing',
     date: DateTime.now(),
     list:
-        allBlocks
+        defaultBlocks
             .where(
               (w) => [
                 'Warm-up',
@@ -56,13 +52,13 @@ final List<Session> presetSessions = [
   ),
 ];
 
-final List<Block> allBlocks = [
+final List<Block> defaultBlocks = [
   Block(
     title: 'Warm-up',
     description: 'Warming up',
     date: DateTime.now(),
     list:
-        allExercises
+        defaultExercises
             .where(
               (w) => [
                 'Hangboard repeaters',
@@ -75,14 +71,15 @@ final List<Block> allBlocks = [
     title: 'Fingerboard',
     description: 'Pickups with loading pin',
     date: DateTime.now(),
-    list: allExercises.where((w) => ['Pick-ups'].contains(w.title)).toList(),
+    list:
+        defaultExercises.where((w) => ['Pick-ups'].contains(w.title)).toList(),
   ),
   Block(
     title: 'Flashen en projecten',
     description: '10 flash boulder, max 2 pogingen. 2 project boulders',
     date: DateTime.now(),
     list:
-        allExercises
+        defaultExercises
             .where((w) => ['Flash game', 'Projecting'].contains(w.title))
             .toList(),
   ),
@@ -91,7 +88,7 @@ final List<Block> allBlocks = [
     description: 'Max 2 pogingen per boulder',
     date: DateTime.now(),
     list:
-        allExercises
+        defaultExercises
             .where((w) => ['Kilter pyramids', '4x4'].contains(w.title))
             .toList(),
   ),
@@ -100,14 +97,16 @@ final List<Block> allBlocks = [
     description: 'Lekker ongestructureerd',
     date: DateTime.now(),
     list:
-        allExercises.where((w) => ['Vrij klimmen'].contains(w.title)).toList(),
+        defaultExercises
+            .where((w) => ['Vrij klimmen'].contains(w.title))
+            .toList(),
   ),
   Block(
     title: 'Strength training - basic',
     description: 'Handstand and supersets',
     date: DateTime.now(),
     list:
-        allExercises
+        defaultExercises
             .where(
               (w) => [
                 'Handstands',
@@ -121,7 +120,7 @@ final List<Block> allBlocks = [
     description: 'Handstand and full body exercises',
     date: DateTime.now(),
     list:
-        allExercises
+        defaultExercises
             .where(
               (w) => [
                 'Handstands',
@@ -136,7 +135,7 @@ final List<Block> allBlocks = [
     description: 'Handstand and back exercises',
     date: DateTime.now(),
     list:
-        allExercises
+        defaultExercises
             .where(
               (w) => [
                 'Handstands',
@@ -148,7 +147,7 @@ final List<Block> allBlocks = [
   ),
 ];
 
-final List<Exercise> allExercises = [
+final List<Exercise> defaultExercises = [
   Exercise(
     title: 'Hangboard repeaters',
     reps: 3,
