@@ -4,7 +4,7 @@ import 'package:training_schedule_app/data/default_data.dart';
 import 'package:training_schedule_app/providers/session_provider.dart';
 import 'package:training_schedule_app/presentation/widgets/app_bar.dart';
 import 'package:training_schedule_app/presentation/widgets/row_selection.dart';
-import 'package:training_schedule_app/presentation/widgets/custom_listview.dart';
+import 'package:training_schedule_app/presentation/widgets/my_listview.dart';
 import 'package:training_schedule_app/presentation/widgets/start_session_button.dart';
 
 class SessionSelectScreen extends StatefulWidget {
@@ -39,10 +39,22 @@ class _SessionSelectScreenState extends State<SessionSelectScreen> {
                   item: currentSessionList[sessionData.sessionIndex].list,
                 ),
               ),
-              SizedBox(height: 50),
-              StartSessionButton(routeName: 'workout_screen'),
-              SizedBox(height: 40),
+              SizedBox(height: 70), // change so it doesn't disappear behind FAB
             ],
+          ),
+          floatingActionButton: Padding(
+            padding: const EdgeInsets.only(left: 16.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: SizedBox(
+                    height: 56,
+                    child: StartSessionButton(routeName: 'workout_screen'),
+                  ),
+                ),
+                FloatingActionButton(onPressed: () {}, child: Icon(Icons.add)),
+              ],
+            ),
           ),
         );
       },

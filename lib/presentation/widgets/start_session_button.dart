@@ -23,10 +23,10 @@ class StartSessionButton extends StatelessWidget {
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
                 onPressed: () {
                   // reset blockIndex before navigating to workoutscreen
-                  trainingData.setBlockIndex(0);
+                  trainingData.setWorkoutIndex(0);
 
                   switch (routeName) {
-                    case 'session_detailed_screen':
+                    case 'session_select_screen':
                       Navigator.push(
                         context,
                         MaterialPageRoute(

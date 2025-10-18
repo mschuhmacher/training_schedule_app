@@ -22,21 +22,21 @@ class ActiveSessionBottomBar extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  trainingData.blockIndex > 0
+                  trainingData.workoutIndex > 0
                       ? GestureDetector(
-                        onTap: trainingData.decrementBlockIndex,
+                        onTap: trainingData.decrementWorkoutIndex,
                         child: MyArrowButton(icon: Icons.arrow_back, size: 40),
                       )
                       : SizedBox.shrink(),
 
-                  (trainingData.blockIndex >= 0 &&
-                          trainingData.blockIndex <
+                  (trainingData.workoutIndex >= 0 &&
+                          trainingData.workoutIndex <
                               sessionList[trainingData.sessionIndex]
                                       .list
                                       .length -
                                   1)
                       ? GestureDetector(
-                        onTap: trainingData.incrementBlockIndex,
+                        onTap: trainingData.incrementWorkoutIndex,
                         child: MyArrowButton(
                           icon: Icons.arrow_forward,
                           size: 40,

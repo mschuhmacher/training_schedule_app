@@ -21,12 +21,12 @@ import '../data/default_data.dart';
 
 class PresetProvider extends ChangeNotifier {
   List<Session> _presetSessions = [];
-  List<Block> _presetBlocks = [];
+  List<Workout> _presetWorkouts = [];
   List<Exercise> _presetExercises = [];
 
   List<Session> get presetSessions => _presetSessions;
-  List<Block> get blocks => _presetBlocks;
-  List<Exercise> get exercises => _presetExercises;
+  List<Workout> get presetWorkouts => _presetWorkouts;
+  List<Exercise> get presetExercises => _presetExercises;
 
   bool _isInitialized = false;
 
@@ -37,7 +37,7 @@ class PresetProvider extends ChangeNotifier {
     // TODO: change to read the JSONs instead of Dart defined Lists
     // Load defaults
     _presetSessions = List.from(defaultSessions);
-    _presetBlocks = List.from(defaultBlocks);
+    _presetWorkouts = List.from(defaultWorkouts);
     _presetExercises = List.from(defaultExercises);
 
     // Merge with user presets
@@ -49,7 +49,7 @@ class PresetProvider extends ChangeNotifier {
   /// Loads user-added presets if they exist
   Future<void> _loadUserPresetData() async {
     _presetSessions.addAll(await PresetLogger.readUserPresetSessions());
-    _presetBlocks.addAll(await PresetLogger.readUserPresetBlocks());
+    _presetWorkouts.addAll(await PresetLogger.readUserPresetWorkouts());
     _presetExercises.addAll(await PresetLogger.readUserPresetExercises());
   }
 
@@ -63,11 +63,11 @@ class PresetProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> addPresetBlock(Block block) async {
-    _presetBlocks.add(block);
+  Future<void> addPresetBlock(Workout block) async {
+    _presetWorkouts.add(block);
     await PresetLogger.savePresetToFile(
       'user_preset_blocks.json',
-      _presetBlocks,
+      _presetWorkouts,
     );
     notifyListeners();
   }

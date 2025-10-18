@@ -60,9 +60,9 @@ List<Session> getSessionsForDay(List<Session> sessions, DateTime day) {
   return sessions
       .where(
         (session) =>
-            session.date.year == day.year &&
-            session.date.month == day.month &&
-            session.date.day == day.day,
+            session.date?.year == day.year &&
+            session.date?.month == day.month &&
+            session.date?.day == day.day,
       )
       .toList();
 }

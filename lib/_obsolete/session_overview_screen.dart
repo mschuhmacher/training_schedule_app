@@ -4,7 +4,7 @@ import 'package:training_schedule_app/data/default_data.dart';
 import 'package:training_schedule_app/providers/session_provider.dart';
 import 'package:training_schedule_app/presentation/screens/session_select_screen.dart';
 import 'package:training_schedule_app/presentation/widgets/app_bar.dart';
-import 'package:training_schedule_app/presentation/widgets/custom_listview.dart';
+import 'package:training_schedule_app/presentation/widgets/my_listview.dart';
 
 class SessionOverviewScreen extends StatefulWidget {
   const SessionOverviewScreen({super.key});
@@ -20,7 +20,7 @@ class _SessionOverviewScreenState extends State<SessionOverviewScreen> {
   @override
   Widget build(BuildContext context) {
     return Consumer<SessionProvider>(
-      builder: (context, trainingData, child) {
+      builder: (context, sessionData, child) {
         return Scaffold(
           // Stful because of AppBar title
           appBar: MyAppBar(title: 'Session Overview'),
@@ -31,7 +31,7 @@ class _SessionOverviewScreenState extends State<SessionOverviewScreen> {
                 SizedBox(height: 50),
                 CustomListView(
                   item: currentSessionList,
-                  setIndex: trainingData.setSessionIndex,
+                  setIndex: sessionData.setSessionIndex,
                   route: SessionSelectScreen(),
                 ),
               ],

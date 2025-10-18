@@ -17,12 +17,12 @@ import 'package:training_schedule_app/models/session.dart';
 
 class PresetLogger {
   /// Seed the default data locally upon installation
-  /// Finds or creates the local JSON file for the default sessions, blocks, and exercises
+  /// Finds or creates the local JSON file for the default sessions, workouts, and exercises
   static Future<void> seedDefaultData() async {
     final directory = await getApplicationDocumentsDirectory();
 
     final defaultSessionFile = File('${directory.path}/default_sessions.json');
-    final defaultBlockFile = File('${directory.path}/default_blocks.json');
+    final defaultWorkoutFile = File('${directory.path}/default_workouts.json');
     final defaultExerciseFile = File(
       '${directory.path}/default_exercises.json',
     );
@@ -33,9 +33,9 @@ class PresetLogger {
       );
     }
 
-    if (!await defaultBlockFile.exists()) {
-      await defaultBlockFile.writeAsString(
-        jsonEncode(defaultBlocks.map((e) => e.toJson()).toList()),
+    if (!await defaultWorkoutFile.exists()) {
+      await defaultWorkoutFile.writeAsString(
+        jsonEncode(defaultWorkouts.map((e) => e.toJson()).toList()),
       );
     }
 
@@ -46,7 +46,7 @@ class PresetLogger {
     }
   }
 
-  /// 🔹 Read all workout logs from file
+  /// 🔹 Read all preset sessions from file
   static Future<Iterable<Session>> readUserPresetSessions() async {
     try {
       final dir = await getApplicationDocumentsDirectory();
@@ -66,19 +66,21 @@ class PresetLogger {
     }
   }
 
-  static Future<Iterable<Block>> readUserPresetBlocks() async {
+  static Future<Iterable<Workout>> readUserPresetWorkouts() async {
     try {
       final dir = await getApplicationDocumentsDirectory();
 
-      final userPresetBlocksFile = File('${dir.path}/user_preset_blocks.json');
-      if (!await userPresetBlocksFile.exists()) return [];
+      final userPresetWorkoutsFile = File(
+        '${dir.path}/user_preset_workouts.json',
+      );
+      if (!await userPresetWorkoutsFile.exists()) return [];
 
-      final content = await userPresetBlocksFile.readAsString();
+      final content = await userPresetWorkoutsFile.readAsString();
       if (content.isEmpty) return [];
       final data = json.decode(content) as List;
-      return data.map((e) => Block.fromJson(e));
+      return data.map((e) => Workout.fromJson(e));
     } catch (e) {
-      print('Error reading user preset blocks: $e');
+      print('Error reading user preset workouts: $e');
       return [];
     }
   }

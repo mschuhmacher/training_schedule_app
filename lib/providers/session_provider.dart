@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:training_schedule_app/data/dummy_data.dart';
+import 'package:training_schedule_app/_obsolete/dummy_data.dart';
 import 'package:training_schedule_app/models/session.dart';
 import 'package:training_schedule_app/services/session_logger.dart';
 import 'package:training_schedule_app/utils/date_utils.dart';
@@ -100,12 +100,12 @@ class SessionProvider extends ChangeNotifier {
   List<Session> get data => _presetData;
   int _weekIndex = 0;
   int _sessionIndex = 0;
-  int _blockIndex = 0;
+  int _workoutIndex = 0;
 
   int get weekLength => _presetData.length;
   int get weekIndex => _weekIndex;
   int get sessionIndex => _sessionIndex;
-  int get blockIndex => _blockIndex;
+  int get workoutIndex => _workoutIndex;
 
   void incrementWeekIndex() {
     _weekIndex++;
@@ -132,18 +132,18 @@ class SessionProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void incrementBlockIndex() {
-    _blockIndex++;
+  void incrementWorkoutIndex() {
+    _workoutIndex++;
     notifyListeners();
   }
 
-  void decrementBlockIndex() {
-    _blockIndex--;
+  void decrementWorkoutIndex() {
+    _workoutIndex--;
     notifyListeners();
   }
 
-  void setBlockIndex(int index) {
-    _blockIndex = index;
+  void setWorkoutIndex(int index) {
+    _workoutIndex = index;
     notifyListeners();
   }
 }

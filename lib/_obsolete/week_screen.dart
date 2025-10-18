@@ -5,7 +5,7 @@ import 'package:training_schedule_app/providers/session_provider.dart';
 import 'package:training_schedule_app/presentation/screens/session_select_screen.dart';
 import 'package:training_schedule_app/presentation/widgets/app_bar.dart';
 import 'package:training_schedule_app/presentation/widgets/row_selection.dart';
-import 'package:training_schedule_app/presentation/widgets/custom_listview.dart';
+import 'package:training_schedule_app/presentation/widgets/my_listview.dart';
 
 class WeekScreen extends StatefulWidget {
   const WeekScreen({super.key});

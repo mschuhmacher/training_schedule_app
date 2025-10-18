@@ -68,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
 
                 SizedBox(height: 60),
-                StartSessionButton(routeName: 'session_detailed_screen'),
+                StartSessionButton(routeName: 'session_select_screen'),
                 SizedBox(height: 30),
                 MyCalendar(),
                 Spacer(),
@@ -88,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               return ListTile(
                                 title: Text(session.title),
                                 subtitle: Text(
-                                  'Date: ${session.date.toLocal().toString().split(" ")[0]} • ${session.list.length} blocks',
+                                  'Date: ${session.date?.toLocal().toString().split(" ")[0]} • ${session.list.length} workouts',
                                 ),
                               );
                             },

@@ -8,7 +8,7 @@ final List<Session> defaultSessions = [
     description: 'Flash tries and projecting',
     date: DateTime.now(),
     list:
-        defaultBlocks
+        defaultWorkouts
             .where(
               (w) => [
                 'Warm-up',
@@ -23,7 +23,7 @@ final List<Session> defaultSessions = [
     description: 'Powerendurance',
     date: DateTime.now(),
     list:
-        defaultBlocks
+        defaultWorkouts
             .where(
               (w) => [
                 'Warm-up',
@@ -39,7 +39,7 @@ final List<Session> defaultSessions = [
     description: 'Unstructured climbing',
     date: DateTime.now(),
     list:
-        defaultBlocks
+        defaultWorkouts
             .where(
               (w) => [
                 'Warm-up',
@@ -52,8 +52,8 @@ final List<Session> defaultSessions = [
   ),
 ];
 
-final List<Block> defaultBlocks = [
-  Block(
+final List<Workout> defaultWorkouts = [
+  Workout(
     title: 'Warm-up',
     description: 'Warming up',
     date: DateTime.now(),
@@ -67,14 +67,14 @@ final List<Block> defaultBlocks = [
             )
             .toList(),
   ),
-  Block(
+  Workout(
     title: 'Fingerboard',
     description: 'Pickups with loading pin',
     date: DateTime.now(),
     list:
         defaultExercises.where((w) => ['Pick-ups'].contains(w.title)).toList(),
   ),
-  Block(
+  Workout(
     title: 'Flashen en projecten',
     description: '10 flash boulder, max 2 pogingen. 2 project boulders',
     date: DateTime.now(),
@@ -83,7 +83,7 @@ final List<Block> defaultBlocks = [
             .where((w) => ['Flash game', 'Projecting'].contains(w.title))
             .toList(),
   ),
-  Block(
+  Workout(
     title: 'Powerendurance',
     description: 'Max 2 pogingen per boulder',
     date: DateTime.now(),
@@ -92,7 +92,7 @@ final List<Block> defaultBlocks = [
             .where((w) => ['Kilter pyramids', '4x4'].contains(w.title))
             .toList(),
   ),
-  Block(
+  Workout(
     title: 'Vrij klimmen',
     description: 'Lekker ongestructureerd',
     date: DateTime.now(),
@@ -101,7 +101,7 @@ final List<Block> defaultBlocks = [
             .where((w) => ['Vrij klimmen'].contains(w.title))
             .toList(),
   ),
-  Block(
+  Workout(
     title: 'Strength training - basic',
     description: 'Handstand and supersets',
     date: DateTime.now(),
@@ -115,7 +115,7 @@ final List<Block> defaultBlocks = [
             )
             .toList(),
   ),
-  Block(
+  Workout(
     title: 'Strength training - full body',
     description: 'Handstand and full body exercises',
     date: DateTime.now(),
@@ -130,7 +130,7 @@ final List<Block> defaultBlocks = [
             )
             .toList(),
   ),
-  Block(
+  Workout(
     title: 'Strength training - back',
     description: 'Handstand and back exercises',
     date: DateTime.now(),
@@ -152,8 +152,8 @@ final List<Exercise> defaultExercises = [
     title: 'Hangboard repeaters',
     reps: 3,
     sets: 4,
-    restTime: 3,
-    activeTime: 7,
+    timeBetweenSets: 3,
+    timeForReps: 7,
     load: 0,
     description: '3x on 20mm and 1x on 14mm',
   ),
@@ -161,8 +161,8 @@ final List<Exercise> defaultExercises = [
     title: 'Pull-ups, push-ups, shoulder rotation',
     reps: 8,
     sets: 2,
-    restTime: 30,
-    activeTime: 60,
+    timeBetweenSets: 30,
+    timeForReps: 60,
     load: 0,
     description: 'Easy and good form',
   ),
@@ -170,8 +170,8 @@ final List<Exercise> defaultExercises = [
     title: 'Pick-ups',
     reps: 2,
     sets: 5,
-    restTime: 120,
-    activeTime: 30,
+    timeBetweenSets: 120,
+    timeForReps: 30,
     load: 45,
     description: 'Loading pin, 7 second hold for each arm',
   ),
@@ -179,8 +179,8 @@ final List<Exercise> defaultExercises = [
     title: 'Flash game',
     reps: 2,
     sets: 10,
-    restTime: 120,
-    activeTime: 60,
+    timeBetweenSets: 120,
+    timeForReps: 60,
     load: 0,
     description: '10 flash climbs, max 2 attempts.',
   ),
@@ -188,8 +188,8 @@ final List<Exercise> defaultExercises = [
     title: 'Projecting',
     reps: 3,
     sets: 2,
-    restTime: 120,
-    activeTime: 60,
+    timeBetweenSets: 120,
+    timeForReps: 60,
     load: 0,
     description: 'Projecting on 2 climbs. 7B-7C level.',
   ),
@@ -197,8 +197,8 @@ final List<Exercise> defaultExercises = [
     title: 'Kilter pyramids',
     reps: 30,
     sets: 15,
-    restTime: 180,
-    activeTime: 60,
+    timeBetweenSets: 180,
+    timeForReps: 60,
     load: 0,
     description: '8 routes in increasing difficulty, then in reverse order',
   ),
@@ -206,8 +206,8 @@ final List<Exercise> defaultExercises = [
     title: '4x4',
     reps: 4,
     sets: 4,
-    restTime: 240,
-    activeTime: 180,
+    timeBetweenSets: 240,
+    timeForReps: 180,
     load: 0,
     description: '4 climbs, each 4 times in a row with 4 minutes rest.',
   ),
@@ -215,8 +215,8 @@ final List<Exercise> defaultExercises = [
     title: 'Vrij klimmen',
     reps: 1,
     sets: 1,
-    restTime: 0,
-    activeTime: 3600,
+    timeBetweenSets: 0,
+    timeForReps: 3600,
     load: 0,
     description: 'Gewoon wat die dag goed voelt',
   ),
@@ -224,8 +224,8 @@ final List<Exercise> defaultExercises = [
     title: 'Handstands',
     reps: 10,
     sets: 3,
-    restTime: 60,
-    activeTime: 300,
+    timeBetweenSets: 60,
+    timeForReps: 300,
     load: 0,
     description: 'Attempting handstands, against wall and H-stands.',
   ),
@@ -233,8 +233,8 @@ final List<Exercise> defaultExercises = [
     title: 'Superset pullups, toes to bar, hamstring stretches',
     reps: 6,
     sets: 3,
-    restTime: 120,
-    activeTime: 120,
+    timeBetweenSets: 120,
+    timeForReps: 120,
     load: 0,
     description: '6 pull-ups, 8 ttb, 90s stretches',
   ),
@@ -242,8 +242,8 @@ final List<Exercise> defaultExercises = [
     title: 'Superset weighted pullups and hamstring stretches',
     reps: 6,
     sets: 4,
-    restTime: 120,
-    activeTime: 30,
+    timeBetweenSets: 120,
+    timeForReps: 30,
     load: 10,
     description: 'between 4-8 pullups',
   ),
@@ -251,8 +251,8 @@ final List<Exercise> defaultExercises = [
     title: 'Superset windshield wipers and dumb bells press',
     reps: 6,
     sets: 3,
-    restTime: 120,
-    activeTime: 90,
+    timeBetweenSets: 120,
+    timeForReps: 90,
     load: 10,
     description: '6 of each',
   ),
@@ -260,8 +260,8 @@ final List<Exercise> defaultExercises = [
     title: 'Superset wall angels and IYT',
     reps: 6,
     sets: 3,
-    restTime: 120,
-    activeTime: 60,
+    timeBetweenSets: 120,
+    timeForReps: 60,
     load: 0,
     description: 'with TRX',
   ),
@@ -269,8 +269,8 @@ final List<Exercise> defaultExercises = [
     title: 'Superset weighted pullups and dips',
     reps: 6,
     sets: 3,
-    restTime: 120,
-    activeTime: 90,
+    timeBetweenSets: 120,
+    timeForReps: 90,
     load: 10,
     description: '6 of each',
   ),

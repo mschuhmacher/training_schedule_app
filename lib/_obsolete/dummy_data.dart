@@ -2,7 +2,6 @@ import 'package:training_schedule_app/models/block.dart';
 import 'package:training_schedule_app/models/exercise.dart';
 import 'package:training_schedule_app/models/session.dart';
 
-
 // TODO: add weeks to data structure
 // Plan >> Week >> Session >> Block >> Exercise
 final List<Session> sessionList = [
@@ -17,7 +16,8 @@ final List<Session> sessionList = [
     description: 'Second day of training',
     date: DateTime.now(),
     list: blockList2,
-  ),Session(
+  ),
+  Session(
     title: 'Third day',
     description: 'Third day of training',
     date: DateTime.now(),
@@ -25,20 +25,20 @@ final List<Session> sessionList = [
   ),
 ];
 
-final List<Block> blockList = [
-  Block(
+final List<Workout> blockList = [
+  Workout(
     title: 'Warm-up',
     description: 'Warm-up',
     date: DateTime.now(),
     list: exerciseList,
   ),
-  Block(
+  Workout(
     title: 'Kilterboard',
     description: 'The one with the pretty lights',
     date: DateTime.now(),
     list: exerciseList2,
   ),
-  Block(
+  Workout(
     title: 'Strength training',
     description: 'Weights and supersets',
     date: DateTime.now(),
@@ -46,20 +46,20 @@ final List<Block> blockList = [
   ),
 ];
 
-final List<Block> blockList2 = [
-  Block(
+final List<Workout> blockList2 = [
+  Workout(
     title: 'Warm-up',
     description: 'Warm-up',
     date: DateTime.now(),
     list: exerciseList,
   ),
-  Block(
+  Workout(
     title: 'Kilterboard',
     description: 'The one with the pretty lights',
     date: DateTime.now(),
     list: exerciseList4,
   ),
-  Block(
+  Workout(
     title: 'Supersets',
     description: 'Weights and supersets',
     date: DateTime.now(),
@@ -67,20 +67,20 @@ final List<Block> blockList2 = [
   ),
 ];
 
-final List<Block> blockList3 = [
-  Block(
+final List<Workout> blockList3 = [
+  Workout(
     title: 'Warm-up',
     description: 'Warm-up',
     date: DateTime.now(),
     list: exerciseList,
   ),
-  Block(
+  Workout(
     title: 'Kilterboard',
     description: 'The one with the pretty lights',
     date: DateTime.now(),
     list: exerciseList6,
   ),
-  Block(
+  Workout(
     title: 'Strength training',
     description: 'Weights and supersets',
     date: DateTime.now(),
@@ -93,8 +93,8 @@ final List<Exercise> exerciseList = [
     title: 'Hangboard repeaters',
     reps: 3,
     sets: 4,
-    restTime: 3,
-    activeTime: 7,
+    timeBetweenSets: 3,
+    timeForReps: 7,
     load: 0,
     description: '3x on 20mm and 1x on 14mm',
   ),
@@ -102,8 +102,8 @@ final List<Exercise> exerciseList = [
     title: 'Pull-ups, push-ups, shoulder rotation',
     reps: 8,
     sets: 2,
-    restTime: 30,
-    activeTime: 60,
+    timeBetweenSets: 30,
+    timeForReps: 60,
     load: 0,
     description: 'Banded pull-ups',
   ),
@@ -114,8 +114,8 @@ final List<Exercise> exerciseList2 = [
     title: 'Board 10',
     reps: 4,
     sets: 10,
-    restTime: 300,
-    activeTime: 120,
+    timeBetweenSets: 300,
+    timeForReps: 120,
     load: 0,
     description:
         '5 around flash grade, 5 project grade. Max 4 attempts per climb, must attempt all climbs',
@@ -124,8 +124,8 @@ final List<Exercise> exerciseList2 = [
     title: 'Campussing',
     reps: 2,
     sets: 3,
-    restTime: 120,
-    activeTime: 60,
+    timeBetweenSets: 120,
+    timeForReps: 60,
     load: 0,
     description: 'Static campussing',
   ),
@@ -136,8 +136,8 @@ final List<Exercise> exerciseList3 = [
     title: 'Handstands',
     reps: 10,
     sets: 3,
-    restTime: 60,
-    activeTime: 300,
+    timeBetweenSets: 60,
+    timeForReps: 300,
     load: 0,
     description: 'Attempting handstands, against wall and H-stands.',
   ),
@@ -145,8 +145,8 @@ final List<Exercise> exerciseList3 = [
     title: 'Superset pullups, toes to bar, dips',
     reps: 6,
     sets: 3,
-    restTime: 120,
-    activeTime: 120,
+    timeBetweenSets: 120,
+    timeForReps: 120,
     load: 0,
     description: '6 pull-ups, 8 ttb, 8 dips',
   ),
@@ -157,8 +157,8 @@ final List<Exercise> exerciseList4 = [
     title: 'Pyramids',
     reps: 30,
     sets: 15,
-    restTime: 180,
-    activeTime: 60,
+    timeBetweenSets: 180,
+    timeForReps: 60,
     load: 0,
     description: '8 routes in increasing difficulty, then in reverse order',
   ),
@@ -169,8 +169,8 @@ final List<Exercise> exerciseList5 = [
     title: 'Handstands',
     reps: 10,
     sets: 3,
-    restTime: 60,
-    activeTime: 300,
+    timeBetweenSets: 60,
+    timeForReps: 300,
     load: 0,
     description: 'Attempting handstands, against wall and H-stands.',
   ),
@@ -178,8 +178,8 @@ final List<Exercise> exerciseList5 = [
     title: 'Superset weighted pullups and hamstring stretches',
     reps: 6,
     sets: 4,
-    restTime: 120,
-    activeTime: 30,
+    timeBetweenSets: 120,
+    timeForReps: 30,
     load: 10,
     description: 'between 4-8 pullups',
   ),
@@ -187,8 +187,8 @@ final List<Exercise> exerciseList5 = [
     title: 'Superset windshield wipers and dumb bells press',
     reps: 6,
     sets: 3,
-    restTime: 120,
-    activeTime: 90,
+    timeBetweenSets: 120,
+    timeForReps: 90,
     load: 10,
     description: '6 of each',
   ),
@@ -199,8 +199,8 @@ final List<Exercise> exerciseList6 = [
     title: '4x4',
     reps: 4,
     sets: 4,
-    restTime: 240,
-    activeTime: 180,
+    timeBetweenSets: 240,
+    timeForReps: 180,
     load: 0,
     description: '4x4',
   ),
@@ -211,8 +211,8 @@ final List<Exercise> exerciseList7 = [
     title: 'Handstands',
     reps: 10,
     sets: 3,
-    restTime: 60,
-    activeTime: 300,
+    timeBetweenSets: 60,
+    timeForReps: 300,
     load: 0,
     description: 'Attempting handstands, against wall and H-stands.',
   ),
@@ -220,8 +220,8 @@ final List<Exercise> exerciseList7 = [
     title: 'Superset wall angels and IYT',
     reps: 6,
     sets: 3,
-    restTime: 120,
-    activeTime: 60,
+    timeBetweenSets: 120,
+    timeForReps: 60,
     load: 0,
     description: 'with TRX',
   ),
@@ -229,8 +229,8 @@ final List<Exercise> exerciseList7 = [
     title: 'Superset weighted pullups and dips',
     reps: 6,
     sets: 3,
-    restTime: 120,
-    activeTime: 90,
+    timeBetweenSets: 120,
+    timeForReps: 90,
     load: 10,
     description: '6 of each',
   ),
