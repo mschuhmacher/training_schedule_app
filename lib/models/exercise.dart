@@ -1,7 +1,10 @@
 // TODO: add unique identifier
 
+import 'package:uuid/uuid.dart';
+
 class Exercise {
   Exercise({
+    String? id,
     required this.title,
     this.subtitle,
     this.label,
@@ -11,8 +14,9 @@ class Exercise {
     this.timeForReps,
     this.load,
     this.description,
-  });
+  }) : id = id ?? Uuid().v4();
 
+  final String id;
   final String title;
   final String? subtitle;
   final String? label;

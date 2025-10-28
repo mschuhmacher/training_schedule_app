@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:training_schedule_app/data/default_data.dart';
+import 'package:training_schedule_app/presentation/screens/add_session_screen.dart';
 import 'package:training_schedule_app/providers/session_provider.dart';
 import 'package:training_schedule_app/presentation/widgets/app_bar.dart';
 import 'package:training_schedule_app/presentation/widgets/row_selection.dart';
@@ -52,7 +53,17 @@ class _SessionSelectScreenState extends State<SessionSelectScreen> {
                     child: StartSessionButton(routeName: 'workout_screen'),
                   ),
                 ),
-                FloatingActionButton(onPressed: () {}, child: Icon(Icons.add)),
+                FloatingActionButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AddSessionScreen(),
+                      ),
+                    );
+                  },
+                  child: Icon(Icons.add),
+                ),
               ],
             ),
           ),

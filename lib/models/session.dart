@@ -1,16 +1,20 @@
-import 'package:training_schedule_app/models/block.dart';
+import 'package:training_schedule_app/models/workout.dart';
+import 'package:uuid/uuid.dart';
 
 // TODO: add unique identifier
 
 class Session {
   Session({
+    String? id,
     required this.title,
     this.subtitle,
     this.description,
     this.date,
     required this.list,
-  });
+  }) : id = id ?? Uuid().v4();
+  // ?? is null-coalescing operator, provides a default value if null. If id is null, then assign new id. If not null, then use existing id.
 
+  final String id;
   final String title;
   final String? subtitle;
   final String? description;
@@ -18,6 +22,7 @@ class Session {
   final List<Workout> list;
 
   Map<String, dynamic> toJson() => {
+    'id': id,
     'title': title,
     'subtitle': subtitle,
     'description': description,
@@ -26,6 +31,7 @@ class Session {
   };
 
   factory Session.fromJson(Map<String, dynamic> json) => Session(
+    id: json['id'],
     title: json['title'],
     subtitle: json['subtitle'],
     description: json['description'],

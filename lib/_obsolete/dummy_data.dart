@@ -1,4 +1,4 @@
-import 'package:training_schedule_app/models/block.dart';
+import 'package:training_schedule_app/models/workout.dart';
 import 'package:training_schedule_app/models/exercise.dart';
 import 'package:training_schedule_app/models/session.dart';
 

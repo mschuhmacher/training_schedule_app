@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:training_schedule_app/models/block.dart';
+import 'package:training_schedule_app/models/workout.dart';
 import 'package:training_schedule_app/presentation/widgets/app_bar.dart';
 import 'package:training_schedule_app/data/default_data.dart';
 import 'package:training_schedule_app/providers/session_provider.dart';

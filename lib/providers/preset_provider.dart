@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:training_schedule_app/services/preset_logger.dart';
 import '../models/session.dart';
-import '../models/block.dart';
+import '../models/workout.dart';
 import '../models/exercise.dart';
 import '../data/default_data.dart';
 

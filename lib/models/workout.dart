@@ -1,17 +1,20 @@
 import 'package:training_schedule_app/models/exercise.dart';
+import 'package:uuid/uuid.dart';
 
 // TODO: add unique identifier
 
 class Workout {
   Workout({
+    String? id,
     required this.title,
     this.subtitle,
     this.label,
     this.description,
     this.date,
     required this.list,
-  });
+  }) : id = id ?? Uuid().v4();
 
+  final String id;
   final String title;
   final String? subtitle;
   final String? label;
@@ -20,6 +23,7 @@ class Workout {
   final List<Exercise> list;
 
   Map<String, dynamic> toJson() => {
+    'id': id,
     'title': title,
     'subtitle': subtitle,
     'label': label,
@@ -29,6 +33,7 @@ class Workout {
   };
 
   factory Workout.fromJson(Map<String, dynamic> json) => Workout(
+    id: json['id'],
     title: json['title'],
     subtitle: json['subtitle'],
     label: json['label'],
