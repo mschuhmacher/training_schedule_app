@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:training_schedule_app/presentation/screens/add_workout_screen.dart';
 import 'package:training_schedule_app/providers/preset_provider.dart';
-import 'package:training_schedule_app/providers/session_provider.dart';
 
 /// TODO: add_session_screen here.
 /// input title, label, subtitle, description, no date

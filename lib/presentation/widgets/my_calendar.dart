@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:training_schedule_app/providers/session_provider.dart';
-import 'package:training_schedule_app/utils/date_utils.dart';
 
 /// TODO: add in eventLoader func. to add a marker (e.g. a dot) to each day on which a session was completed
 
