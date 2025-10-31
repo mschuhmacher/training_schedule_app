@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:training_schedule_app/data/default_data.dart';
-import 'package:training_schedule_app/presentation/screens/add_session_screen.dart';
+import 'package:training_schedule_app/presentation/screens/add_item_screen.dart';
 import 'package:training_schedule_app/providers/session_provider.dart';
 import 'package:training_schedule_app/presentation/widgets/app_bar.dart';
 import 'package:training_schedule_app/presentation/widgets/row_selection.dart';
@@ -58,7 +58,8 @@ class _SessionSelectScreenState extends State<SessionSelectScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => AddSessionScreen(),
+                        builder:
+                            (context) => AddItemScreen(itemName: 'session'),
                       ),
                     );
                   },

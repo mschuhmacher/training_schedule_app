@@ -5,6 +5,7 @@ import 'package:training_schedule_app/presentation/widgets/my_calendar.dart';
 import 'package:training_schedule_app/presentation/widgets/start_session_button.dart';
 import 'package:training_schedule_app/providers/preset_provider.dart';
 import 'package:training_schedule_app/providers/session_provider.dart';
+import 'package:training_schedule_app/services/session_logger.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -68,7 +69,25 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
 
                 SizedBox(height: 60),
-                StartSessionButton(routeName: 'session_select_screen'),
+                Row(
+                  children: [
+                    Expanded(
+                      flex: 3,
+                      child: StartSessionButton(
+                        routeName: 'session_select_screen',
+                      ),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: ElevatedButton(
+                          onPressed: SessionLogger.clearLoggedSessions,
+                          child: Text('Clear logs'),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
                 SizedBox(height: 30),
                 MyCalendar(),
                 Spacer(),
