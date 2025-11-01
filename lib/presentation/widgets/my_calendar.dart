@@ -27,7 +27,7 @@ class _MyCalendarState extends State<MyCalendar> {
           lastDay: DateTime.now().add(Duration(days: 365 * 10)),
 
           focusedDay: _focusedDay,
-          calendarFormat: _calendarFormat,
+          calendarFormat: sessionData.calendarFormat,
           startingDayOfWeek: _startingDayOfWeek,
           rowHeight: 45,
 
@@ -68,26 +68,24 @@ class _MyCalendarState extends State<MyCalendar> {
           /// But selectedSessions gets session for last week and current week.
           /// So a mismatch between dates shown and sessions shown. Cannot figure out how to change which weeks are shown...
           onFormatChanged: (format) {
-            if (_calendarFormat != format) {
-              _calendarFormat = format;
+            sessionData.changeCalendarFormat(format);
 
-              // Update the selectedSessions based on the new format. The range changes to the first day of the format.ß
-              sessionData.updateSelectedSessions(
-                format: _calendarFormat,
-                focusedDay: _focusedDay,
-              );
+            // Update the selectedSessions based on the new format. The range changes to the first day of the format.ß
+            sessionData.updateSelectedSessionsCalendarFormat(
+              // format: _calendarFormat,
+              focusedDay: _focusedDay,
+            );
 
-              // Call `setState()` when updating calendar format
-              setState(() {});
-            }
+            // Call `setState()` when updating calendar format
+            setState(() {});
           },
           onPageChanged: (focusedDay) {
             // No need to call `setState()` here
             _focusedDay = focusedDay;
 
             // Update the selectedSessions for the new calendarPage
-            sessionData.updateSelectedSessions(
-              format: _calendarFormat,
+            sessionData.updateSelectedSessionsCalendarFormat(
+              // format: _calendarFormat,
               focusedDay: _focusedDay,
             );
           },

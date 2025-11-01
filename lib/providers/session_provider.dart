@@ -12,12 +12,14 @@ class SessionProvider extends ChangeNotifier {
   late DateTime currentDay;
   late DateTime startDay;
   late DateTime endDay;
+  late CalendarFormat calendarFormat;
 
   // startDay in a constructor because it uses currentDay to initialize.
   SessionProvider() {
     currentDay = DateTime.now();
     startDay = startOfWeek(currentDay);
     endDay = currentDay;
+    calendarFormat = CalendarFormat.week;
   }
 
   // Define bools for loading and initializing the data
@@ -46,7 +48,7 @@ class SessionProvider extends ChangeNotifier {
     // TODO: add in writing the defaultData here
 
     await loadLoggedSessions();
-    updateSelectedSessions(format: CalendarFormat.week);
+    updateSelectedSessionsCalendarFormat();
 
     _isLoading = false;
     notifyListeners();
@@ -58,8 +60,22 @@ class SessionProvider extends ChangeNotifier {
     // await Future.delayed(Duration(seconds: 2)); // for testing the progressIndicator on HomeScreen
   }
 
-  void updateSelectedSessions({
-    required CalendarFormat format,
+  void changeCalendarFormat(CalendarFormat format) {
+    if (calendarFormat != format) {
+      calendarFormat = format;
+    }
+    notifyListeners();
+    // Needed?
+  }
+
+  void refreshSelectedSessions(Session newSession) {
+    _loggedSessions.add(newSession);
+    _selectedSessions = getSessionsForRange(_loggedSessions, startDay, endDay);
+    notifyListeners();
+  }
+
+  void updateSelectedSessionsCalendarFormat({
+    // required CalendarFormat format,
     DateTime? focusedDay,
   }) {
     // Update endDay if a focusedDay is provided
@@ -69,7 +85,7 @@ class SessionProvider extends ChangeNotifier {
 
     // Determine the startDay based on format
     // And set endDay to the end of the week / month respectively
-    switch (format) {
+    switch (calendarFormat) {
       case CalendarFormat.week:
         startDay = startOfWeek(endDay);
         endDay = endOfWeek(endDay);

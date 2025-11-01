@@ -7,9 +7,9 @@ import 'package:training_schedule_app/providers/preset_provider.dart';
 /// TODO: add functions to save the item
 
 class AddItemScreen extends StatefulWidget {
-  String itemName;
+  final String itemName;
 
-  AddItemScreen({super.key, required this.itemName});
+  const AddItemScreen({super.key, required this.itemName});
 
   @override
   State<AddItemScreen> createState() => _AddItemScreenState();

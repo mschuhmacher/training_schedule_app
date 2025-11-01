@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:table_calendar/table_calendar.dart';
 import 'package:training_schedule_app/presentation/widgets/my_arrow_button.dart';
 import 'package:training_schedule_app/providers/session_provider.dart';
 import 'package:training_schedule_app/services/session_logger.dart';
@@ -12,7 +13,7 @@ class ActiveSessionBottomBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<SessionProvider>(
-      builder: (context, trainingData, child) {
+      builder: (context, sessionData, child) {
         return SizedBox(
           height: 100,
           child: BottomAppBar(
@@ -22,21 +23,21 @@ class ActiveSessionBottomBar extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  trainingData.workoutIndex > 0
+                  sessionData.workoutIndex > 0
                       ? GestureDetector(
-                        onTap: trainingData.decrementWorkoutIndex,
+                        onTap: sessionData.decrementWorkoutIndex,
                         child: MyArrowButton(icon: Icons.arrow_back, size: 40),
                       )
                       : SizedBox.shrink(),
 
-                  (trainingData.workoutIndex >= 0 &&
-                          trainingData.workoutIndex <
-                              sessionList[trainingData.sessionIndex]
+                  (sessionData.workoutIndex >= 0 &&
+                          sessionData.workoutIndex <
+                              sessionList[sessionData.sessionIndex]
                                       .list
                                       .length -
                                   1)
                       ? GestureDetector(
-                        onTap: trainingData.incrementWorkoutIndex,
+                        onTap: sessionData.incrementWorkoutIndex,
                         child: MyArrowButton(
                           icon: Icons.arrow_forward,
                           size: 40,
@@ -45,14 +46,19 @@ class ActiveSessionBottomBar extends StatelessWidget {
                       : GestureDetector(
                         onTap: () async {
                           await SessionLogger.logSession(
-                            sessionList[trainingData.sessionIndex],
+                            sessionList[sessionData.sessionIndex],
                           );
+                          sessionData.refreshSelectedSessions(
+                            sessionList[sessionData.sessionIndex],
+                          );
+                          // TODO: build in a pause so that the selectedSessions can be refreshed before the screens are popped.
+
                           // Only use the buildContext is it still mounted. Meaning, the widget is still in the Widgettree.
                           // If user leaves screen before await is done, mounted would be false
                           if (context.mounted) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
-                                content: Text('Workout saved to log!'),
+                                content: Text('Session saved to log!'),
                               ),
                             );
                             // Keeps popping routes until the current route is the first route. Not named,so no errors.
