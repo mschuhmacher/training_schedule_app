@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
+
 import 'package:training_schedule_app/models/session.dart';
 import 'package:training_schedule_app/presentation/widgets/my_calendar.dart';
 import 'package:training_schedule_app/presentation/widgets/start_session_button.dart';
@@ -104,10 +106,21 @@ class _HomeScreenState extends State<HomeScreen> {
                             itemCount: selectedSessions.length,
                             itemBuilder: (context, index) {
                               final session = selectedSessions[index];
+                              final date = session.date;
+
+                              final formattedDate =
+                                  date != null
+                                      ? DateFormat('dd MMM yyyy').format(date)
+                                      : '';
+                              final formattedTime =
+                                  date != null
+                                      ? DateFormat('HH:mm').format(date)
+                                      : '';
+
                               return ListTile(
                                 title: Text(session.title),
                                 subtitle: Text(
-                                  'Date: ${session.date?.toLocal().toString().split(" ")[0]} • ${session.list.length} workouts',
+                                  'Date: $formattedDate at $formattedTime • ${session.list.length} workouts',
                                 ),
                               );
                             },

@@ -31,6 +31,9 @@ class PresetProvider extends ChangeNotifier {
     if (_isInitialized) return;
     _isInitialized = true;
 
+    // Seed the default data on first app installation
+    PresetLogger.seedDefaultData;
+
     // TODO: change to read the JSONs instead of Dart defined Lists
     // Load defaults
     _presetSessions = List.from(defaultSessions);

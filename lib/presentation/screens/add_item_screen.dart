@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:training_schedule_app/models/session.dart';
 import 'package:training_schedule_app/models/workout.dart';
+import 'package:training_schedule_app/presentation/widgets/add_exercise_modal_sheet.dart';
 import 'package:training_schedule_app/providers/preset_provider.dart';
 
 /// TODO: add functions to save the item
@@ -75,8 +76,9 @@ class _AddItemScreenState extends State<AddItemScreen> {
     return showModalBottomSheet(
       context: context,
       isScrollControlled: true,
+      useSafeArea: true,
       builder: (BuildContext builder) {
-        return Center(child: Text('add exercise sheet'));
+        return AddExerciseModalSheet();
       },
     );
   }
