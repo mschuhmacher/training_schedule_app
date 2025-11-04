@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:training_schedule_app/data/default_data.dart';
 import 'package:training_schedule_app/presentation/screens/add_item_screen.dart';
 import 'package:training_schedule_app/providers/session_provider.dart';
-import 'package:training_schedule_app/presentation/widgets/app_bar.dart';
+import 'package:training_schedule_app/presentation/widgets/my_app_bar.dart';
 import 'package:training_schedule_app/presentation/widgets/row_selection.dart';
 import 'package:training_schedule_app/presentation/widgets/my_listview.dart';
 import 'package:training_schedule_app/presentation/widgets/start_session_button.dart';
@@ -28,7 +28,7 @@ class _SessionSelectScreenState extends State<SessionSelectScreen> {
     return Consumer<SessionProvider>(
       builder: (context, sessionData, child) {
         return Scaffold(
-          appBar: MyAppBar(title: 'Choose today\'s session'),
+          appBar: MyAppBar(title: 'Today\'s session'),
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [

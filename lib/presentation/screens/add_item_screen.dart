@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:training_schedule_app/models/session.dart';
-import 'package:training_schedule_app/models/workout.dart';
 import 'package:training_schedule_app/presentation/widgets/add_exercise_modal_sheet.dart';
 import 'package:training_schedule_app/providers/preset_provider.dart';
+import 'package:training_schedule_app/themes/app_shadow.dart';
+import 'package:training_schedule_app/themes/app_text_styles.dart';
 
 /// TODO: add functions to save the item
 
@@ -103,7 +103,10 @@ class _AddItemScreenState extends State<AddItemScreen> {
 
         return Scaffold(
           appBar: AppBar(
-            title: Text('Add new ${widget.itemName}'),
+            title: Text('New ${widget.itemName}', style: context.h4),
+            surfaceTintColor:
+                Colors
+                    .transparent, //disables Material3 overlay. I.e. doesn't change the color of the appBar when the ListView scrolls
           ), //TODO: add close button?
           body: Form(
             key: _formKey,
@@ -122,33 +125,52 @@ class _AddItemScreenState extends State<AddItemScreen> {
                       itemCount: filteredPresetItems.length,
                       padding: EdgeInsets.symmetric(horizontal: 8),
                       itemBuilder: (BuildContext context, int index) {
-                        return ListTile(
-                          leading: Checkbox(
-                            value: _selectedItemIds.contains(
-                              filteredPresetItems[index].id,
+                        return Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(
+                                width: 0.25,
+                                color: Theme.of(context).colorScheme.onSurface,
+                              ),
+                              color: Theme.of(context).colorScheme.surface,
+                              boxShadow: context.shadowSmall,
                             ),
-                            onChanged: (bool? value) {
-                              setState(() {
-                                final id = filteredPresetItems[index].id;
-                                value!
-                                    ? _selectedItemIds.add(id)
-                                    : _selectedItemIds.remove(id);
-                                ;
-                              });
-                            },
+                            child: ListTile(
+                              leading: Checkbox(
+                                value: _selectedItemIds.contains(
+                                  filteredPresetItems[index].id,
+                                ),
+                                onChanged: (bool? value) {
+                                  setState(() {
+                                    final id = filteredPresetItems[index].id;
+                                    value!
+                                        ? _selectedItemIds.add(id)
+                                        : _selectedItemIds.remove(id);
+                                    ;
+                                  });
+                                },
+                              ),
+                              title: Text(
+                                filteredPresetItems[index].title,
+                                style: context.title,
+                              ),
+                              subtitle:
+                                  filteredPresetItems[index].description != null
+                                      ? Text(
+                                        filteredPresetItems[index].description!,
+                                        style: context.bodyMedium,
+                                      )
+                                      : SizedBox.shrink(),
+                              trailing: Icon(Icons.edit), //TODO: make editable
+                            ),
                           ),
-                          title: Text(filteredPresetItems[index].title),
-                          subtitle:
-                              filteredPresetItems[index].description != null
-                                  ? Text(
-                                    filteredPresetItems[index].description!,
-                                  )
-                                  : SizedBox.shrink(),
-                          trailing: Icon(Icons.edit), //TODO: make editable
                         );
                       },
                     ),
                   ),
+                  SizedBox(height: 8),
                   SizedBox(
                     height: 50,
                     child: Center(

@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:training_schedule_app/data/default_data.dart';
 import 'package:training_schedule_app/providers/session_provider.dart';
 import 'package:training_schedule_app/presentation/screens/session_select_screen.dart';
-import 'package:training_schedule_app/presentation/widgets/app_bar.dart';
+import 'package:training_schedule_app/presentation/widgets/my_app_bar.dart';
 import 'package:training_schedule_app/presentation/widgets/my_listview.dart';
 
 class SessionOverviewScreen extends StatefulWidget {

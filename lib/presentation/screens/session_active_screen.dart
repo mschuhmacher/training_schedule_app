@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:training_schedule_app/models/workout.dart';
-import 'package:training_schedule_app/presentation/widgets/app_bar.dart';
+import 'package:training_schedule_app/presentation/widgets/my_app_bar.dart';
 import 'package:training_schedule_app/data/default_data.dart';
 import 'package:training_schedule_app/providers/session_provider.dart';
 import 'package:training_schedule_app/presentation/widgets/session_active_bottom_bar.dart';
@@ -48,6 +48,7 @@ class _ActiveSessionScreenState extends State<ActiveSessionScreen> {
             );
           }
         }
+
         return Scaffold(
           appBar: MyAppBar(
             title: currentSessionList[sessionData.sessionIndex].title,
@@ -85,7 +86,7 @@ class _ActiveSessionScreenState extends State<ActiveSessionScreen> {
                   child: Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: Colors.blueGrey[700],
+                      color: Theme.of(context).colorScheme.primary,
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(200), // large curve
                       ),

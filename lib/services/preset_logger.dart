@@ -18,6 +18,8 @@ import 'package:training_schedule_app/models/session.dart';
 class PresetLogger {
   /// Seed the default data locally upon installation
   /// Finds or creates the local JSON file for the default sessions, workouts, and exercises
+  /// WHY DO I SEED THE DATA LOCALLY?
+  ///
   static Future<void> seedDefaultData() async {
     final directory = await getApplicationDocumentsDirectory();
 

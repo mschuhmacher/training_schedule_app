@@ -8,6 +8,7 @@ import 'package:training_schedule_app/presentation/widgets/start_session_button.
 import 'package:training_schedule_app/providers/preset_provider.dart';
 import 'package:training_schedule_app/providers/session_provider.dart';
 import 'package:training_schedule_app/services/session_logger.dart';
+import 'package:training_schedule_app/themes/app_text_styles.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -45,61 +46,45 @@ class _HomeScreenState extends State<HomeScreen> {
           appBar: AppBar(title: SizedBox(), centerTitle: true),
           body: Center(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.only(left: 24),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                Padding(
+                  padding: const EdgeInsets.only(left: 24),
+                  child: Text('Hey, ready to climb?', style: context.h1),
+                ),
+
+                SizedBox(height: 40),
+                StartSessionButton(routeName: 'session_select_screen'),
+                SizedBox(height: 40),
+
+                MyCalendar(),
+                SizedBox(height: 32),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Row(
                     children: [
                       Text(
-                        'Hey, ready to climb?',
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        'Logged sessions',
+                        style: context.h3,
+                        textAlign: TextAlign.start,
                       ),
-                      Text(
-                        'Select a week to view your sessions',
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontStyle: FontStyle.italic,
-                        ),
+                      Spacer(),
+                      ElevatedButton(
+                        onPressed: SessionLogger.clearLoggedSessions,
+                        child: Text('Clear logs', style: context.bodyMedium),
                       ),
                     ],
                   ),
                 ),
-
-                SizedBox(height: 60),
-                Row(
-                  children: [
-                    Expanded(
-                      flex: 3,
-                      child: StartSessionButton(
-                        routeName: 'session_select_screen',
-                      ),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 8.0),
-                        child: ElevatedButton(
-                          onPressed: SessionLogger.clearLoggedSessions,
-                          child: Text('Clear logs'),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 30),
-                MyCalendar(),
-                Spacer(),
-
                 Expanded(
                   flex: 6,
                   child:
                       selectedSessions.isEmpty
-                          ? const Center(
-                            child: Text('No climbing sessions logged yet.'),
+                          ? Center(
+                            child: Text(
+                              'No climbing sessions logged yet.',
+                              style: context.bodyLarge,
+                            ),
                           )
                           // TODO: move listView to separate widget file
                           : ListView.builder(
@@ -118,9 +103,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                       : '';
 
                               return ListTile(
-                                title: Text(session.title),
+                                title: Text(
+                                  session.title,
+                                  style: context.title,
+                                ),
                                 subtitle: Text(
-                                  'Date: $formattedDate at $formattedTime • ${session.list.length} workouts',
+                                  '$formattedDate at $formattedTime • ${session.list.length} workouts',
+                                  style: context.bodyMedium,
                                 ),
                               );
                             },

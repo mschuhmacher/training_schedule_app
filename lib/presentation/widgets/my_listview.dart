@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:training_schedule_app/providers/session_provider.dart';
+import 'package:training_schedule_app/themes/app_shadow.dart';
+import 'package:training_schedule_app/themes/app_text_styles.dart';
 
 class CustomListView extends StatelessWidget {
   const CustomListView({
@@ -55,45 +57,29 @@ class MyListViewCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 20, right: 20),
-      child: Opacity(
-        opacity: 0.75,
-        child: Container(
-          padding: EdgeInsets.all(20.0),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(25),
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                spreadRadius: .5,
-                blurRadius: 5,
-                offset: Offset.fromDirection(1, 5),
-              ),
-            ],
+      child: Container(
+        padding: EdgeInsets.all(20.0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(25),
+          border: Border.all(
+            width: 0.25,
+            color: Theme.of(context).colorScheme.onSurface,
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text(
-                item[index].title,
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-              ),
-              Divider(thickness: 1, color: Colors.black),
-              // loops through the exerciseList and creates Text widget for each one. ListView iterates through the blockList.
-              for (var item in item[index].list)
-                Text(
-                  item.title,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-            ],
-          ),
+          color: Theme.of(context).colorScheme.surface,
+          boxShadow: context.shadowSmall,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(item[index].title, style: context.title),
+            Divider(
+              thickness: 0.75,
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
+            // loops through the exerciseList and creates Text widget for each one. ListView iterates through the blockList.
+            for (var item in item[index].list)
+              Text(item.title, style: context.bodyMedium),
+          ],
         ),
       ),
     );

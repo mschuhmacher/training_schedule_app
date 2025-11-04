@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:training_schedule_app/presentation/widgets/row_selection.dart';
+import 'package:training_schedule_app/themes/app_shadow.dart';
 
 class MyArrowButton extends StatelessWidget {
   const MyArrowButton({required this.icon, this.size = 30, super.key});
@@ -13,25 +13,20 @@ class MyArrowButton extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 2),
-      child: Opacity(
-        opacity: 0.75,
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            color: cardColor,
-            boxShadow: [
-              BoxShadow(
-                spreadRadius: .5,
-                blurRadius: 5,
-                offset: Offset.fromDirection(1, 5),
-              ),
-            ],
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(
+            width: 0.25,
+            color: Theme.of(context).colorScheme.onSurface,
           ),
-          child: SizedBox(
-            width: size,
-            height: size,
-            child: Icon(icon, size: iconSize),
-          ),
+          color: Theme.of(context).colorScheme.surface,
+          boxShadow: context.shadowSmall,
+        ),
+        child: SizedBox(
+          width: size,
+          height: size,
+          child: Icon(icon, size: iconSize),
         ),
       ),
     );

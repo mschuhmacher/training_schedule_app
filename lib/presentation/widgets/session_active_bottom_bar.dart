@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:table_calendar/table_calendar.dart';
 import 'package:training_schedule_app/presentation/widgets/my_arrow_button.dart';
 import 'package:training_schedule_app/providers/session_provider.dart';
 import 'package:training_schedule_app/services/session_logger.dart';
@@ -17,7 +16,7 @@ class ActiveSessionBottomBar extends StatelessWidget {
         return SizedBox(
           height: 100,
           child: BottomAppBar(
-            color: Colors.blueGrey[700],
+            color: Theme.of(context).colorScheme.primary,
             child: Padding(
               padding: const EdgeInsets.only(left: 24.0, right: 24.0),
               child: Row(

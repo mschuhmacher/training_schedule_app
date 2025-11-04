@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:training_schedule_app/providers/session_provider.dart';
 import 'package:training_schedule_app/presentation/widgets/my_arrow_button.dart';
-
-Color? cardColor = Colors.white;
+import 'package:training_schedule_app/themes/app_shadow.dart';
+import 'package:training_schedule_app/themes/app_text_styles.dart';
 
 class RowSelection extends StatelessWidget {
   const RowSelection({required this.caseStatement, super.key});
@@ -111,31 +111,18 @@ class MyRowCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 2.0),
-      child: Opacity(
-        opacity: 0.75,
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            color: cardColor,
-            boxShadow: [
-              BoxShadow(
-                spreadRadius: .5,
-                blurRadius: 5,
-                offset: Offset.fromDirection(1, 5),
-              ),
-            ],
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            width: 0.25,
+            color: Theme.of(context).colorScheme.onSurface,
           ),
-          child: Center(
-            child: Text(
-              title,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
+          color: Theme.of(context).colorScheme.surface,
+          boxShadow: context.shadowLarge,
+        ),
+        child: Center(
+          child: Text(title, textAlign: TextAlign.center, style: context.h2),
         ),
       ),
     );
