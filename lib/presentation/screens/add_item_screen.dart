@@ -113,70 +113,28 @@ class _AddItemScreenState extends State<AddItemScreen> {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _buildTextFormFields(),
                   SizedBox(height: 16),
                   _buildSearchAndAddRow(context),
-                  Expanded(
-                    flex: 3,
-                    child: ListView.builder(
-                      itemCount: filteredPresetItems.length,
-                      padding: EdgeInsets.symmetric(horizontal: 8),
-                      itemBuilder: (BuildContext context, int index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              border: Border.all(
-                                width: 0.25,
-                                color: Theme.of(context).colorScheme.onSurface,
-                              ),
-                              color: Theme.of(context).colorScheme.surface,
-                              boxShadow: context.shadowSmall,
-                            ),
-                            child: ListTile(
-                              leading: Checkbox(
-                                value: _selectedItemIds.contains(
-                                  filteredPresetItems[index].id,
-                                ),
-                                onChanged: (bool? value) {
-                                  setState(() {
-                                    final id = filteredPresetItems[index].id;
-                                    value!
-                                        ? _selectedItemIds.add(id)
-                                        : _selectedItemIds.remove(id);
-                                    ;
-                                  });
-                                },
-                              ),
-                              title: Text(
-                                filteredPresetItems[index].title,
-                                style: context.title,
-                              ),
-                              subtitle:
-                                  filteredPresetItems[index].description != null
-                                      ? Text(
-                                        filteredPresetItems[index].description!,
-                                        style: context.bodyMedium,
-                                      )
-                                      : SizedBox.shrink(),
-                              trailing: Icon(Icons.edit), //TODO: make editable
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
+                  Expanded(flex: 3, child: _buildListView(filteredPresetItems)),
                   SizedBox(height: 8),
                   SizedBox(
+                    //TODO: extract widget?
                     height: 50,
                     child: Center(
                       child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(textStyle: context.h4),
                         onPressed: () {},
-                        child: Text('Save ${widget.itemName}'),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 24,
+                            vertical: 4,
+                          ),
+                          child: Text('Save ${widget.itemName}'),
+                        ),
                       ),
                     ),
                   ),
@@ -203,9 +161,11 @@ class _AddItemScreenState extends State<AddItemScreen> {
                 child: TextFormField(
                   controller: _titleController,
                   autofocus: true,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     labelText: 'Title',
-                    border: OutlineInputBorder(),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
                   ),
                   validator:
                       (value) =>
@@ -219,9 +179,11 @@ class _AddItemScreenState extends State<AddItemScreen> {
                 child: TextFormField(
                   controller: _labelController,
                   autofocus: true,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     labelText: 'Label',
-                    border: OutlineInputBorder(),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
                   ),
                   validator:
                       (value) =>
@@ -237,9 +199,11 @@ class _AddItemScreenState extends State<AddItemScreen> {
             child: TextFormField(
               controller: _descriptionController,
               autofocus: true,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Description',
-                border: OutlineInputBorder(),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
               ),
               maxLines: 10,
             ),
@@ -253,15 +217,20 @@ class _AddItemScreenState extends State<AddItemScreen> {
     return Row(
       children: [
         SizedBox(
-          width: MediaQuery.of(context).size.width * 0.30,
-          child: Text('All $listItemName'),
+          width: MediaQuery.of(context).size.width * 0.35,
+          child: Text(
+            'All $listItemName',
+            style: context.h4.copyWith(
+              color: Theme.of(context).colorScheme.secondary,
+            ),
+          ),
         ),
         _isSearching ? SizedBox.shrink() : Spacer(),
         // Spacer(),
         _isSearching
             ? SizedBox(
               key: const ValueKey('searchField'),
-              width: MediaQuery.of(context).size.width * 0.60,
+              width: MediaQuery.of(context).size.width * 0.55,
               child: Row(
                 children: [
                   Expanded(
@@ -292,22 +261,85 @@ class _AddItemScreenState extends State<AddItemScreen> {
                 ],
               ),
             )
-            : ElevatedButton(
+            : OutlinedButton(
               key: const ValueKey('searchButton'),
-              child: const Icon(Icons.search),
+              style: OutlinedButton.styleFrom(
+                foregroundColor: Theme.of(context).colorScheme.onSecondary,
+                side: BorderSide(
+                  color: Theme.of(context).colorScheme.secondary,
+                  width: 1.5,
+                ),
+              ),
               onPressed: () {
                 setState(() => _isSearching = true);
               },
+              child: const Icon(Icons.search),
             ),
 
         !_isSearching ? SizedBox(width: 8) : SizedBox.shrink(),
         !_isSearching
-            ? ElevatedButton(
+            ? OutlinedButton(
+              style: OutlinedButton.styleFrom(
+                foregroundColor: Theme.of(context).colorScheme.onSecondary,
+                side: BorderSide(
+                  color: Theme.of(context).colorScheme.secondary,
+                  width: 1.5,
+                ),
+              ),
               onPressed: _onPressedAddButton,
               child: Icon(Icons.add),
             )
             : SizedBox.shrink(),
       ],
+    );
+  }
+
+  ListView _buildListView(List<dynamic> filteredPresetItems) {
+    return ListView.builder(
+      itemCount: filteredPresetItems.length,
+      padding: EdgeInsets.symmetric(horizontal: 8),
+      itemBuilder: (BuildContext context, int index) {
+        return Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                width: 0.5,
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
+              color: Theme.of(context).colorScheme.surfaceBright,
+              boxShadow: context.shadowSmall,
+            ),
+            child: ListTile(
+              leading: Checkbox(
+                value: _selectedItemIds.contains(filteredPresetItems[index].id),
+                onChanged: (bool? value) {
+                  setState(() {
+                    final id = filteredPresetItems[index].id;
+                    value!
+                        ? _selectedItemIds.add(id)
+                        : _selectedItemIds.remove(id);
+                    ;
+                  });
+                },
+              ),
+              title: Text(
+                filteredPresetItems[index].title,
+                style: context.title,
+              ),
+              subtitle:
+                  filteredPresetItems[index].description != null
+                      ? Text(
+                        filteredPresetItems[index].description!,
+                        style: context.bodyMedium,
+                      )
+                      : SizedBox.shrink(),
+              trailing: Icon(Icons.edit), //TODO: make editable
+            ),
+          ),
+        );
+      },
     );
   }
 }

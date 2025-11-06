@@ -1,33 +1,5 @@
 import 'package:flutter/material.dart';
 
-// class AppText {
-//   // === Headings ===
-//   static TextStyle? h1(BuildContext context) =>
-//       Theme.of(context).textTheme.displayLarge;
-
-//   static TextStyle? h2(BuildContext context) =>
-//       Theme.of(context).textTheme.displayMedium;
-
-//   static TextStyle? h3(BuildContext context) {
-//     Theme.of(context).textTheme.headlineSmall;
-//   }
-
-//   // === Titles ===
-//   static TextStyle? title(BuildContext context) =>
-//       Theme.of(context).textTheme.titleMedium;
-
-//   // === Body text ===
-//   static TextStyle? body(BuildContext context) =>
-//       Theme.of(context).textTheme.bodyLarge;
-
-//   static TextStyle? bodySmall(BuildContext context) =>
-//       Theme.of(context).textTheme.bodyMedium;
-
-//   // === Labels / buttons ===
-//   static TextStyle? label(BuildContext context) =>
-//       Theme.of(context).textTheme.labelLarge;
-// }
-
 extension AppText on BuildContext {
   TextStyle get h1 => Theme.of(this).textTheme.displayLarge!.copyWith(
     color: Theme.of(this).colorScheme.onSurface,

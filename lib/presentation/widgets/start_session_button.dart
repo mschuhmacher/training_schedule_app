@@ -20,6 +20,7 @@ class StartSessionButton extends StatelessWidget {
         child: Consumer<SessionProvider>(
           builder: (context, sessionData, child) {
             return ElevatedButton(
+              style: ElevatedButton.styleFrom(textStyle: context.h4),
               onPressed: () {
                 // reset blockIndex before navigating to workoutscreen
                 sessionData.setWorkoutIndex(0);
@@ -47,7 +48,7 @@ class StartSessionButton extends StatelessWidget {
                     );
                 }
               },
-              child: Text('Start session', style: context.h3),
+              child: Text('Start session'),
             );
           },
         ),

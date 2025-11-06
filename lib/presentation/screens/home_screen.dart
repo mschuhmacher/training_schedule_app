@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
 import 'package:training_schedule_app/models/session.dart';
+import 'package:training_schedule_app/presentation/screens/cheat_sheet_screen.dart';
+import 'package:training_schedule_app/presentation/screens/colorscheme_demo_screen.dart';
 import 'package:training_schedule_app/presentation/widgets/my_calendar.dart';
 import 'package:training_schedule_app/presentation/widgets/start_session_button.dart';
 import 'package:training_schedule_app/providers/preset_provider.dart';
@@ -43,7 +45,35 @@ class _HomeScreenState extends State<HomeScreen> {
         List<Session> selectedSessions = sessionData.selectedSessions;
 
         return Scaffold(
-          appBar: AppBar(title: SizedBox(), centerTitle: true),
+          appBar: AppBar(
+            title: Row(
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ColorSchemeDemoScreen(),
+                      ),
+                    );
+                  },
+                  child: Text(' test screen'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Material3ColorCheatSheet(),
+                      ),
+                    );
+                  },
+                  child: Text(' cheat sheet'),
+                ),
+              ],
+            ),
+            centerTitle: true,
+          ),
           body: Center(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,6 +100,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       Spacer(),
                       ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              Theme.of(context).colorScheme.secondary,
+                          foregroundColor:
+                              Theme.of(context).colorScheme.onSecondary,
+                        ),
                         onPressed: SessionLogger.clearLoggedSessions,
                         child: Text('Clear logs', style: context.bodyMedium),
                       ),

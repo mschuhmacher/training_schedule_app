@@ -54,6 +54,8 @@ class _SessionSelectScreenState extends State<SessionSelectScreen> {
                   ),
                 ),
                 FloatingActionButton(
+                  backgroundColor: Theme.of(context).colorScheme.secondary,
+                  foregroundColor: Theme.of(context).colorScheme.onSecondary,
                   onPressed: () {
                     Navigator.push(
                       context,
