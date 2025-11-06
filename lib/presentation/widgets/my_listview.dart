@@ -65,7 +65,7 @@ class MyListViewCard extends StatelessWidget {
             width: 0.25,
             color: Theme.of(context).colorScheme.onSurface,
           ),
-          color: Theme.of(context).colorScheme.surface,
+          color: Theme.of(context).colorScheme.surfaceBright,
           boxShadow: context.shadowSmall,
         ),
         child: Column(

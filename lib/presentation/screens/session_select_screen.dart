@@ -7,6 +7,7 @@ import 'package:training_schedule_app/presentation/widgets/my_app_bar.dart';
 import 'package:training_schedule_app/presentation/widgets/row_selection.dart';
 import 'package:training_schedule_app/presentation/widgets/my_listview.dart';
 import 'package:training_schedule_app/presentation/widgets/start_session_button.dart';
+import 'package:training_schedule_app/themes/app_text_styles.dart';
 
 class SessionSelectScreen extends StatefulWidget {
   final dynamic index;
@@ -35,6 +36,11 @@ class _SessionSelectScreenState extends State<SessionSelectScreen> {
               SizedBox(height: 20),
               RowSelection(caseStatement: 'Session'),
               SizedBox(height: 20),
+              Text(
+                currentSessionList[sessionData.sessionIndex].title,
+                style: context.h3,
+              ),
+              SizedBox(height: 12),
               Expanded(
                 child: CustomListView(
                   item: currentSessionList[sessionData.sessionIndex].list,
