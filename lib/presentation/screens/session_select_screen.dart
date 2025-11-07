@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:training_schedule_app/data/default_data.dart';
 import 'package:training_schedule_app/presentation/screens/add_item_screen.dart';
-import 'package:training_schedule_app/providers/session_provider.dart';
+import 'package:training_schedule_app/providers/preset_provider.dart';
 import 'package:training_schedule_app/presentation/widgets/my_app_bar.dart';
 import 'package:training_schedule_app/presentation/widgets/row_selection.dart';
 import 'package:training_schedule_app/presentation/widgets/my_listview.dart';
 import 'package:training_schedule_app/presentation/widgets/start_session_button.dart';
+import 'package:training_schedule_app/providers/session_state_provider.dart';
 import 'package:training_schedule_app/themes/app_text_styles.dart';
 
 class SessionSelectScreen extends StatefulWidget {
@@ -22,12 +22,13 @@ class _SessionSelectScreenState extends State<SessionSelectScreen> {
   int index = 0;
 
   // grabs the sessionList from MVP_dummy_data.dart.
-  final currentSessionList = defaultSessions;
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<SessionProvider>(
-      builder: (context, sessionData, child) {
+    return Consumer2<PresetProvider, SessionStateProvider>(
+      builder: (context, presetData, sessionStateData, child) {
+        final currentSessionList = presetData.presetSessions;
+
         return Scaffold(
           appBar: MyAppBar(title: 'Today\'s session'),
           body: Column(
@@ -37,13 +38,13 @@ class _SessionSelectScreenState extends State<SessionSelectScreen> {
               RowSelection(caseStatement: 'Session'),
               SizedBox(height: 20),
               Text(
-                currentSessionList[sessionData.sessionIndex].title,
+                currentSessionList[sessionStateData.sessionIndex].title,
                 style: context.h3,
               ),
               SizedBox(height: 12),
               Expanded(
                 child: CustomListView(
-                  item: currentSessionList[sessionData.sessionIndex].list,
+                  item: currentSessionList[sessionStateData.sessionIndex].list,
                 ),
               ),
               SizedBox(height: 70), // change so it doesn't disappear behind FAB

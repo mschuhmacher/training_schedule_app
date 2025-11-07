@@ -63,7 +63,7 @@ class PresetProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> addPresetBlock(Workout block) async {
+  Future<void> addPresetWorkout(Workout block) async {
     _presetWorkouts.add(block);
     await PresetLogger.savePresetToFile(
       'user_preset_blocks.json',

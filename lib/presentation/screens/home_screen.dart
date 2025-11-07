@@ -8,7 +8,7 @@ import 'package:training_schedule_app/presentation/screens/colorscheme_demo_scre
 import 'package:training_schedule_app/presentation/widgets/my_calendar.dart';
 import 'package:training_schedule_app/presentation/widgets/start_session_button.dart';
 import 'package:training_schedule_app/providers/preset_provider.dart';
-import 'package:training_schedule_app/providers/session_provider.dart';
+import 'package:training_schedule_app/providers/session_log_provider.dart';
 import 'package:training_schedule_app/services/session_logger.dart';
 import 'package:training_schedule_app/themes/app_text_styles.dart';
 
@@ -25,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     Future.microtask(() async {
       if (!mounted) return;
-      await Provider.of<SessionProvider>(context, listen: false).init();
+      await Provider.of<SessionLogProvider>(context, listen: false).init();
 
       if (!mounted) return;
       await Provider.of<PresetProvider>(context, listen: false).init();
@@ -34,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<SessionProvider>(
+    return Consumer<SessionLogProvider>(
       builder: (BuildContext context, sessionData, Widget? child) {
         if (sessionData.isLoading) {
           return const Scaffold(

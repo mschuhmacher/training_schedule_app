@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:training_schedule_app/providers/session_provider.dart';
+import 'package:training_schedule_app/providers/preset_provider.dart';
 import 'package:training_schedule_app/presentation/widgets/my_arrow_button.dart';
+import 'package:training_schedule_app/providers/session_state_provider.dart';
 import 'package:training_schedule_app/themes/app_shadow.dart';
 import 'package:training_schedule_app/themes/app_text_styles.dart';
 
@@ -12,8 +13,8 @@ class RowSelection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<SessionProvider>(
-      builder: (context, sessionData, child) {
+    return Consumer2<PresetProvider, SessionStateProvider>(
+      builder: (context, presetData, sessionStateData, child) {
         int index = 0;
         int itemLength = 0;
         void Function() decrement = () {};
@@ -22,17 +23,17 @@ class RowSelection extends StatelessWidget {
         switch (caseStatement) {
           case 'Week':
             {
-              index = sessionData.weekIndex;
-              itemLength = sessionData.weekLength;
-              decrement = sessionData.decrementWeekIndex;
-              increment = sessionData.incrementWeekIndex;
+              index = sessionStateData.weekIndex;
+              itemLength = presetData.presetSessions.length;
+              decrement = sessionStateData.decrementWeekIndex;
+              increment = sessionStateData.incrementWeekIndex;
             }
           case 'Session':
             {
-              index = sessionData.sessionIndex;
-              itemLength = sessionData.weekLength;
-              decrement = sessionData.decrementSessionIndex;
-              increment = sessionData.incrementSessionIndex;
+              index = sessionStateData.sessionIndex;
+              itemLength = presetData.presetSessions.length;
+              decrement = sessionStateData.decrementSessionIndex;
+              increment = sessionStateData.incrementSessionIndex;
             }
         }
 

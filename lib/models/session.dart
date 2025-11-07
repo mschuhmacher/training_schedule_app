@@ -7,6 +7,7 @@ class Session {
   Session({
     String? id,
     required this.title,
+    this.label,
     this.subtitle,
     this.description,
     this.date,
@@ -16,6 +17,7 @@ class Session {
 
   final String id;
   final String title;
+  final String? label;
   final String? subtitle;
   final String? description;
   final DateTime? date;
@@ -24,6 +26,7 @@ class Session {
   Map<String, dynamic> toJson() => {
     'id': id,
     'title': title,
+    'label': label,
     'subtitle': subtitle,
     'description': description,
     'date': date?.toIso8601String(),
@@ -33,6 +36,7 @@ class Session {
   factory Session.fromJson(Map<String, dynamic> json) => Session(
     id: json['id'],
     title: json['title'],
+    label: json['label'],
     subtitle: json['subtitle'],
     description: json['description'],
     date: DateTime.parse(json['date']),

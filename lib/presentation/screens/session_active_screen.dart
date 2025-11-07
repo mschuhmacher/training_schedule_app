@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:training_schedule_app/models/workout.dart';
 import 'package:training_schedule_app/presentation/widgets/my_app_bar.dart';
-import 'package:training_schedule_app/data/default_data.dart';
-import 'package:training_schedule_app/providers/session_provider.dart';
+import 'package:training_schedule_app/providers/preset_provider.dart';
 import 'package:training_schedule_app/presentation/widgets/session_active_bottom_bar.dart';
+import 'package:training_schedule_app/providers/session_state_provider.dart';
 
 class ActiveSessionScreen extends StatefulWidget {
   const ActiveSessionScreen({super.key});
@@ -14,16 +14,16 @@ class ActiveSessionScreen extends StatefulWidget {
 }
 
 class _ActiveSessionScreenState extends State<ActiveSessionScreen> {
-  final currentSessionList = defaultSessions;
-
   @override
   Widget build(BuildContext context) {
-    return Consumer<SessionProvider>(
-      builder: (context, sessionData, child) {
+    return Consumer2<PresetProvider, SessionStateProvider>(
+      builder: (context, presetData, sessionStateData, child) {
         // Retrieving the needed data for the workout screen
+        final currentSessionList = presetData.presetSessions;
+
         Workout currentWorkout =
-            currentSessionList[sessionData.sessionIndex].list[sessionData
-                .workoutIndex];
+            currentSessionList[sessionStateData.sessionIndex]
+                .list[sessionStateData.workoutIndex];
         List<Widget> exerciseWidgets =
             currentWorkout.list
                 .map(
@@ -36,14 +36,14 @@ class _ActiveSessionScreenState extends State<ActiveSessionScreen> {
                 )
                 .toList();
         List<Widget> workoutNames =
-            currentSessionList[sessionData.sessionIndex].list
+            currentSessionList[sessionStateData.sessionIndex].list
                 .map((name) => Text(name.title))
                 .toList();
         // Highlight the title of the current block in a list of block titles
         for (int i = 0; i < workoutNames.length; i++) {
-          if (i == sessionData.workoutIndex) {
+          if (i == sessionStateData.workoutIndex) {
             workoutNames[i] = Text(
-              currentSessionList[sessionData.sessionIndex].list[i].title,
+              currentSessionList[sessionStateData.sessionIndex].list[i].title,
               style: TextStyle(fontWeight: FontWeight.bold),
             );
           }
@@ -51,7 +51,7 @@ class _ActiveSessionScreenState extends State<ActiveSessionScreen> {
 
         return Scaffold(
           appBar: MyAppBar(
-            title: currentSessionList[sessionData.sessionIndex].title,
+            title: currentSessionList[sessionStateData.sessionIndex].title,
           ),
           body: Center(
             child: Column(

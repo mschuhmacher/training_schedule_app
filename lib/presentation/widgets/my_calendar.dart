@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:training_schedule_app/providers/session_provider.dart';
+import 'package:training_schedule_app/providers/session_log_provider.dart';
 
 /// TODO: add in eventLoader func. to add a marker (e.g. a dot) to each day on which a session was completed
 /// TODO: add in 'today' button in the header
@@ -19,7 +19,7 @@ class _MyCalendarState extends State<MyCalendar> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<SessionProvider>(
+    return Consumer<SessionLogProvider>(
       builder: (BuildContext context, sessionData, Widget? child) {
         return TableCalendar(
           firstDay: DateTime.now().subtract(Duration(days: 365 * 30)),

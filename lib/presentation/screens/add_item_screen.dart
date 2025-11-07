@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:training_schedule_app/models/session.dart';
+import 'package:training_schedule_app/models/workout.dart';
 import 'package:training_schedule_app/presentation/widgets/add_exercise_modal_sheet.dart';
 import 'package:training_schedule_app/providers/preset_provider.dart';
 import 'package:training_schedule_app/themes/app_shadow.dart';
@@ -45,19 +47,27 @@ class _AddItemScreenState extends State<AddItemScreen> {
     super.dispose();
   }
 
-  void _submitItemForm() {
-    if (_formKey.currentState!.validate()) {
-      final title = _titleController.text.trim();
-      final label = _labelController.text.trim();
-      final description = _descriptionController.text.trim();
+  // void _submitItemForm(Future<void> addFunction) {
+  //   if (_formKey.currentState!.validate()) {
+  //     final title = _titleController.text.trim();
+  //     final label = _labelController.text.trim();
+  //     final description = _descriptionController.text.trim();
 
-      // TODO: save workout
+  //     if (widget.itemName == 'session') {
+  //       final newSession = Session(
+  //         title: title,
+  //         label: label,
+  //         description: description,
+  //         list: [],
+  //       );
+  //       addFunction(newSession);
+  //     } else if (widget.itemName == 'workout') {}
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Form submitted successfully!')),
-      );
-    }
-  }
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       const SnackBar(content: Text('Form submitted successfully!')),
+  //     );
+  //   }
+  // }
 
   void _onPressedAddButton() {
     if (widget.itemName == 'session') {
@@ -127,7 +137,40 @@ class _AddItemScreenState extends State<AddItemScreen> {
                     child: Center(
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(textStyle: context.h4),
-                        onPressed: () {},
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            final title = _titleController.text.trim();
+                            final label = _labelController.text.trim();
+                            final description =
+                                _descriptionController.text.trim();
+
+                            if (widget.itemName == 'session') {
+                              final newSession = Session(
+                                title: title,
+                                label: label,
+                                description: description,
+                                list: [],
+                              );
+                              presetData.addPresetSession(newSession);
+                            } else if (widget.itemName == 'workout') {
+                              final newWorkout = Workout(
+                                title: title,
+                                label: label,
+                                description: description,
+                                list: [],
+                              );
+                              presetData.addPresetWorkout(newWorkout);
+                            }
+
+                            Navigator.pop;
+
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Form submitted successfully!'),
+                              ),
+                            );
+                          }
+                        },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
                             horizontal: 24,
@@ -162,6 +205,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                   controller: _titleController,
                   autofocus: true,
                   decoration: InputDecoration(
+                    fillColor: Theme.of(context).colorScheme.surfaceBright,
                     labelText: 'Title',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
@@ -180,6 +224,8 @@ class _AddItemScreenState extends State<AddItemScreen> {
                   controller: _labelController,
                   autofocus: true,
                   decoration: InputDecoration(
+                    fillColor: Theme.of(context).colorScheme.surfaceBright,
+
                     labelText: 'Label',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
@@ -200,6 +246,8 @@ class _AddItemScreenState extends State<AddItemScreen> {
               controller: _descriptionController,
               autofocus: true,
               decoration: InputDecoration(
+                fillColor: Theme.of(context).colorScheme.surfaceBright,
+
                 labelText: 'Description',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:training_schedule_app/presentation/widgets/my_arrow_button.dart';
-import 'package:training_schedule_app/providers/session_provider.dart';
+import 'package:training_schedule_app/providers/session_log_provider.dart';
+import 'package:training_schedule_app/providers/session_state_provider.dart';
 import 'package:training_schedule_app/services/session_logger.dart';
 
 class ActiveSessionBottomBar extends StatelessWidget {
@@ -11,8 +12,8 @@ class ActiveSessionBottomBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<SessionProvider>(
-      builder: (context, sessionData, child) {
+    return Consumer2<SessionLogProvider, SessionStateProvider>(
+      builder: (context, sessionLogData, sessionStateData, child) {
         return SizedBox(
           height: 100,
           child: BottomAppBar(
@@ -22,21 +23,21 @@ class ActiveSessionBottomBar extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  sessionData.workoutIndex > 0
+                  sessionStateData.workoutIndex > 0
                       ? GestureDetector(
-                        onTap: sessionData.decrementWorkoutIndex,
+                        onTap: sessionStateData.decrementWorkoutIndex,
                         child: MyArrowButton(icon: Icons.arrow_back, size: 40),
                       )
                       : SizedBox.shrink(),
 
-                  (sessionData.workoutIndex >= 0 &&
-                          sessionData.workoutIndex <
-                              sessionList[sessionData.sessionIndex]
+                  (sessionStateData.workoutIndex >= 0 &&
+                          sessionStateData.workoutIndex <
+                              sessionList[sessionStateData.sessionIndex]
                                       .list
                                       .length -
                                   1)
                       ? GestureDetector(
-                        onTap: sessionData.incrementWorkoutIndex,
+                        onTap: sessionStateData.incrementWorkoutIndex,
                         child: MyArrowButton(
                           icon: Icons.arrow_forward,
                           size: 40,
@@ -45,10 +46,10 @@ class ActiveSessionBottomBar extends StatelessWidget {
                       : GestureDetector(
                         onTap: () async {
                           await SessionLogger.logSession(
-                            sessionList[sessionData.sessionIndex],
+                            sessionList[sessionStateData.sessionIndex],
                           );
-                          sessionData.refreshSelectedSessions(
-                            sessionList[sessionData.sessionIndex],
+                          sessionLogData.refreshSelectedSessions(
+                            sessionList[sessionStateData.sessionIndex],
                           );
                           // TODO: build in a pause so that the selectedSessions can be refreshed before the screens are popped.
 

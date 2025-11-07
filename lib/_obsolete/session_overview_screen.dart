@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:training_schedule_app/data/default_data.dart';
-import 'package:training_schedule_app/providers/session_provider.dart';
+import 'package:training_schedule_app/providers/session_log_provider.dart';
 import 'package:training_schedule_app/presentation/screens/session_select_screen.dart';
 import 'package:training_schedule_app/presentation/widgets/my_app_bar.dart';
 import 'package:training_schedule_app/presentation/widgets/my_listview.dart';
@@ -19,7 +19,7 @@ class _SessionOverviewScreenState extends State<SessionOverviewScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<SessionProvider>(
+    return Consumer<SessionLogProvider>(
       builder: (context, sessionData, child) {
         return Scaffold(
           // Stful because of AppBar title
