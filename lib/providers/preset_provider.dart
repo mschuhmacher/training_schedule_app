@@ -17,13 +17,22 @@ import '../data/default_data.dart';
 /// reactive while separating mutable user data from the immutable defaults.
 
 class PresetProvider extends ChangeNotifier {
-  List<Session> _presetSessions = [];
-  List<Workout> _presetWorkouts = [];
-  List<Exercise> _presetExercises = [];
+  List<Session> _defaultSessions = [];
+  List<Workout> _defaultWorkouts = [];
+  List<Exercise> _defaultExercises = [];
 
-  List<Session> get presetSessions => _presetSessions;
-  List<Workout> get presetWorkouts => _presetWorkouts;
-  List<Exercise> get presetExercises => _presetExercises;
+  List<Session> _userSessions = [];
+  List<Workout> _userWorkouts = [];
+  List<Exercise> _userExercises = [];
+
+  List<Session> get presetSessions => [..._defaultSessions, ..._userSessions];
+  List<Workout> get presetWorkouts => [..._defaultWorkouts, ..._userWorkouts];
+  List<Exercise> get presetExercises => [
+    ..._defaultExercises,
+    ..._userExercises,
+  ];
+  List<Session> get presetDefaultSessions => _defaultSessions;
+  List<Session> get presetUserSessions => _userSessions;
 
   bool _isInitialized = false;
 
@@ -36,9 +45,9 @@ class PresetProvider extends ChangeNotifier {
 
     // TODO: change to read the JSONs instead of Dart defined Lists
     // Load defaults
-    _presetSessions = List.from(defaultSessions);
-    _presetWorkouts = List.from(defaultWorkouts);
-    _presetExercises = List.from(defaultExercises);
+    _defaultSessions = List.from(defaultSessions);
+    _defaultWorkouts = List.from(defaultWorkouts);
+    _defaultExercises = List.from(defaultExercises);
 
     // Merge with user presets
     await _loadUserPresetData();
@@ -48,35 +57,55 @@ class PresetProvider extends ChangeNotifier {
 
   /// Loads user-added presets if they exist
   Future<void> _loadUserPresetData() async {
-    _presetSessions.addAll(await PresetLogger.readUserPresetSessions());
-    _presetWorkouts.addAll(await PresetLogger.readUserPresetWorkouts());
-    _presetExercises.addAll(await PresetLogger.readUserPresetExercises());
+    _userSessions = (await PresetLogger.readUserPresetSessions()).toList();
+    _userWorkouts = (await PresetLogger.readUserPresetWorkouts()).toList();
+    _userExercises = (await PresetLogger.readUserPresetExercises()).toList();
+  }
+
+  Future<void> deleteAllUserPresets() async {
+    _userSessions = [];
+    _userWorkouts = [];
+    _userExercises = [];
+
+    await PresetLogger.deleteAllUserPresetFiles();
+
+    notifyListeners();
   }
 
   /// Save new user-added presets
   Future<void> addPresetSession(Session session) async {
-    _presetSessions.add(session);
+    _userSessions.add(session);
     await PresetLogger.savePresetToFile(
       'user_preset_sessions.json',
-      _presetSessions,
+      _userSessions,
+    );
+    notifyListeners();
+  }
+
+  // Remove user added preset
+  Future<void> deletUserPresetSession(int index) async {
+    _userSessions.removeAt(index);
+    await PresetLogger.savePresetToFile(
+      'user_preset_sessions.json',
+      _userSessions,
     );
     notifyListeners();
   }
 
   Future<void> addPresetWorkout(Workout block) async {
-    _presetWorkouts.add(block);
+    _userWorkouts.add(block);
     await PresetLogger.savePresetToFile(
       'user_preset_blocks.json',
-      _presetWorkouts,
+      _userWorkouts,
     );
     notifyListeners();
   }
 
   Future<void> addPresetExercise(Exercise exercise) async {
-    _presetExercises.add(exercise);
+    _userExercises.add(exercise);
     await PresetLogger.savePresetToFile(
       'user_preset_exercises.json',
-      _presetExercises,
+      _userExercises,
     );
     notifyListeners();
   }

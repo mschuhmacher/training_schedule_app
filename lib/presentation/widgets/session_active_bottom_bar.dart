@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:training_schedule_app/models/session.dart';
 import 'package:training_schedule_app/presentation/widgets/my_arrow_button.dart';
+import 'package:training_schedule_app/providers/preset_provider.dart';
 import 'package:training_schedule_app/providers/session_log_provider.dart';
 import 'package:training_schedule_app/providers/session_state_provider.dart';
 import 'package:training_schedule_app/services/session_logger.dart';
 
 class ActiveSessionBottomBar extends StatelessWidget {
-  final List sessionList;
-
-  const ActiveSessionBottomBar({super.key, required this.sessionList});
+  const ActiveSessionBottomBar({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Consumer2<SessionLogProvider, SessionStateProvider>(
-      builder: (context, sessionLogData, sessionStateData, child) {
+    return Consumer3<PresetProvider, SessionLogProvider, SessionStateProvider>(
+      builder: (context, presetData, sessionLogData, sessionStateData, child) {
+        final Session activeSession =
+            presetData.presetSessions[sessionStateData.sessionIndex];
+
         return SizedBox(
           height: 100,
           child: BottomAppBar(
@@ -32,10 +35,7 @@ class ActiveSessionBottomBar extends StatelessWidget {
 
                   (sessionStateData.workoutIndex >= 0 &&
                           sessionStateData.workoutIndex <
-                              sessionList[sessionStateData.sessionIndex]
-                                      .list
-                                      .length -
-                                  1)
+                              activeSession.list.length - 1)
                       ? GestureDetector(
                         onTap: sessionStateData.incrementWorkoutIndex,
                         child: MyArrowButton(
@@ -45,12 +45,8 @@ class ActiveSessionBottomBar extends StatelessWidget {
                       )
                       : GestureDetector(
                         onTap: () async {
-                          await SessionLogger.logSession(
-                            sessionList[sessionStateData.sessionIndex],
-                          );
-                          sessionLogData.refreshSelectedSessions(
-                            sessionList[sessionStateData.sessionIndex],
-                          );
+                          await SessionLogger.logSession(activeSession);
+                          sessionLogData.refreshSelectedSessions(activeSession);
                           // TODO: build in a pause so that the selectedSessions can be refreshed before the screens are popped.
 
                           // Only use the buildContext is it still mounted. Meaning, the widget is still in the Widgettree.
@@ -66,7 +62,6 @@ class ActiveSessionBottomBar extends StatelessWidget {
                             Navigator.popUntil(
                               context,
                               (route) => route.isFirst,
-                              // TODO: insert reloading logged sessions when returning to home screen
                             );
                           }
                         },

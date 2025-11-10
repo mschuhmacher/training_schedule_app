@@ -19,13 +19,13 @@ class _ActiveSessionScreenState extends State<ActiveSessionScreen> {
     return Consumer2<PresetProvider, SessionStateProvider>(
       builder: (context, presetData, sessionStateData, child) {
         // Retrieving the needed data for the workout screen
-        final currentSessionList = presetData.presetSessions;
+        final activeSession =
+            presetData.presetSessions[sessionStateData.sessionIndex];
 
-        Workout currentWorkout =
-            currentSessionList[sessionStateData.sessionIndex]
-                .list[sessionStateData.workoutIndex];
+        Workout activeWorkout =
+            activeSession.list[sessionStateData.workoutIndex];
         List<Widget> exerciseWidgets =
-            currentWorkout.list
+            activeWorkout.list
                 .map(
                   (name) => Text(
                     // TODO: change to two Text widgets for different styling between title and description
@@ -36,23 +36,19 @@ class _ActiveSessionScreenState extends State<ActiveSessionScreen> {
                 )
                 .toList();
         List<Widget> workoutNames =
-            currentSessionList[sessionStateData.sessionIndex].list
-                .map((name) => Text(name.title))
-                .toList();
+            activeSession.list.map((name) => Text(name.title)).toList();
         // Highlight the title of the current block in a list of block titles
         for (int i = 0; i < workoutNames.length; i++) {
           if (i == sessionStateData.workoutIndex) {
             workoutNames[i] = Text(
-              currentSessionList[sessionStateData.sessionIndex].list[i].title,
+              activeSession.list[i].title,
               style: TextStyle(fontWeight: FontWeight.bold),
             );
           }
         }
 
         return Scaffold(
-          appBar: MyAppBar(
-            title: currentSessionList[sessionStateData.sessionIndex].title,
-          ),
+          appBar: MyAppBar(title: activeSession.title),
           body: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -70,7 +66,7 @@ class _ActiveSessionScreenState extends State<ActiveSessionScreen> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: List.from(workoutNames)..addAll([
                             Text(
-                              '\n ${currentWorkout.description}',
+                              '\n ${activeWorkout.description}',
                               textAlign: TextAlign.end,
                             ),
                           ]),
@@ -104,9 +100,7 @@ class _ActiveSessionScreenState extends State<ActiveSessionScreen> {
               ],
             ),
           ),
-          bottomNavigationBar: ActiveSessionBottomBar(
-            sessionList: currentSessionList,
-          ),
+          bottomNavigationBar: ActiveSessionBottomBar(),
         );
       },
     );

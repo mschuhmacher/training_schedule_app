@@ -14,6 +14,7 @@ class Session {
     required this.list,
   }) : id = id ?? Uuid().v4();
   // ?? is null-coalescing operator, provides a default value if null. If id is null, then assign new id. If not null, then use existing id.
+  // so, if left-hand value is null, use right-hand value
 
   final String id;
   final String title;
@@ -34,14 +35,14 @@ class Session {
   };
 
   factory Session.fromJson(Map<String, dynamic> json) => Session(
-    id: json['id'],
-    title: json['title'],
+    id: json['id'] ?? const Uuid().v4(),
+    title: json['title'] ?? 'Untitled session',
     label: json['label'],
     subtitle: json['subtitle'],
     description: json['description'],
-    date: DateTime.parse(json['date']),
+    date: json['date'] != null ? DateTime.tryParse(json['date']) : null,
     list:
-        (json['list'] as List<dynamic>)
+        (json['list'] as List<dynamic>? ?? [])
             .map((b) => Workout.fromJson(b))
             .toList(),
   );

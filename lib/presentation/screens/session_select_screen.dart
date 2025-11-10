@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:training_schedule_app/models/session.dart';
 import 'package:training_schedule_app/presentation/screens/add_item_screen.dart';
 import 'package:training_schedule_app/providers/preset_provider.dart';
-import 'package:training_schedule_app/presentation/widgets/my_app_bar.dart';
 import 'package:training_schedule_app/presentation/widgets/row_selection.dart';
 import 'package:training_schedule_app/presentation/widgets/my_listview.dart';
 import 'package:training_schedule_app/presentation/widgets/start_session_button.dart';
 import 'package:training_schedule_app/providers/session_state_provider.dart';
+import 'package:training_schedule_app/services/preset_logger.dart';
 import 'package:training_schedule_app/themes/app_text_styles.dart';
 
 class SessionSelectScreen extends StatefulWidget {
@@ -21,8 +22,6 @@ class SessionSelectScreen extends StatefulWidget {
 class _SessionSelectScreenState extends State<SessionSelectScreen> {
   int index = 0;
 
-  // grabs the sessionList from MVP_dummy_data.dart.
-
   @override
   Widget build(BuildContext context) {
     return Consumer2<PresetProvider, SessionStateProvider>(
@@ -30,7 +29,25 @@ class _SessionSelectScreenState extends State<SessionSelectScreen> {
         final currentSessionList = presetData.presetSessions;
 
         return Scaffold(
-          appBar: MyAppBar(title: 'Today\'s session'),
+          appBar: AppBar(
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Center(
+                    child: Text('Today\'s session', style: context.h4),
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {
+                    _editSessionModalSheet(context);
+                  },
+                  icon: Icon(Icons.edit),
+                ),
+              ],
+            ),
+            centerTitle: true,
+          ),
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -47,7 +64,7 @@ class _SessionSelectScreenState extends State<SessionSelectScreen> {
                   item: currentSessionList[sessionStateData.sessionIndex].list,
                 ),
               ),
-              SizedBox(height: 70), // change so it doesn't disappear behind FAB
+              SizedBox(height: 70),
             ],
           ),
           floatingActionButton: Padding(
@@ -77,6 +94,72 @@ class _SessionSelectScreenState extends State<SessionSelectScreen> {
               ],
             ),
           ),
+        );
+      },
+    );
+  }
+
+  Future<dynamic> _editSessionModalSheet(BuildContext context) {
+    return showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      useSafeArea: true,
+      builder: (BuildContext builder) {
+        return DraggableScrollableSheet(
+          expand: false,
+          initialChildSize: 0.95, // open at 80% of the screen height
+          minChildSize: 0.7,
+          maxChildSize: 0.95,
+          builder: (context, scrollController) {
+            return SingleChildScrollView(
+              controller: scrollController,
+              child: Consumer2<PresetProvider, SessionStateProvider>(
+                builder: (context, presetData, sessionStateData, child) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 16),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                        child: Text('Default sessions', style: context.h4),
+                      ),
+                      SizedBox(height: 8),
+                      CustomListView(
+                        item: presetData.presetDefaultSessions,
+                        scrollMode: false,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                        child:
+                            presetData.presetUserSessions.isNotEmpty
+                                ? Row(
+                                  children: [
+                                    Text('Your sessions', style: context.h4),
+                                    Spacer(),
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        presetData.deleteAllUserPresets();
+                                        sessionStateData.setSessionIndex(0);
+                                        Navigator.pop(context);
+                                      },
+                                      child: Text('Remove all'),
+                                    ),
+                                  ],
+                                )
+                                : SizedBox.shrink(),
+                      ),
+                      SizedBox(height: 8),
+                      CustomListView(
+                        item: presetData.presetUserSessions,
+                        editMode: true,
+                        scrollMode: false,
+                      ),
+                    ],
+                  );
+                },
+              ),
+            );
+          },
         );
       },
     );

@@ -115,4 +115,16 @@ class PresetLogger {
     final jsonData = data.map((e) => e.toJson()).toList();
     await file.writeAsString(json.encode(jsonData), flush: true);
   }
+
+  static Future<void> deleteAllUserPresetFiles() async {
+    final dir = await getApplicationDocumentsDirectory();
+    for (var name in [
+      'user_preset_sessions.json',
+      'user_preset_workouts.json',
+      'user_preset_exercises.json',
+    ]) {
+      final file = File('${dir.path}/$name');
+      if (await file.exists()) await file.delete();
+    }
+  }
 }

@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:training_schedule_app/data/default_data.dart';
 import 'package:training_schedule_app/providers/session_log_provider.dart';
 import 'package:training_schedule_app/presentation/screens/session_select_screen.dart';
-import 'package:training_schedule_app/presentation/widgets/my_app_bar.dart';
+import 'package:training_schedule_app/_obsolete/my_app_bar.dart';
 import 'package:training_schedule_app/presentation/widgets/row_selection.dart';
 import 'package:training_schedule_app/presentation/widgets/my_listview.dart';
 

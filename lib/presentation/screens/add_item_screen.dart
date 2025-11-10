@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:training_schedule_app/models/exercise.dart';
 import 'package:training_schedule_app/models/session.dart';
 import 'package:training_schedule_app/models/workout.dart';
 import 'package:training_schedule_app/presentation/widgets/add_exercise_modal_sheet.dart';
@@ -46,28 +47,6 @@ class _AddItemScreenState extends State<AddItemScreen> {
     _descriptionController.dispose();
     super.dispose();
   }
-
-  // void _submitItemForm(Future<void> addFunction) {
-  //   if (_formKey.currentState!.validate()) {
-  //     final title = _titleController.text.trim();
-  //     final label = _labelController.text.trim();
-  //     final description = _descriptionController.text.trim();
-
-  //     if (widget.itemName == 'session') {
-  //       final newSession = Session(
-  //         title: title,
-  //         label: label,
-  //         description: description,
-  //         list: [],
-  //       );
-  //       addFunction(newSession);
-  //     } else if (widget.itemName == 'workout') {}
-
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       const SnackBar(content: Text('Form submitted successfully!')),
-  //     );
-  //   }
-  // }
 
   void _onPressedAddButton() {
     if (widget.itemName == 'session') {
@@ -149,7 +128,19 @@ class _AddItemScreenState extends State<AddItemScreen> {
                                 title: title,
                                 label: label,
                                 description: description,
-                                list: [],
+                                list: [
+                                  Workout(
+                                    title: 'temp workout',
+                                    list: [
+                                      Exercise(
+                                        title: 'temp exercises',
+                                        reps: 1,
+                                        sets: 1,
+                                        timeBetweenSets: 1,
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               );
                               presetData.addPresetSession(newSession);
                             } else if (widget.itemName == 'workout') {
@@ -157,18 +148,19 @@ class _AddItemScreenState extends State<AddItemScreen> {
                                 title: title,
                                 label: label,
                                 description: description,
-                                list: [],
+                                list:
+                                    [], //TODO: save actual list instead of empty list
                               );
                               presetData.addPresetWorkout(newWorkout);
                             }
-
-                            Navigator.pop;
 
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                 content: Text('Form submitted successfully!'),
                               ),
                             );
+
+                            Navigator.pop(context);
                           }
                         },
                         child: Padding(
