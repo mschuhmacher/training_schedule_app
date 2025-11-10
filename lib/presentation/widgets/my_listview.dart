@@ -108,7 +108,8 @@ class MyListViewCard extends StatelessWidget {
                       ),
                       IconButton.outlined(
                         onPressed: () {
-                          if (sessionStateData.sessionIndex > 0) {
+                          if (sessionStateData.sessionIndex ==
+                              presetData.presetSessions.length - 1) {
                             sessionStateData.decrementSessionIndex();
                           }
                           presetData.deletUserPresetSession(index);
