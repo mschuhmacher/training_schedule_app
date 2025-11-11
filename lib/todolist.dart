@@ -4,16 +4,18 @@
 // 
 // FEATURES TO BUILD
 // DATA:
-// - save preset sessions in separate file or in memory.
-// - make list of new saved sessions, which you can add the preset sessions to
 // - expand list of exercises and workouts
 // - revisit data fields per model (session, workout, exercise)?
 //
 // INTERACTION:
-// - adding new  session / workout (copy from previous build?)
+// - use selected workouts / exercises when adding new session / workout
+// - edit preset sessions
 // - edit sets or reps during workout
 // - edit session once completed --> pop-up before logging
 // 
+// UI:
+// - update active session screen
+// - update add exercise screen
 // 
 // workflow: start session --> no saved sessions yet --> 
 // add sessions from preset list or add your own --> save savedSessions locally

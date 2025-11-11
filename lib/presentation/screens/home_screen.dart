@@ -35,14 +35,14 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Consumer<SessionLogProvider>(
-      builder: (BuildContext context, sessionData, Widget? child) {
-        if (sessionData.isLoading) {
+      builder: (BuildContext context, sessionLogData, Widget? child) {
+        if (sessionLogData.isLoading) {
           return const Scaffold(
             body: Center(child: CircularProgressIndicator()),
           );
         }
 
-        List<Session> selectedSessions = sessionData.selectedSessions;
+        List<Session> selectedSessions = sessionLogData.selectedSessions;
 
         return Scaffold(
           appBar: AppBar(
@@ -86,7 +86,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(height: 40),
                 StartSessionButton(routeName: 'session_select_screen'),
                 SizedBox(height: 40),
-
                 MyCalendar(),
                 SizedBox(height: 32),
                 Padding(
@@ -106,7 +105,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           foregroundColor:
                               Theme.of(context).colorScheme.onSecondary,
                         ),
-                        onPressed: SessionLogger.clearLoggedSessions,
+                        onPressed: () {
+                          SessionLogger.clearLoggedSessions();
+                        },
                         child: Text('Clear logs', style: context.bodyMedium),
                       ),
                     ],
