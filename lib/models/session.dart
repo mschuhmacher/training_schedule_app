@@ -37,9 +37,9 @@ class Session {
   factory Session.fromJson(Map<String, dynamic> json) => Session(
     id: json['id'] ?? const Uuid().v4(),
     title: json['title'] ?? 'Untitled session',
-    label: json['label'],
-    subtitle: json['subtitle'],
-    description: json['description'],
+    label: json['label'] ?? 'No label provided',
+    subtitle: json['subtitle'] ?? 'No subtitle provided',
+    description: json['description'] ?? 'No description provided',
     date: json['date'] != null ? DateTime.tryParse(json['date']) : null,
     list:
         (json['list'] as List<dynamic>? ?? [])

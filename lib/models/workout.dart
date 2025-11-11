@@ -34,13 +34,13 @@ class Workout {
 
   factory Workout.fromJson(Map<String, dynamic> json) => Workout(
     id: json['id'],
-    title: json['title'],
+    title: json['title'] ?? 'Untitled workout',
     subtitle: json['subtitle'],
     label: json['label'],
     description: json['description'],
-    date: DateTime.parse(json['date']),
+    date: json['date'] != null ? DateTime.tryParse(json['date']) : null,
     list:
-        (json['list'] as List<dynamic>)
+        (json['list'] as List<dynamic>? ?? [])
             .map((e) => Exercise.fromJson(e))
             .toList(),
   );

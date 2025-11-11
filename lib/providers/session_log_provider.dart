@@ -106,7 +106,9 @@ class SessionLogProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// All below variables and functions pertain to global state management of the sessions.
-  /// There is also functionality to keep track of the weeks in a training plan, but that is not utilized right now.
-  ///
+  Future<void> clearAllLoggedSessions() async {
+    _selectedSessions.clear();
+    await SessionLogger.clearLoggedSessions();
+    notifyListeners();
+  }
 }

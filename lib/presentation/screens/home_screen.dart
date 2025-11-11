@@ -106,7 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               Theme.of(context).colorScheme.onSecondary,
                         ),
                         onPressed: () {
-                          SessionLogger.clearLoggedSessions();
+                          sessionLogData.clearAllLoggedSessions();
                         },
                         child: Text('Clear logs', style: context.bodyMedium),
                       ),
