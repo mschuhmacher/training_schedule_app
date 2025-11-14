@@ -72,6 +72,18 @@ class PresetProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> deleteAllUserPresetSessions() async {
+    _userSessions = [];
+
+    // overwrite old user_preset_sessions.json with new empty list
+    await PresetLogger.savePresetToFile(
+      'user_preset_sessions.json',
+      _userSessions,
+    );
+
+    notifyListeners();
+  }
+
   /// Save new user-added presets
   Future<void> addPresetSession(Session session) async {
     _userSessions.add(session);
@@ -83,7 +95,7 @@ class PresetProvider extends ChangeNotifier {
   }
 
   // Remove user added preset
-  Future<void> deletUserPresetSession(int index) async {
+  Future<void> deleteUserPresetSession(int index) async {
     _userSessions.removeAt(index);
     await PresetLogger.savePresetToFile(
       'user_preset_sessions.json',

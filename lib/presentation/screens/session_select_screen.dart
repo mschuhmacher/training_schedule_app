@@ -135,8 +135,23 @@ class _SessionSelectScreenState extends State<SessionSelectScreen> {
                                     Text('Your sessions', style: context.h4),
                                     Spacer(),
                                     ElevatedButton(
+                                      style: ButtonStyle().copyWith(
+                                        backgroundColor:
+                                            WidgetStateProperty.all<Color>(
+                                              Theme.of(
+                                                context,
+                                              ).colorScheme.errorContainer,
+                                            ),
+                                        foregroundColor:
+                                            WidgetStateProperty.all(
+                                              Theme.of(
+                                                context,
+                                              ).colorScheme.onErrorContainer,
+                                            ),
+                                      ),
                                       onPressed: () {
-                                        presetData.deleteAllUserPresets();
+                                        presetData
+                                            .deleteAllUserPresetSessions();
                                         sessionStateData.setSessionIndex(0);
                                         Navigator.pop(context);
                                       },

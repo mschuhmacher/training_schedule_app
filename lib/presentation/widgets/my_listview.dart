@@ -112,7 +112,7 @@ class MyListViewCard extends StatelessWidget {
                               presetData.presetSessions.length - 1) {
                             sessionStateData.decrementSessionIndex();
                           }
-                          presetData.deletUserPresetSession(index);
+                          presetData.deleteUserPresetSession(index);
                         },
                         icon: Icon(Icons.delete),
                       ),

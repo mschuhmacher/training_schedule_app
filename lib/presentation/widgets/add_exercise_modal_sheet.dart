@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:training_schedule_app/models/exercise.dart';
 import 'package:training_schedule_app/presentation/widgets/my_arrow_button.dart';
 import 'package:training_schedule_app/providers/preset_provider.dart';
+import 'package:training_schedule_app/themes/app_text_styles.dart';
 
 class AddExerciseModalSheet extends StatefulWidget {
   const AddExerciseModalSheet({super.key});
@@ -83,60 +84,88 @@ class _AddExerciseModalSheetState extends State<AddExerciseModalSheet> {
                       ),
                     ),
                     SizedBox(height: 16),
-                    Row(
-                      children: [
-                        Text('Sets'),
-                        SizedBox(width: 8),
-                        GestureDetector(
-                          onTap: () {
-                            if (_numberOfSets >= 1) {
+                    Padding(
+                      padding: const EdgeInsets.only(left: 4.0),
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: 60,
+                            child: Text('Sets', style: context.title),
+                          ),
+                          SizedBox(width: 8),
+                          GestureDetector(
+                            onTap: () {
+                              if (_numberOfSets >= 1) {
+                                setState(() {
+                                  _numberOfSets--;
+                                });
+                              }
+                            },
+                            child: MyArrowButton(icon: Icons.remove),
+                          ),
+                          SizedBox(width: 8),
+                          SizedBox(
+                            width: 30,
+                            child: Center(
+                              child: Text(
+                                '$_numberOfSets',
+                                style: context.bodyLarge,
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 8),
+                          GestureDetector(
+                            onTap: () {
                               setState(() {
-                                _numberOfSets--;
+                                _numberOfSets++;
                               });
-                            }
-                          },
-                          child: MyArrowButton(icon: Icons.remove),
-                        ),
-                        SizedBox(width: 8),
-                        Text('$_numberOfSets'),
-                        SizedBox(width: 8),
-                        GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              _numberOfSets++;
-                            });
-                          },
-                          child: MyArrowButton(icon: Icons.add),
-                        ),
-                      ],
+                            },
+                            child: MyArrowButton(icon: Icons.add),
+                          ),
+                        ],
+                      ),
                     ),
                     SizedBox(height: 16),
-                    Row(
-                      children: [
-                        Text('Reps'),
-                        SizedBox(width: 8),
-                        GestureDetector(
-                          onTap: () {
-                            if (_numberOfReps >= 1) {
+                    Padding(
+                      padding: const EdgeInsets.only(left: 4.0),
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: 60,
+                            child: Text('Reps', style: context.title),
+                          ),
+                          SizedBox(width: 8),
+                          GestureDetector(
+                            onTap: () {
+                              if (_numberOfReps >= 1) {
+                                setState(() {
+                                  _numberOfReps--;
+                                });
+                              }
+                            },
+                            child: MyArrowButton(icon: Icons.remove),
+                          ),
+                          SizedBox(width: 8),
+                          SizedBox(
+                            width: 30,
+                            child: Center(
+                              child: Text(
+                                '$_numberOfReps',
+                                style: context.bodyLarge,
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 8),
+                          GestureDetector(
+                            onTap: () {
                               setState(() {
-                                _numberOfReps--;
+                                _numberOfReps++;
                               });
-                            }
-                          },
-                          child: MyArrowButton(icon: Icons.remove),
-                        ),
-                        SizedBox(width: 8),
-                        Text('$_numberOfReps'),
-                        SizedBox(width: 8),
-                        GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              _numberOfReps++;
-                            });
-                          },
-                          child: MyArrowButton(icon: Icons.add),
-                        ),
-                      ],
+                            },
+                            child: MyArrowButton(icon: Icons.add),
+                          ),
+                        ],
+                      ),
                     ),
                     SizedBox(height: 16),
                     TextFormField(

@@ -10,17 +10,14 @@
 // INTERACTION:
 // - edit preset sessions
 // - edit sets or reps during workout
-// - edit session once completed --> pop-up before logging
 // 
 // UI:
-// - update active session screen
-// - update add exercise screen
+
 // 
 // workflow: start session --> no saved sessions yet --> 
 // add sessions from preset list or add your own --> save savedSessions locally
 // 
 // BUGS:
-// Remove all user presets button removes all sessions, workouts, and exercises
 
 
 

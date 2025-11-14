@@ -24,14 +24,28 @@ class _ActiveSessionScreenState extends State<ActiveSessionScreen> {
 
         Workout activeWorkout =
             activeSession.list[sessionStateData.workoutIndex];
+
         List<Widget> exerciseWidgets =
             activeWorkout.list
                 .map(
-                  (name) => Text(
-                    // TODO: change to two Text widgets for different styling between title and description
-                    '${name.title} \n${name.description} \n',
-                    style: TextStyle(color: Colors.white),
-                    textAlign: TextAlign.center,
+                  (name) => Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '${name.title}',
+                        style: context.title?.copyWith(
+                          color: Theme.of(context).colorScheme.onPrimary,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(height: 4),
+                      Text(
+                        '${name.description} \n',
+                        style: context.bodyMedium?.copyWith(
+                          color: Theme.of(context).colorScheme.onPrimary,
+                        ),
+                      ),
+                    ],
                   ),
                 )
                 .toList();
@@ -42,7 +56,7 @@ class _ActiveSessionScreenState extends State<ActiveSessionScreen> {
           if (i == sessionStateData.workoutIndex) {
             workoutNames[i] = Text(
               activeSession.list[i].title,
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: context.h3,
             );
           }
         }
@@ -74,9 +88,9 @@ class _ActiveSessionScreenState extends State<ActiveSessionScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Expanded(flex: 1, child: Container()),
+                SizedBox(height: 24),
                 Expanded(
-                  flex: 4,
+                  flex: 5,
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(12.0, 12.0, 36.0, 12.0),
                     child: Align(
@@ -105,15 +119,32 @@ class _ActiveSessionScreenState extends State<ActiveSessionScreen> {
                     decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.primary,
                       borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(200), // large curve
+                        topLeft: Radius.circular(150), // large curve
                       ),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.all(12.0),
+                      padding: const EdgeInsets.fromLTRB(
+                        60.0,
+                        12.0,
+                        24.0,
+                        12.0,
+                      ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children:
-                            <Widget>[SizedBox(height: 100)] + exerciseWidgets,
+                            <Widget>[
+                              SizedBox(height: 60),
+                              // Text(
+                              //   activeWorkout.title,
+                              //   style: context.title?.copyWith(
+                              //     color:
+                              //         Theme.of(context).colorScheme.onPrimary,
+                              //   ),
+                              // ),
+                              SizedBox(height: 16),
+                            ] +
+                            exerciseWidgets,
                       ),
                     ),
                   ),
