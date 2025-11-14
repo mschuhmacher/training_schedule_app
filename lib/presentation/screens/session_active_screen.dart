@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:training_schedule_app/models/workout.dart';
-import 'package:training_schedule_app/presentation/widgets/my_app_bar.dart';
 import 'package:training_schedule_app/providers/preset_provider.dart';
 import 'package:training_schedule_app/presentation/widgets/session_active_bottom_bar.dart';
 import 'package:training_schedule_app/providers/session_state_provider.dart';
+import 'package:training_schedule_app/themes/app_text_styles.dart';
 
 class ActiveSessionScreen extends StatefulWidget {
   const ActiveSessionScreen({super.key});
@@ -48,7 +48,28 @@ class _ActiveSessionScreenState extends State<ActiveSessionScreen> {
         }
 
         return Scaffold(
-          appBar: MyAppBar(title: activeSession.title),
+          appBar: AppBar(
+            title: Row(
+              children: [
+                Spacer(flex: 1),
+                Text(activeSession.title, style: context.h4),
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    alignment: Alignment.centerRight,
+                    child: IconButton(
+                      onPressed: () {
+                        _showCloseConfirmationDialog(context);
+                      },
+                      icon: Icon(Icons.close),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            centerTitle: true,
+            automaticallyImplyLeading: false,
+          ),
           body: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -101,6 +122,41 @@ class _ActiveSessionScreenState extends State<ActiveSessionScreen> {
             ),
           ),
           bottomNavigationBar: ActiveSessionBottomBar(),
+        );
+      },
+    );
+  }
+
+  void _showCloseConfirmationDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Close session?', style: context.h3),
+          content: Text(
+            'Are you sure you want to close this session? Your progress will not be saved.',
+            style: context.bodyMedium,
+          ),
+          actions: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                OutlinedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(); // Close the dialog
+                  },
+                  child: Text('Cancel'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(); // Close the dialog
+                    Navigator.of(context).pop(); // Close the session screen
+                  },
+                  child: Text('Close'),
+                ),
+              ],
+            ),
+          ],
         );
       },
     );

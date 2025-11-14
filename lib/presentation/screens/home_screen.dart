@@ -41,8 +41,9 @@ class _HomeScreenState extends State<HomeScreen> {
             body: Center(child: CircularProgressIndicator()),
           );
         }
-
-        List<Session> selectedSessions = sessionLogData.selectedSessions;
+        // Reverse the list to show the latest sessions first
+        List<Session> selectedSessions =
+            sessionLogData.selectedSessions.reversed.toList();
 
         return Scaffold(
           appBar: AppBar(

@@ -234,16 +234,6 @@ class _AddExerciseModalSheetState extends State<AddExerciseModalSheet> {
                     ElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          // final title = _titleController.text.trim();
-                          // final subtitle = _subtitleController.text.trim();
-                          // final label = _labelController.text.trim();
-                          // final description = _descriptionController.text.trim();
-                          // final load = _loadController.text.trim();
-                          // final timeBetweenSets =
-                          //     _timeBetweenSetsController.text.trim();
-                          // final timeForReps = _timeForRepsController.text.trim();
-                          // final intValue = int.tryParse(_timeBetweenSetsController.text.trim());
-
                           final newExercise = Exercise(
                             title: _titleController.text.trim(),
                             subtitle: _subtitleController.text.trim(),

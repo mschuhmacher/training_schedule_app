@@ -108,6 +108,7 @@ class SessionLogProvider extends ChangeNotifier {
 
   Future<void> clearAllLoggedSessions() async {
     _selectedSessions.clear();
+    _loggedSessions.clear();
     await SessionLogger.clearLoggedSessions();
     notifyListeners();
   }

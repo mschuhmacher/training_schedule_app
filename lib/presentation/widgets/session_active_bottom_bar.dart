@@ -6,6 +6,7 @@ import 'package:training_schedule_app/providers/preset_provider.dart';
 import 'package:training_schedule_app/providers/session_log_provider.dart';
 import 'package:training_schedule_app/providers/session_state_provider.dart';
 import 'package:training_schedule_app/services/session_logger.dart';
+import 'package:training_schedule_app/themes/app_text_styles.dart';
 
 class ActiveSessionBottomBar extends StatelessWidget {
   const ActiveSessionBottomBar({super.key});
@@ -44,33 +45,127 @@ class ActiveSessionBottomBar extends StatelessWidget {
                         ),
                       )
                       : GestureDetector(
-                        onTap: () async {
-                          await SessionLogger.logSession(activeSession);
-                          sessionLogData.refreshSelectedSessions(activeSession);
-                          // TODO: build in a pause so that the selectedSessions can be refreshed before the screens are popped.
-
-                          // Only use the buildContext is it still mounted. Meaning, the widget is still in the Widgettree.
-                          // If user leaves screen before await is done, mounted would be false
-                          if (context.mounted) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Session saved to log!'),
-                              ),
-                            );
-                            // Keeps popping routes until the current route is the first route. Not named,so no errors.
-
-                            Navigator.popUntil(
-                              context,
-                              (route) => route.isFirst,
-                            );
-                          }
+                        onTap: () {
+                          _showFinishSessionDialog(
+                            context,
+                            activeSession,
+                            sessionLogData,
+                          );
                         },
-                        child: MyArrowButton(icon: Icons.check_box, size: 40),
+                        child: MyArrowButton(icon: Icons.check, size: 40),
                       ),
                 ],
               ),
             ),
           ),
+        );
+      },
+    );
+  }
+
+  void _showFinishSessionDialog(
+    BuildContext context,
+    Session activeSession,
+    SessionLogProvider sessionLogData,
+  ) {
+    final labelController = TextEditingController();
+    final descriptionController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (BuildContext dialogContext) {
+        return AlertDialog(
+          title: Text('Session summary', style: dialogContext.h3),
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Workouts completed:', style: dialogContext.bodyLarge),
+                SizedBox(height: 8),
+                ...activeSession.list.map(
+                  (workout) => Padding(
+                    padding: const EdgeInsets.only(left: 8.0, bottom: 4.0),
+                    child: Text(
+                      '• ${workout.title}',
+                      style: dialogContext.bodyMedium,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 24),
+                TextField(
+                  controller: labelController,
+                  decoration: InputDecoration(
+                    labelText: 'Label (optional)',
+                    hintText: 'e.g., Morning Session, Outdoor Climb',
+                    border: OutlineInputBorder(),
+                  ),
+                  style: dialogContext.bodyMedium,
+                ),
+                SizedBox(height: 8),
+                TextField(
+                  controller: descriptionController,
+                  decoration: InputDecoration(
+                    labelText: 'Description (optional)',
+                    hintText: 'Add notes about your session...',
+                    border: OutlineInputBorder(),
+                  ),
+                  maxLines: 3,
+                  style: dialogContext.bodyMedium,
+                ),
+              ],
+            ),
+          ),
+          actions: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                OutlinedButton(
+                  onPressed: () {
+                    Navigator.of(dialogContext).pop();
+                  },
+                  child: Text('Cancel'),
+                ),
+                SizedBox(width: 8),
+                ElevatedButton(
+                  onPressed: () async {
+                    // Create a new session with the label and description
+                    final finishedSession = Session(
+                      id: activeSession.id,
+                      title: activeSession.title,
+                      label:
+                          labelController.text.isEmpty
+                              ? null
+                              : labelController.text,
+                      description:
+                          descriptionController.text.isEmpty
+                              ? null
+                              : descriptionController.text,
+                      date: DateTime.now(),
+                      list: activeSession.list,
+                    );
+
+                    Navigator.of(dialogContext).pop();
+
+                    await SessionLogger.logSession(finishedSession);
+                    sessionLogData.refreshSelectedSessions(finishedSession);
+
+                    // Only use the buildContext is it still mounted. Meaning, the widget is still in the Widgettree.
+                    // If user leaves screen before await is done, mounted would be false
+                    if (context.mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Session saved to log!')),
+                      );
+
+                      // Keeps popping routes until the current route is the first route. Not named,so no errors.
+                      Navigator.popUntil(context, (route) => route.isFirst);
+                    }
+                  },
+                  child: Text('Finish'),
+                ),
+              ],
+            ),
+          ],
         );
       },
     );

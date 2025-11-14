@@ -47,7 +47,7 @@ class Exercise {
     sets: json['sets'],
     timeBetweenSets: json['timeBetweenSets'],
     timeForReps: json['timeForReps'],
-    load: (json['load'] as num).toDouble(),
+    load: json['load'] != null ? (json['load'] as num).toDouble() : null,
     description: json['description'],
   );
 }

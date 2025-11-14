@@ -20,7 +20,7 @@ class AddItemScreen extends StatefulWidget {
 }
 
 class _AddItemScreenState extends State<AddItemScreen> {
-  Set<String> _selectedItemIds = {};
+  final Set<String> _selectedItemIds = {};
 
   final _formKey = GlobalKey<FormState>();
 
@@ -90,6 +90,11 @@ class _AddItemScreenState extends State<AddItemScreen> {
                 )
                 .toList();
 
+        final List<dynamic> selectedPresetItems =
+            allPresetItems
+                .where((item) => _selectedItemIds.contains(item.id))
+                .toList();
+
         return Scaffold(
           appBar: AppBar(
             title: Text('New ${widget.itemName}', style: context.h4),
@@ -128,19 +133,10 @@ class _AddItemScreenState extends State<AddItemScreen> {
                                 title: title,
                                 label: label,
                                 description: description,
-                                list: [
-                                  Workout(
-                                    title: 'temp workout',
-                                    list: [
-                                      Exercise(
-                                        title: 'temp exercises',
-                                        reps: 1,
-                                        sets: 1,
-                                        timeBetweenSets: 1,
-                                      ),
-                                    ],
-                                  ),
-                                ],
+                                list:
+                                    selectedPresetItems
+                                        .cast<Workout>()
+                                        .toList(),
                               );
                               presetData.addPresetSession(newSession);
                             } else if (widget.itemName == 'workout') {
@@ -149,7 +145,9 @@ class _AddItemScreenState extends State<AddItemScreen> {
                                 label: label,
                                 description: description,
                                 list:
-                                    [], //TODO: save actual list instead of empty list
+                                    selectedPresetItems
+                                        .cast<Exercise>()
+                                        .toList(), //TODO: save actual list instead of empty list
                               );
                               presetData.addPresetWorkout(newWorkout);
                             }

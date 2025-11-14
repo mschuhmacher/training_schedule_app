@@ -8,7 +8,6 @@
 // - revisit data fields per model (session, workout, exercise)?
 //
 // INTERACTION:
-// - use selected workouts / exercises when adding new session / workout
 // - edit preset sessions
 // - edit sets or reps during workout
 // - edit session once completed --> pop-up before logging
@@ -19,6 +18,9 @@
 // 
 // workflow: start session --> no saved sessions yet --> 
 // add sessions from preset list or add your own --> save savedSessions locally
+// 
+// BUGS:
+// Remove all user presets button removes all sessions, workouts, and exercises
 
 
 
