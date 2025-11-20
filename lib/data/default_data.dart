@@ -7,6 +7,7 @@ final List<Session> defaultSessions = [
     title: 'Projecting session',
     description: 'Flash tries and projecting',
     date: DateTime.now(),
+    label: 'Limit',
     list:
         defaultWorkouts
             .where(

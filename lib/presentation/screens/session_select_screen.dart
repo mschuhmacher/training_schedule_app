@@ -47,14 +47,30 @@ class _SessionSelectScreenState extends State<SessionSelectScreen> {
             centerTitle: true,
           ),
           body: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 20),
               RowSelection(caseStatement: 'Session'),
               SizedBox(height: 20),
-              Text(
-                currentSessionList[sessionStateData.sessionIndex].title,
-                style: context.h3,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      currentSessionList[sessionStateData.sessionIndex].title,
+                      style: context.h3,
+                    ),
+                    currentSessionList[sessionStateData.sessionIndex].label !=
+                            null
+                        ? Text(
+                          currentSessionList[sessionStateData.sessionIndex]
+                              .label!,
+                          style: context.label,
+                        )
+                        : SizedBox.shrink(),
+                  ],
+                ),
               ),
               SizedBox(height: 12),
               Expanded(

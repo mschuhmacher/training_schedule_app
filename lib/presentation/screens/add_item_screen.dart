@@ -8,8 +8,6 @@ import 'package:training_schedule_app/providers/preset_provider.dart';
 import 'package:training_schedule_app/themes/app_shadow.dart';
 import 'package:training_schedule_app/themes/app_text_styles.dart';
 
-/// TODO: add functions to save the item
-
 class AddItemScreen extends StatefulWidget {
   final String itemName;
 
@@ -20,6 +18,18 @@ class AddItemScreen extends StatefulWidget {
 }
 
 class _AddItemScreenState extends State<AddItemScreen> {
+  static const List<String> _labelOptions = [
+    'Warm-up',
+    'Limit',
+    'Powerendurance',
+    'Endurance',
+    'Strength',
+    'Technique',
+    'Skills',
+    'Flexibility',
+    'Other',
+  ];
+
   final Set<String> _selectedItemIds = {};
 
   final _formKey = GlobalKey<FormState>();
@@ -208,23 +218,45 @@ class _AddItemScreenState extends State<AddItemScreen> {
                               : null,
                 ),
               ),
-              SizedBox(width: 32),
+              SizedBox(width: 24),
               Expanded(
-                child: TextFormField(
-                  controller: _labelController,
-                  autofocus: true,
+                child: DropdownButtonFormField<String>(
+                  value:
+                      _labelController.text.isNotEmpty
+                          ? _labelController.text
+                          : null,
+                  items:
+                      _labelOptions.map((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                  selectedItemBuilder: (context) {
+                    return _labelOptions.map((value) {
+                      return Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(value, overflow: TextOverflow.ellipsis),
+                      );
+                    }).toList();
+                  },
+                  isExpanded: true,
                   decoration: InputDecoration(
                     fillColor: Theme.of(context).colorScheme.surfaceBright,
-
                     labelText: 'Label',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
+                  onChanged: (value) {
+                    setState(() {
+                      _labelController.text = value ?? '';
+                    });
+                  },
                   validator:
                       (value) =>
                           value == null || value.isEmpty
-                              ? 'Please enter a label'
+                              ? 'Please select a label'
                               : null,
                 ),
               ),
