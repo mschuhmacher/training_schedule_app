@@ -2,15 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:training_schedule_app/models/session.dart';
 import 'package:training_schedule_app/presentation/widgets/my_arrow_button.dart';
+import 'package:training_schedule_app/presentation/widgets/my_label_dropdownbutton.dart';
 import 'package:training_schedule_app/providers/preset_provider.dart';
 import 'package:training_schedule_app/providers/session_log_provider.dart';
 import 'package:training_schedule_app/providers/session_state_provider.dart';
 import 'package:training_schedule_app/services/session_logger.dart';
 import 'package:training_schedule_app/themes/app_text_styles.dart';
 
-class ActiveSessionBottomBar extends StatelessWidget {
+class ActiveSessionBottomBar extends StatefulWidget {
   const ActiveSessionBottomBar({super.key});
 
+  @override
+  State<ActiveSessionBottomBar> createState() => _ActiveSessionBottomBarState();
+}
+
+class _ActiveSessionBottomBarState extends State<ActiveSessionBottomBar> {
   @override
   Widget build(BuildContext context) {
     return Consumer3<PresetProvider, SessionLogProvider, SessionStateProvider>(
@@ -93,14 +99,21 @@ class ActiveSessionBottomBar extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 24),
-                TextField(
-                  controller: labelController,
-                  decoration: InputDecoration(
-                    labelText: 'Label (optional)',
-                    hintText: 'e.g., Morning Session, Outdoor Climb',
-                    border: OutlineInputBorder(),
-                  ),
-                  style: dialogContext.bodyMedium,
+                MyLabelDropdownButton(
+                  value:
+                      labelController.text.isNotEmpty
+                          ? labelController.text
+                          : null,
+                  onChanged: (value) {
+                    setState(() {
+                      labelController.text = value ?? '';
+                    });
+                  },
+                  validator:
+                      (value) =>
+                          value == null || value.isEmpty
+                              ? 'Please select a label'
+                              : null,
                 ),
                 SizedBox(height: 8),
                 TextField(

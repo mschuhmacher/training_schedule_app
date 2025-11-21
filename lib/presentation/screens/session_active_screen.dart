@@ -32,7 +32,7 @@ class _ActiveSessionScreenState extends State<ActiveSessionScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '${name.title}',
+                        name.title,
                         style: context.title?.copyWith(
                           color: Theme.of(context).colorScheme.onPrimary,
                           fontWeight: FontWeight.bold,

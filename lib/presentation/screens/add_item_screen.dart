@@ -4,6 +4,7 @@ import 'package:training_schedule_app/models/exercise.dart';
 import 'package:training_schedule_app/models/session.dart';
 import 'package:training_schedule_app/models/workout.dart';
 import 'package:training_schedule_app/presentation/widgets/add_exercise_modal_sheet.dart';
+import 'package:training_schedule_app/presentation/widgets/my_label_dropdownbutton.dart';
 import 'package:training_schedule_app/providers/preset_provider.dart';
 import 'package:training_schedule_app/themes/app_shadow.dart';
 import 'package:training_schedule_app/themes/app_text_styles.dart';
@@ -18,18 +19,6 @@ class AddItemScreen extends StatefulWidget {
 }
 
 class _AddItemScreenState extends State<AddItemScreen> {
-  static const List<String> _labelOptions = [
-    'Warm-up',
-    'Limit',
-    'Powerendurance',
-    'Endurance',
-    'Strength',
-    'Technique',
-    'Skills',
-    'Flexibility',
-    'Other',
-  ];
-
   final Set<String> _selectedItemIds = {};
 
   final _formKey = GlobalKey<FormState>();
@@ -120,7 +109,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                 // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buildTextFormFields(),
+                  _buildFormFields(),
                   SizedBox(height: 16),
                   _buildSearchAndAddRow(context),
                   Expanded(flex: 3, child: _buildListView(filteredPresetItems)),
@@ -191,7 +180,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
     );
   }
 
-  Expanded _buildTextFormFields() {
+  Expanded _buildFormFields() {
     return Expanded(
       flex: 2,
       child: Column(
@@ -200,7 +189,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
           Row(
             children: [
               Expanded(
-                flex: 2,
+                flex: 1,
                 child: TextFormField(
                   controller: _titleController,
                   autofocus: true,
@@ -220,34 +209,11 @@ class _AddItemScreenState extends State<AddItemScreen> {
               ),
               SizedBox(width: 24),
               Expanded(
-                child: DropdownButtonFormField<String>(
+                child: MyLabelDropdownButton(
                   value:
                       _labelController.text.isNotEmpty
                           ? _labelController.text
                           : null,
-                  items:
-                      _labelOptions.map((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                  selectedItemBuilder: (context) {
-                    return _labelOptions.map((value) {
-                      return Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(value, overflow: TextOverflow.ellipsis),
-                      );
-                    }).toList();
-                  },
-                  isExpanded: true,
-                  decoration: InputDecoration(
-                    fillColor: Theme.of(context).colorScheme.surfaceBright,
-                    labelText: 'Label',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
                   onChanged: (value) {
                     setState(() {
                       _labelController.text = value ?? '';
