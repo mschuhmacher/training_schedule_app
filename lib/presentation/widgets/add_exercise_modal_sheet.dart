@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:training_schedule_app/models/exercise.dart';
+import 'package:training_schedule_app/presentation/widgets/label_dropdownbutton.dart';
 import 'package:training_schedule_app/presentation/widgets/my_arrow_button.dart';
 import 'package:training_schedule_app/providers/preset_provider.dart';
 import 'package:training_schedule_app/themes/app_text_styles.dart';
@@ -66,13 +67,21 @@ class _AddExerciseModalSheetState extends State<AddExerciseModalSheet> {
                       ),
                     ),
                     SizedBox(height: 16),
-                    TextFormField(
-                      controller: _labelController,
-                      autofocus: true,
-                      decoration: const InputDecoration(
-                        labelText: 'Label',
-                        border: OutlineInputBorder(),
-                      ),
+                    MyLabelDropdownButton(
+                      value:
+                          _labelController.text.isNotEmpty
+                              ? _labelController.text
+                              : null,
+                      onChanged: (value) {
+                        setState(() {
+                          _labelController.text = value ?? '';
+                        });
+                      },
+                      validator:
+                          (value) =>
+                              value == null || value.isEmpty
+                                  ? 'Please select a label'
+                                  : null,
                     ),
                     SizedBox(height: 16),
                     TextFormField(
