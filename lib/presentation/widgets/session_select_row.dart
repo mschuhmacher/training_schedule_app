@@ -6,8 +6,8 @@ import 'package:training_schedule_app/providers/session_state_provider.dart';
 import 'package:training_schedule_app/themes/app_shadow.dart';
 import 'package:training_schedule_app/themes/app_text_styles.dart';
 
-class RowSelection extends StatelessWidget {
-  const RowSelection({required this.caseStatement, super.key});
+class SessionSelectRow extends StatelessWidget {
+  const SessionSelectRow({required this.caseStatement, super.key});
 
   final String caseStatement;
 

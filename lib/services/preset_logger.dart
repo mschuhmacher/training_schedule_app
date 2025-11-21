@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
-import 'package:training_schedule_app/data/default_data.dart';
+import 'package:training_schedule_app/data/default_exercise_data.dart';
+import 'package:training_schedule_app/data/default_session_data.dart';
+import 'package:training_schedule_app/data/default_workout_data.dart';
 import 'package:training_schedule_app/models/workout.dart';
 import 'package:training_schedule_app/models/exercise.dart';
 import 'package:training_schedule_app/models/session.dart';

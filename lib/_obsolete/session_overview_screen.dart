@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:training_schedule_app/data/default_data.dart';
+import 'package:training_schedule_app/data/default_session_data.dart';
 import 'package:training_schedule_app/providers/session_log_provider.dart';
 import 'package:training_schedule_app/presentation/screens/session_select_screen.dart';
 import 'package:training_schedule_app/_obsolete/my_app_bar.dart';
-import 'package:training_schedule_app/presentation/widgets/my_listview.dart';
+import 'package:training_schedule_app/presentation/widgets/session_select_listview.dart';
 
 class SessionOverviewScreen extends StatefulWidget {
   const SessionOverviewScreen({super.key});
@@ -29,7 +29,7 @@ class _SessionOverviewScreenState extends State<SessionOverviewScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: 50),
-                CustomListView(
+                SessionSelectListView(
                   item: currentSessionList,
                   setIndex: sessionData.setSessionIndex,
                   route: SessionSelectScreen(),

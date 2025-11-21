@@ -4,7 +4,7 @@ import 'package:training_schedule_app/models/exercise.dart';
 import 'package:training_schedule_app/models/session.dart';
 import 'package:training_schedule_app/models/workout.dart';
 import 'package:training_schedule_app/presentation/widgets/add_exercise_modal_sheet.dart';
-import 'package:training_schedule_app/presentation/widgets/my_label_dropdownbutton.dart';
+import 'package:training_schedule_app/presentation/widgets/label_dropdownbutton.dart';
 import 'package:training_schedule_app/providers/preset_provider.dart';
 import 'package:training_schedule_app/themes/app_shadow.dart';
 import 'package:training_schedule_app/themes/app_text_styles.dart';

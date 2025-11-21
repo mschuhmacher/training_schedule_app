@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 
-class LabelOption {
+class Label {
   final String name;
   final IconData icon;
   final Color color;
 
-  const LabelOption({
-    required this.name,
-    required this.icon,
-    required this.color,
-  });
+  const Label({required this.name, required this.icon, required this.color});
 }

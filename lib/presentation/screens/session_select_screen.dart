@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:training_schedule_app/presentation/screens/add_item_screen.dart';
 import 'package:training_schedule_app/providers/preset_provider.dart';
-import 'package:training_schedule_app/presentation/widgets/row_selection.dart';
-import 'package:training_schedule_app/presentation/widgets/my_listview.dart';
+import 'package:training_schedule_app/presentation/widgets/session_select_row.dart';
+import 'package:training_schedule_app/presentation/widgets/session_select_listview.dart';
 import 'package:training_schedule_app/presentation/widgets/start_session_button.dart';
 import 'package:training_schedule_app/providers/session_state_provider.dart';
 import 'package:training_schedule_app/themes/app_text_styles.dart';
@@ -50,7 +50,7 @@ class _SessionSelectScreenState extends State<SessionSelectScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 20),
-              RowSelection(caseStatement: 'Session'),
+              SessionSelectRow(caseStatement: 'Session'),
               SizedBox(height: 20),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30.0),
@@ -74,7 +74,7 @@ class _SessionSelectScreenState extends State<SessionSelectScreen> {
               ),
               SizedBox(height: 12),
               Expanded(
-                child: CustomListView(
+                child: SessionSelectListView(
                   item: currentSessionList[sessionStateData.sessionIndex].list,
                 ),
               ),
@@ -138,7 +138,7 @@ class _SessionSelectScreenState extends State<SessionSelectScreen> {
                         child: Text('Default sessions', style: context.h4),
                       ),
                       SizedBox(height: 8),
-                      CustomListView(
+                      SessionSelectListView(
                         item: presetData.presetDefaultSessions,
                         scrollMode: false,
                       ),
@@ -178,7 +178,7 @@ class _SessionSelectScreenState extends State<SessionSelectScreen> {
                                 : SizedBox.shrink(),
                       ),
                       SizedBox(height: 8),
-                      CustomListView(
+                      SessionSelectListView(
                         item: presetData.presetUserSessions,
                         editMode: true,
                         scrollMode: false,

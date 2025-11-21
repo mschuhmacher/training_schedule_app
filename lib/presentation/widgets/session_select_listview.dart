@@ -6,8 +6,8 @@ import 'package:training_schedule_app/providers/session_state_provider.dart';
 import 'package:training_schedule_app/themes/app_shadow.dart';
 import 'package:training_schedule_app/themes/app_text_styles.dart';
 
-class CustomListView extends StatelessWidget {
-  const CustomListView({
+class SessionSelectListView extends StatelessWidget {
+  const SessionSelectListView({
     super.key,
     required this.item,
     this.setIndex,
@@ -57,7 +57,7 @@ class CustomListView extends StatelessWidget {
           },
         );
       },
-      separatorBuilder: (context, index) => SizedBox(height: 10),
+      separatorBuilder: (context, index) => SizedBox(height: 8),
       itemCount: item.length,
     );
   }

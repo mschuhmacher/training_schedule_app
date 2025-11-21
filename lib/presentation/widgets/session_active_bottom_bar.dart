@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:training_schedule_app/models/session.dart';
 import 'package:training_schedule_app/presentation/widgets/my_arrow_button.dart';
-import 'package:training_schedule_app/presentation/widgets/my_label_dropdownbutton.dart';
+import 'package:training_schedule_app/presentation/widgets/label_dropdownbutton.dart';
 import 'package:training_schedule_app/providers/preset_provider.dart';
 import 'package:training_schedule_app/providers/session_log_provider.dart';
 import 'package:training_schedule_app/providers/session_state_provider.dart';

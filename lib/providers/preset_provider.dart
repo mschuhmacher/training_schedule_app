@@ -1,9 +1,11 @@
 import 'package:flutter/foundation.dart';
+import 'package:training_schedule_app/data/default_exercise_data.dart';
+import 'package:training_schedule_app/data/default_workout_data.dart';
 import 'package:training_schedule_app/services/preset_logger.dart';
 import '../models/session.dart';
 import '../models/workout.dart';
 import '../models/exercise.dart';
-import '../data/default_data.dart';
+import '../data/default_session_data.dart';
 
 /// Responsibilities:
 /// - Holds in-memory state of all presets (sessions, blocks, exercises).
