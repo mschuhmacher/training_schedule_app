@@ -362,7 +362,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
               ),
               title: Text(
                 filteredPresetItems[index].title,
-                style: context.title,
+                style: context.titleMedium,
               ),
               subtitle:
                   filteredPresetItems[index].description != null

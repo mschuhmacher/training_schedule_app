@@ -20,6 +20,11 @@ final TextTheme appTextTheme = TextTheme(
     fontWeight: FontWeight.w600,
     height: 1.4,
   ),
+  titleLarge: TextStyle(
+    // For subtitles, list titles
+    fontSize: 18,
+    fontWeight: FontWeight.w500,
+  ),
   titleMedium: TextStyle(
     // For subtitles, list titles
     fontSize: 16,
@@ -34,7 +39,6 @@ final TextTheme appTextTheme = TextTheme(
     // Secondary body text
     fontSize: 14,
     fontWeight: FontWeight.normal,
-    color: Colors.grey[700],
   ),
   labelLarge: TextStyle(
     // Buttons / labels

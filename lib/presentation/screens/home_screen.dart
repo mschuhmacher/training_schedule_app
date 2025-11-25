@@ -4,8 +4,8 @@ import 'package:intl/intl.dart';
 import 'package:training_schedule_app/data/labels.dart';
 
 import 'package:training_schedule_app/models/session.dart';
-import 'package:training_schedule_app/presentation/screens/cheat_sheet_screen.dart';
-import 'package:training_schedule_app/presentation/screens/colorscheme_demo_screen.dart';
+import 'package:training_schedule_app/_UI_design_helper_screens/cheat_sheet_screen.dart';
+import 'package:training_schedule_app/_UI_design_helper_screens/colorscheme_demo_screen.dart';
 import 'package:training_schedule_app/presentation/widgets/my_calendar.dart';
 import 'package:training_schedule_app/presentation/widgets/start_session_button.dart';
 import 'package:training_schedule_app/providers/preset_provider.dart';
@@ -49,87 +49,90 @@ class _HomeScreenState extends State<HomeScreen> {
             sessionLogData.selectedSessions.reversed.toList();
 
         return Scaffold(
-          appBar: AppBar(
-            backgroundColor: Theme.of(context).colorScheme.surfaceBright,
-            title: Row(
+          // appBar: AppBar(
+          //   backgroundColor: Theme.of(context).colorScheme.surface,
+          //   title: SizedBox.shrink(),
+          // title: Row(
+          //   children: [
+          //     ElevatedButton(
+          //       onPressed: () {
+          //         Navigator.push(
+          //           context,
+          //           MaterialPageRoute(
+          //             builder: (context) => ColorSchemeDemoScreen(),
+          //           ),
+          //         );
+          //       },
+          //       child: Text(' test screen'),
+          //     ),
+          //     ElevatedButton(
+          //       onPressed: () {
+          //         Navigator.push(
+          //           context,
+          //           MaterialPageRoute(
+          //             builder: (context) => Material3ColorCheatSheet(),
+          //           ),
+          //         );
+          //       },
+          //       child: Text(' cheat sheet'),
+          //     ),
+          //   ],
+          // ),
+          //   centerTitle: true,
+          // ),
+          body: SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ColorSchemeDemoScreen(),
-                      ),
-                    );
-                  },
-                  child: Text(' test screen'),
+                Padding(
+                  padding: const EdgeInsets.only(left: 24, top: 12),
+                  child: Text('Hey, ready to climb?', style: context.h1),
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Material3ColorCheatSheet(),
+
+                SizedBox(height: 40),
+                StartSessionButton(routeName: 'session_select_screen'),
+                SizedBox(height: 40),
+                MyCalendar(),
+                SizedBox(height: 32),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Row(
+                    children: [
+                      Text(
+                        'Logged sessions',
+                        style: context.h3,
+                        textAlign: TextAlign.start,
                       ),
-                    );
-                  },
-                  child: Text(' cheat sheet'),
+                      Spacer(),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              Theme.of(context).colorScheme.secondary,
+                          foregroundColor:
+                              Theme.of(context).colorScheme.onSecondary,
+                        ),
+                        onPressed: () {
+                          sessionLogData.clearAllLoggedSessions();
+                        },
+                        child: Text('Clear logs', style: context.bodyMedium),
+                      ),
+                    ],
+                  ),
                 ),
+                Expanded(
+                  child:
+                      selectedSessions.isEmpty
+                          ? Center(
+                            child: Text(
+                              'No climbing sessions logged yet.',
+                              style: context.bodyLarge,
+                            ),
+                          )
+                          : _buildListView(selectedSessions),
+                ),
+                SizedBox(height: 40),
               ],
             ),
-            centerTitle: true,
-          ),
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 24),
-                child: Text('Hey, ready to climb?', style: context.h1),
-              ),
-
-              SizedBox(height: 40),
-              StartSessionButton(routeName: 'session_select_screen'),
-              SizedBox(height: 40),
-              MyCalendar(),
-              SizedBox(height: 32),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Row(
-                  children: [
-                    Text(
-                      'Logged sessions',
-                      style: context.h3,
-                      textAlign: TextAlign.start,
-                    ),
-                    Spacer(),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            Theme.of(context).colorScheme.secondary,
-                        foregroundColor:
-                            Theme.of(context).colorScheme.onSecondary,
-                      ),
-                      onPressed: () {
-                        sessionLogData.clearAllLoggedSessions();
-                      },
-                      child: Text('Clear logs', style: context.bodyMedium),
-                    ),
-                  ],
-                ),
-              ),
-              Expanded(
-                child:
-                    selectedSessions.isEmpty
-                        ? Center(
-                          child: Text(
-                            'No climbing sessions logged yet.',
-                            style: context.bodyLarge,
-                          ),
-                        )
-                        : _buildListView(selectedSessions),
-              ),
-              SizedBox(height: 40),
-            ],
           ),
         );
       },
@@ -159,7 +162,7 @@ class _HomeScreenState extends State<HomeScreen> {
         return Material(
           //ListTile is wwrapped in a material widget so prevent the list from overflowing into the other widgets in the column. Known issue.
           child: ListTile(
-            title: Text(session.title, style: context.title),
+            title: Text(session.title, style: context.titleMedium),
             subtitle: Text(
               '$formattedDate at $formattedTime',
               style: context.bodyMedium,

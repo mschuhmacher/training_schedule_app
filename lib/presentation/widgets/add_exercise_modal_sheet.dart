@@ -99,7 +99,7 @@ class _AddExerciseModalSheetState extends State<AddExerciseModalSheet> {
                         children: [
                           SizedBox(
                             width: 60,
-                            child: Text('Sets', style: context.title),
+                            child: Text('Sets', style: context.titleMedium),
                           ),
                           SizedBox(width: 8),
                           GestureDetector(
@@ -141,7 +141,7 @@ class _AddExerciseModalSheetState extends State<AddExerciseModalSheet> {
                         children: [
                           SizedBox(
                             width: 60,
-                            child: Text('Reps', style: context.title),
+                            child: Text('Reps', style: context.titleMedium),
                           ),
                           SizedBox(width: 8),
                           GestureDetector(

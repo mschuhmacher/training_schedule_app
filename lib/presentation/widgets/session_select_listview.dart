@@ -98,7 +98,7 @@ class MyListViewCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text(item[index].title, style: context.title),
+                    Text(item[index].title, style: context.titleMedium),
                     if (editMode == true) ...[
                       Spacer(),
                       IconButton.outlined(

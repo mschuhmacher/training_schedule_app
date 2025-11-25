@@ -33,7 +33,7 @@ class _ActiveSessionScreenState extends State<ActiveSessionScreen> {
                     children: [
                       Text(
                         name.title,
-                        style: context.title?.copyWith(
+                        style: context.titleMedium?.copyWith(
                           color: Theme.of(context).colorScheme.onPrimary,
                           fontWeight: FontWeight.bold,
                         ),
