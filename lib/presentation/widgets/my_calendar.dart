@@ -45,7 +45,7 @@ class _MyCalendarState extends State<MyCalendar> {
           focusedDay: _focusedDay,
           calendarFormat: sessionData.calendarFormat,
           startingDayOfWeek: _startingDayOfWeek,
-          rowHeight: 40,
+          rowHeight: 42,
 
           // Event loader - return list with one item if day has sessions, empty otherwise
           eventLoader: (day) {
@@ -68,8 +68,12 @@ class _MyCalendarState extends State<MyCalendar> {
             ),
 
             todayDecoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.secondary,
+              // color: Theme.of(context).colorScheme.secondary,
               shape: BoxShape.rectangle,
+              border: Border.all(
+                width: 1.5,
+                color: Theme.of(context).colorScheme.secondary,
+              ),
               borderRadius: BorderRadius.circular(8),
             ),
             markerDecoration: BoxDecoration(
@@ -84,7 +88,7 @@ class _MyCalendarState extends State<MyCalendar> {
               top: 2,
             ), // Moves the day number slightly up
             markersAnchor:
-                1.2, // Moves the dot up so that it falls within the todayDecoration box
+                1.4, // Moves the dot up so that it falls within the todayDecoration box
           ),
 
           /// Manually disabling the twoWeeks format.

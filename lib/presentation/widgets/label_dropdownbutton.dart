@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:training_schedule_app/data/labels.dart';
 import 'package:training_schedule_app/models/label.dart';
+import 'package:training_schedule_app/themes/app_text_styles.dart';
 
 class MyLabelDropdownButton extends StatelessWidget {
   final String? value;
@@ -24,7 +25,7 @@ class MyLabelDropdownButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return DropdownButtonFormField<String>(
       value: value,
-      hint: Text(hintText),
+      hint: Text(hintText, style: context.bodyMedium),
       items:
           labels.entries.map((entry) {
             return DropdownMenuItem<String>(
@@ -50,7 +51,8 @@ class MyLabelDropdownButton extends StatelessWidget {
                   child: Text(
                     option.name,
                     overflow: TextOverflow.ellipsis,
-                    softWrap: false,
+                    softWrap: true,
+                    style: context.bodyMedium.copyWith(height: 1.25),
                   ),
                 ),
               ],
@@ -59,10 +61,9 @@ class MyLabelDropdownButton extends StatelessWidget {
         }).toList();
       },
       isExpanded: true,
+      borderRadius: BorderRadius.circular(25),
       decoration: InputDecoration(
         fillColor: Theme.of(context).colorScheme.surfaceBright,
-        labelText: labelText,
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
       ),
       onChanged: onChanged,
       validator: validator,

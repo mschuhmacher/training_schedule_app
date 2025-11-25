@@ -12,8 +12,7 @@
 // - edit sets or reps during workout
 // 
 // UI:
-// - label button for sessions/workouts/exercises
-// - sort and filter on label
+// - add timer to active screen
 // 
 // workflow: start session --> no saved sessions yet --> 
 // add sessions from preset list or add your own --> save savedSessions locally

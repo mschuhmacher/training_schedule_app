@@ -1,5 +1,3 @@
-// TODO: add unique identifier
-
 import 'package:uuid/uuid.dart';
 
 class Exercise {

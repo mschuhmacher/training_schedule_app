@@ -4,6 +4,12 @@ import 'package:training_schedule_app/models/label.dart';
 const Map<String, Label> kDefaultLabels = {
   'Warm-up': Label(name: 'Warm-up', icon: Icons.wb_sunny, color: Colors.amber),
   'Limit': Label(name: 'Limit', icon: Icons.trending_up, color: Colors.red),
+  'Finger strength': Label(
+    name: 'Finger strength',
+    icon: Icons.fingerprint_outlined,
+    color: Colors.yellow,
+  ),
+
   'Powerendurance': Label(
     name: 'Powerendurance',
     icon: Icons.bolt,

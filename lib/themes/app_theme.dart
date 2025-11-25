@@ -16,36 +16,34 @@ final ThemeData lightAppTheme = ThemeData(
 
   inputDecorationTheme: InputDecorationTheme(
     filled: true,
-    fillColor: AppColorsLight.colorScheme.surface, // background color
-    labelStyle: appTextTheme.labelLarge!.copyWith(
-      color: AppColorsLight.colorScheme.onSurface,
-    ),
+    fillColor: AppColorsLight.colorScheme.surfaceBright, // background color
+    labelStyle: appTextTheme.bodyMedium!,
 
     // Default border
     border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(12),
       borderSide: BorderSide(
-        color: AppColorsLight.colorScheme.outline,
-        width: 1.0,
+        color: AppColorsLight.colorScheme.secondary,
+        width: 1.5,
       ),
+      borderRadius: BorderRadius.circular(25),
     ),
 
     // Border when focused
     focusedBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(12),
       borderSide: BorderSide(
-        color: AppColorsLight.colorScheme.primary,
+        color: AppColorsLight.colorScheme.secondary,
         width: 1.5,
       ),
+      borderRadius: BorderRadius.circular(25),
     ),
 
     // Border when hovered
     enabledBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(12),
       borderSide: BorderSide(
-        color: AppColorsLight.colorScheme.outlineVariant,
-        width: 1.0,
+        color: AppColorsLight.colorScheme.secondary,
+        width: 1.5,
       ),
+      borderRadius: BorderRadius.circular(25),
     ),
 
     // Border when disabled

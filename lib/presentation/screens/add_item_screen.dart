@@ -45,6 +45,8 @@ class _AddItemScreenState extends State<AddItemScreen> {
   void dispose() {
     _titleController.dispose();
     _itemLabelController.dispose();
+    _filterLabelController.dispose();
+    _searchController.dispose();
     _descriptionController.dispose();
     super.dispose();
   }
@@ -82,14 +84,24 @@ class _AddItemScreenState extends State<AddItemScreen> {
                 ? presetData.presetWorkouts
                 : presetData.presetExercises;
 
+        final String labelFilter = _filterLabelController.text.trim();
+
         final List<dynamic> filteredPresetItems =
-            allPresetItems
-                .where(
-                  (item) => item.title.toLowerCase().contains(
-                    _query.toLowerCase().trim(),
-                  ),
-                )
-                .toList();
+            allPresetItems.where((item) {
+              // Check whether presetItems contains the search query typed by user
+              final matchesTitle = item.title.toLowerCase().contains(
+                _query.toLowerCase().trim(),
+              );
+
+              // Check whether presetItems contains the label selected
+              final matchesLabel =
+                  labelFilter.isEmpty
+                      ? true
+                      : (item.label ?? '').toLowerCase() ==
+                          labelFilter.toLowerCase();
+
+              return matchesTitle && matchesLabel;
+            }).toList();
 
         final List<dynamic> selectedPresetItems =
             allPresetItems
@@ -148,7 +160,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                                 list:
                                     selectedPresetItems
                                         .cast<Exercise>()
-                                        .toList(), //TODO: save actual list instead of empty list
+                                        .toList(),
                               );
                               presetData.addPresetWorkout(newWorkout);
                             }
@@ -198,9 +210,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                   decoration: InputDecoration(
                     fillColor: Theme.of(context).colorScheme.surfaceBright,
                     labelText: 'Title',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
+                    labelStyle: context.bodyMedium,
                   ),
                   validator:
                       (value) =>
@@ -237,11 +247,8 @@ class _AddItemScreenState extends State<AddItemScreen> {
               autofocus: true,
               decoration: InputDecoration(
                 fillColor: Theme.of(context).colorScheme.surfaceBright,
-
                 labelText: 'Description',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
+                labelStyle: context.bodyMedium,
               ),
               maxLines: 10,
             ),
@@ -275,9 +282,10 @@ class _AddItemScreenState extends State<AddItemScreen> {
                   child: TextField(
                     controller: _searchController,
                     autofocus: true,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       hintText: 'Search...',
-                      border: OutlineInputBorder(),
+                      hintStyle: context.bodyMedium,
+                      fillColor: Theme.of(context).colorScheme.surfaceBright,
                       isDense: true,
                     ),
                     onChanged: (value) {
@@ -306,6 +314,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
             key: const ValueKey('searchButton'),
             style: OutlinedButton.styleFrom(
               foregroundColor: Theme.of(context).colorScheme.onSecondary,
+              backgroundColor: Theme.of(context).colorScheme.surfaceBright,
               side: BorderSide(
                 color: Theme.of(context).colorScheme.secondary,
                 width: 1.5,
@@ -321,6 +330,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
         if (_isFiltering)
           SizedBox(
             key: const ValueKey('filterField'),
+            height: 48,
             width: MediaQuery.of(context).size.width * 0.54,
             child: Row(
               children: [
@@ -362,6 +372,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
             key: const ValueKey('filterButton'),
             style: OutlinedButton.styleFrom(
               foregroundColor: Theme.of(context).colorScheme.onSecondary,
+              backgroundColor: Theme.of(context).colorScheme.surfaceBright,
               side: BorderSide(
                 color: Theme.of(context).colorScheme.secondary,
                 width: 1.5,
@@ -379,6 +390,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
             : OutlinedButton(
               style: OutlinedButton.styleFrom(
                 foregroundColor: Theme.of(context).colorScheme.onSecondary,
+                backgroundColor: Theme.of(context).colorScheme.surfaceBright,
                 side: BorderSide(
                   color: Theme.of(context).colorScheme.secondary,
                   width: 1.5,
@@ -400,7 +412,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
           padding: const EdgeInsets.only(top: 8.0),
           child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(25),
               border: Border.all(
                 width: 0.5,
                 color: Theme.of(context).colorScheme.onSurface,
