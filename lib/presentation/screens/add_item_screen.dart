@@ -24,10 +24,12 @@ class _AddItemScreenState extends State<AddItemScreen> {
   final _formKey = GlobalKey<FormState>();
 
   final _titleController = TextEditingController();
-  final _labelController = TextEditingController();
+  final _itemLabelController = TextEditingController();
+  final _filterLabelController = TextEditingController();
   final _descriptionController = TextEditingController();
 
   bool _isSearching = false;
+  bool _isFiltering = false;
   final _searchController = TextEditingController();
 
   String _query = '';
@@ -42,7 +44,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
   @override
   void dispose() {
     _titleController.dispose();
-    _labelController.dispose();
+    _itemLabelController.dispose();
     _descriptionController.dispose();
     super.dispose();
   }
@@ -111,7 +113,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                 children: [
                   _buildFormFields(),
                   SizedBox(height: 16),
-                  _buildSearchAndAddRow(context),
+                  _buildSearchFilterAddRow(context),
                   Expanded(flex: 3, child: _buildListView(filteredPresetItems)),
                   SizedBox(height: 8),
                   SizedBox(
@@ -123,7 +125,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             final title = _titleController.text.trim();
-                            final label = _labelController.text.trim();
+                            final label = _itemLabelController.text.trim();
                             final description =
                                 _descriptionController.text.trim();
 
@@ -211,12 +213,12 @@ class _AddItemScreenState extends State<AddItemScreen> {
               Expanded(
                 child: MyLabelDropdownButton(
                   value:
-                      _labelController.text.isNotEmpty
-                          ? _labelController.text
+                      _itemLabelController.text.isNotEmpty
+                          ? _itemLabelController.text
                           : null,
                   onChanged: (value) {
                     setState(() {
-                      _labelController.text = value ?? '';
+                      _itemLabelController.text = value ?? '';
                     });
                   },
                   validator:
@@ -249,7 +251,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
     );
   }
 
-  Row _buildSearchAndAddRow(BuildContext context) {
+  Row _buildSearchFilterAddRow(BuildContext context) {
     return Row(
       children: [
         SizedBox(
@@ -261,60 +263,120 @@ class _AddItemScreenState extends State<AddItemScreen> {
             ),
           ),
         ),
-        _isSearching ? SizedBox.shrink() : Spacer(),
+        _isSearching || _isFiltering ? SizedBox.shrink() : Spacer(),
         // Spacer(),
-        _isSearching
-            ? SizedBox(
-              key: const ValueKey('searchField'),
-              width: MediaQuery.of(context).size.width * 0.55,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      controller: _searchController,
-                      autofocus: true,
-                      decoration: const InputDecoration(
-                        hintText: 'Search...',
-                        border: OutlineInputBorder(),
-                        isDense: true,
-                      ),
-                      onChanged: (value) {
-                        setState(() => _query = value);
-                      },
+        if (_isSearching)
+          SizedBox(
+            key: const ValueKey('searchField'),
+            width: MediaQuery.of(context).size.width * 0.54,
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _searchController,
+                    autofocus: true,
+                    decoration: const InputDecoration(
+                      hintText: 'Search...',
+                      border: OutlineInputBorder(),
+                      isDense: true,
                     ),
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.close),
-                    onPressed: () {
-                      setState(() {
-                        _isSearching = false;
-                        _searchController.clear();
-                        _query = '';
-                        FocusScope.of(context).unfocus();
-                      });
+                    onChanged: (value) {
+                      setState(() => _query = value);
                     },
                   ),
-                ],
-              ),
-            )
-            : OutlinedButton(
-              key: const ValueKey('searchButton'),
-              style: OutlinedButton.styleFrom(
-                foregroundColor: Theme.of(context).colorScheme.onSecondary,
-                side: BorderSide(
-                  color: Theme.of(context).colorScheme.secondary,
-                  width: 1.5,
                 ),
-              ),
-              onPressed: () {
-                setState(() => _isSearching = true);
-              },
-              child: const Icon(Icons.search),
+                IconButton(
+                  icon: const Icon(Icons.close),
+                  onPressed: () {
+                    setState(() {
+                      _isSearching = false;
+                      _searchController.clear();
+                      _query = '';
+                      FocusScope.of(context).unfocus();
+                    });
+                  },
+                ),
+              ],
             ),
+          )
+        else if (_isFiltering)
+          SizedBox.shrink()
+        else
+          OutlinedButton(
+            key: const ValueKey('searchButton'),
+            style: OutlinedButton.styleFrom(
+              foregroundColor: Theme.of(context).colorScheme.onSecondary,
+              side: BorderSide(
+                color: Theme.of(context).colorScheme.secondary,
+                width: 1.5,
+              ),
+            ),
+            onPressed: () {
+              setState(() => _isSearching = true);
+            },
+            child: const Icon(Icons.search),
+          ),
 
-        !_isSearching ? SizedBox(width: 8) : SizedBox.shrink(),
-        !_isSearching
-            ? OutlinedButton(
+        _isSearching ? SizedBox.shrink() : SizedBox(width: 8),
+        if (_isFiltering)
+          SizedBox(
+            key: const ValueKey('filterField'),
+            width: MediaQuery.of(context).size.width * 0.54,
+            child: Row(
+              children: [
+                Expanded(
+                  child: MyLabelDropdownButton(
+                    value:
+                        _filterLabelController.text.isNotEmpty
+                            ? _filterLabelController.text
+                            : null,
+                    onChanged: (value) {
+                      setState(() {
+                        _filterLabelController.text = value ?? '';
+                      });
+                    },
+                    validator:
+                        (value) =>
+                            value == null || value.isEmpty
+                                ? 'Please select a label'
+                                : null,
+                  ),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.close),
+                  onPressed: () {
+                    setState(() {
+                      _isFiltering = false;
+                      _filterLabelController.clear();
+                      FocusScope.of(context).unfocus();
+                    });
+                  },
+                ),
+              ],
+            ),
+          )
+        else if (_isSearching)
+          SizedBox.shrink()
+        else
+          OutlinedButton(
+            key: const ValueKey('filterButton'),
+            style: OutlinedButton.styleFrom(
+              foregroundColor: Theme.of(context).colorScheme.onSecondary,
+              side: BorderSide(
+                color: Theme.of(context).colorScheme.secondary,
+                width: 1.5,
+              ),
+            ),
+            onPressed: () {
+              setState(() => _isFiltering = true);
+            },
+            child: const Icon(Icons.filter_alt_outlined),
+          ),
+
+        _isSearching || _isFiltering ? SizedBox.shrink() : SizedBox(width: 8),
+        _isSearching || _isFiltering
+            ? SizedBox.shrink()
+            : OutlinedButton(
               style: OutlinedButton.styleFrom(
                 foregroundColor: Theme.of(context).colorScheme.onSecondary,
                 side: BorderSide(
@@ -324,8 +386,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
               ),
               onPressed: _onPressedAddButton,
               child: Icon(Icons.add),
-            )
-            : SizedBox.shrink(),
+            ),
       ],
     );
   }
