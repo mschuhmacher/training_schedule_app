@@ -706,6 +706,22 @@ List<Exercise> kDefaultExercises = [
     difficulty: 'Intermediate',
   ),
   Exercise(
+    title: 'One foot',
+    description:
+        'Only one foot on the holds or wall, then switch foot and do the climb again',
+    label: 'Technique',
+    sets: 4,
+    reps: 2,
+    timeBetweenSets: 120,
+    timePerRep: 30,
+    timeBetweenReps: 30,
+    load: 'BW',
+    rpe: 7,
+    equipment: 'Climbing wall',
+    muscleGroups: 'Full body, Power',
+    difficulty: 'Intermediate',
+  ),
+  Exercise(
     title: 'Drop Knee Practice',
     description: 'Practice drop knee positioning',
     label: 'Technique',
