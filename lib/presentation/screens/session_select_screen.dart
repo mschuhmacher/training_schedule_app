@@ -81,7 +81,7 @@ class _SessionSelectScreenState extends State<SessionSelectScreen> {
                   item: currentSessionList[sessionStateData.sessionIndex].list,
                 ),
               ),
-              SizedBox(height: 70),
+              SizedBox(height: 80),
             ],
           ),
           floatingActionButton: Padding(

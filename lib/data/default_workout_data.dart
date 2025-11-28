@@ -282,20 +282,6 @@ List<Workout> kDefaultWorkouts = [
     list: [_findExercise('Dips'), _findExercise('Front Lever Progressions')],
   ),
 
-  Workout(
-    title: 'Barbell Strength Training',
-    label: 'Strength',
-    description: 'Traditional compound lifts for overall strength',
-    difficulty: 'Intermediate',
-    equipment: 'Barbell, Bench',
-    timeBetweenExercises: 180,
-    list: [
-      _findExercise('Bench press'),
-      _findExercise('Romanian deadlift'),
-      _findExercise('Seated overhead dumbbell press'),
-    ],
-  ),
-
   // ============================================================================
   // POWER TRAINING
   // ============================================================================
