@@ -1,13 +1,12 @@
+import 'package:training_schedule_app/_obsolete/obsolete_workout.dart';
 import 'package:training_schedule_app/models/workout.dart';
 import 'package:uuid/uuid.dart';
-
-// TODO: add unique identifier
 
 class Session {
   Session({
     String? id,
     required this.title,
-    this.label,
+    required this.label,
     this.subtitle,
     this.description,
     this.date,
@@ -18,7 +17,7 @@ class Session {
 
   final String id;
   final String title;
-  final String? label;
+  final String label;
   final String? subtitle;
   final String? description;
   final DateTime? date;

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/services.dart';
+import 'package:training_schedule_app/_obsolete/obsolete_exercise.dart';
 import 'package:training_schedule_app/models/exercise.dart';
 import 'package:training_schedule_app/models/session.dart';
+import 'package:training_schedule_app/_obsolete/obsolete_workout.dart';
 import 'package:training_schedule_app/models/workout.dart';
 import 'package:training_schedule_app/presentation/widgets/add_exercise_modal_sheet.dart';
 import 'package:training_schedule_app/presentation/widgets/label_dropdownbutton.dart';
@@ -27,6 +30,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
   final _itemLabelController = TextEditingController();
   final _filterLabelController = TextEditingController();
   final _descriptionController = TextEditingController();
+  final _timeBetweenExercisesController = TextEditingController();
 
   bool _isSearching = false;
   bool _isFiltering = false;
@@ -48,6 +52,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
     _filterLabelController.dispose();
     _searchController.dispose();
     _descriptionController.dispose();
+    _timeBetweenExercisesController.dispose();
     super.dispose();
   }
 
@@ -140,6 +145,8 @@ class _AddItemScreenState extends State<AddItemScreen> {
                             final label = _itemLabelController.text.trim();
                             final description =
                                 _descriptionController.text.trim();
+                            final timeBetweenExercises =
+                                _timeBetweenExercisesController.text.trim();
 
                             if (widget.itemName == 'session') {
                               final newSession = Session(
@@ -157,6 +164,9 @@ class _AddItemScreenState extends State<AddItemScreen> {
                                 title: title,
                                 label: label,
                                 description: description,
+                                timeBetweenExercises: int.parse(
+                                  timeBetweenExercises,
+                                ),
                                 list:
                                     selectedPresetItems
                                         .cast<Exercise>()
@@ -253,6 +263,28 @@ class _AddItemScreenState extends State<AddItemScreen> {
               maxLines: 10,
             ),
           ),
+
+          widget.itemName == 'workout'
+              ? Column(
+                children: [
+                  SizedBox(height: 16),
+                  Expanded(
+                    child: TextFormField(
+                      controller: _timeBetweenExercisesController,
+                      autofocus: true,
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                      decoration: InputDecoration(
+                        fillColor: Theme.of(context).colorScheme.surfaceBright,
+                        labelText: 'Time between exercises',
+                        labelStyle: context.bodyMedium,
+                      ),
+                      maxLines: 10,
+                    ),
+                  ),
+                ],
+              )
+              : SizedBox.shrink(),
         ],
       ),
     );

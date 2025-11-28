@@ -9,7 +9,11 @@ const Map<String, Label> kDefaultLabels = {
     icon: Icons.fingerprint_outlined,
     color: Colors.yellow,
   ),
-
+  'Power': Label(
+    name: 'Power',
+    icon: Icons.flare, // explosion-like icon replacement
+    color: Colors.red,
+  ),
   'Powerendurance': Label(
     name: 'Powerendurance',
     icon: Icons.bolt,
@@ -31,6 +35,11 @@ const Map<String, Label> kDefaultLabels = {
     name: 'Flexibility',
     icon: Icons.self_improvement,
     color: Colors.pink,
+  ),
+  'Daily maintenance': Label(
+    name: 'Daily maintenance',
+    icon: Icons.favorite,
+    color: Colors.redAccent,
   ),
   'Other': Label(name: 'Other', icon: Icons.more_horiz, color: Colors.grey),
 };

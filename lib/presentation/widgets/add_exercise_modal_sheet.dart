@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:training_schedule_app/_obsolete/obsolete_exercise.dart';
 import 'package:training_schedule_app/models/exercise.dart';
 import 'package:training_schedule_app/presentation/widgets/label_dropdownbutton.dart';
 import 'package:training_schedule_app/presentation/widgets/my_arrow_button.dart';
@@ -18,12 +19,12 @@ class _AddExerciseModalSheetState extends State<AddExerciseModalSheet> {
   final _formKey = GlobalKey<FormState>();
 
   final _titleController = TextEditingController();
-  final _subtitleController = TextEditingController();
+  final _timeBetweenRepsController = TextEditingController();
   final _labelController = TextEditingController();
   final _descriptionController = TextEditingController();
   final _loadController = TextEditingController();
   final _timeBetweenSetsController = TextEditingController();
-  final _timeForRepsController = TextEditingController();
+  final _timePerRepController = TextEditingController();
 
   int _numberOfSets = 1;
   int _numberOfReps = 1;
@@ -54,15 +55,6 @@ class _AddExerciseModalSheetState extends State<AddExerciseModalSheet> {
                       autofocus: true,
                       decoration: const InputDecoration(
                         labelText: 'Title',
-                        border: OutlineInputBorder(),
-                      ),
-                    ),
-                    SizedBox(height: 16),
-                    TextFormField(
-                      controller: _subtitleController,
-                      autofocus: true,
-                      decoration: const InputDecoration(
-                        labelText: 'Subtitle',
                         border: OutlineInputBorder(),
                       ),
                     ),
@@ -205,7 +197,7 @@ class _AddExerciseModalSheetState extends State<AddExerciseModalSheet> {
                     ),
                     SizedBox(height: 16),
                     TextFormField(
-                      controller: _timeForRepsController,
+                      controller: _timePerRepController,
                       keyboardType: TextInputType.number,
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       validator: (value) {
@@ -231,7 +223,35 @@ class _AddExerciseModalSheetState extends State<AddExerciseModalSheet> {
                       // },
                       autofocus: true,
                       decoration: const InputDecoration(
-                        labelText: 'Time for reps',
+                        labelText: 'Time per rep',
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    SizedBox(height: 16),
+                    TextFormField(
+                      controller: _timeBetweenRepsController,
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a number';
+                        }
+
+                        final int? number = int.tryParse(value);
+                        if (number == null) {
+                          return 'Please enter a valid integer';
+                        }
+
+                        return null; // valid input
+                      },
+
+                      // onSaved: (value) {
+                      //   final intValue = int.tryParse(value ?? '');
+                      //   // store or use intValue
+                      // },
+                      autofocus: true,
+                      decoration: const InputDecoration(
+                        labelText: 'Time between reps',
                         border: OutlineInputBorder(),
                       ),
                     ),
@@ -274,7 +294,6 @@ class _AddExerciseModalSheetState extends State<AddExerciseModalSheet> {
                         if (_formKey.currentState!.validate()) {
                           final newExercise = Exercise(
                             title: _titleController.text.trim(),
-                            subtitle: _subtitleController.text.trim(),
                             label: _labelController.text.trim(),
                             description: _descriptionController.text.trim(),
                             reps: _numberOfReps,
@@ -282,10 +301,13 @@ class _AddExerciseModalSheetState extends State<AddExerciseModalSheet> {
                             timeBetweenSets: int.parse(
                               _timeBetweenSetsController.text.trim(),
                             ),
-                            timeForReps: int.parse(
-                              _timeForRepsController.text.trim(),
+                            timePerRep: int.parse(
+                              _timePerRepController.text.trim(),
                             ),
-                            load: double.parse(_loadController.text.trim()),
+                            timeBetweenReps: int.parse(
+                              _timeBetweenRepsController.text.trim(),
+                            ),
+                            load: _loadController.text.trim(),
                           );
                           presetData.addPresetExercise(newExercise);
                         }

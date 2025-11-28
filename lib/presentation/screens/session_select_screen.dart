@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:training_schedule_app/data/labels.dart';
 import 'package:training_schedule_app/presentation/screens/add_item_screen.dart';
 import 'package:training_schedule_app/providers/preset_provider.dart';
 import 'package:training_schedule_app/presentation/widgets/session_select_row.dart';
@@ -25,6 +26,9 @@ class _SessionSelectScreenState extends State<SessionSelectScreen> {
     return Consumer2<PresetProvider, SessionStateProvider>(
       builder: (context, presetData, sessionStateData, child) {
         final currentSessionList = presetData.presetSessions;
+        final sessionLabel =
+            kDefaultLabels[currentSessionList[sessionStateData.sessionIndex]
+                .label];
 
         return Scaffold(
           appBar: AppBar(
@@ -61,14 +65,7 @@ class _SessionSelectScreenState extends State<SessionSelectScreen> {
                       currentSessionList[sessionStateData.sessionIndex].title,
                       style: context.h3,
                     ),
-                    currentSessionList[sessionStateData.sessionIndex].label !=
-                            null
-                        ? Text(
-                          currentSessionList[sessionStateData.sessionIndex]
-                              .label!,
-                          style: context.label,
-                        )
-                        : SizedBox.shrink(),
+                    Icon(sessionLabel?.icon, color: sessionLabel?.color),
                   ],
                 ),
               ),

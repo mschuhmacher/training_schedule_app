@@ -1,10 +1,14 @@
 import 'package:flutter/foundation.dart';
+import 'package:training_schedule_app/_obsolete/obsolete_default_exercise_data.dart';
+import 'package:training_schedule_app/_obsolete/obsolete_default_workout_data.dart';
 import 'package:training_schedule_app/data/default_exercise_data.dart';
 import 'package:training_schedule_app/data/default_workout_data.dart';
+import 'package:training_schedule_app/models/exercise.dart';
+import 'package:training_schedule_app/models/workout.dart';
 import 'package:training_schedule_app/services/preset_logger.dart';
 import '../models/session.dart';
-import '../models/workout.dart';
-import '../models/exercise.dart';
+import '../_obsolete/obsolete_workout.dart';
+import '../_obsolete/obsolete_exercise.dart';
 import '../data/default_session_data.dart';
 
 /// Responsibilities:
@@ -47,9 +51,9 @@ class PresetProvider extends ChangeNotifier {
 
     // TODO: change to read the JSONs instead of Dart defined Lists
     // Load defaults
-    _defaultSessions = List.from(defaultSessions);
-    _defaultWorkouts = List.from(defaultWorkouts);
-    _defaultExercises = List.from(defaultExercises);
+    _defaultSessions = List.from(kDefaultSessions);
+    _defaultWorkouts = List.from(kDefaultWorkouts);
+    _defaultExercises = List.from(kDefaultExercises);
 
     // Merge with user presets
     await _loadUserPresetData();
@@ -106,10 +110,10 @@ class PresetProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> addPresetWorkout(Workout block) async {
-    _userWorkouts.add(block);
+  Future<void> addPresetWorkout(Workout workout) async {
+    _userWorkouts.add(workout);
     await PresetLogger.savePresetToFile(
-      'user_preset_blocks.json',
+      'user_preset_workouts.json',
       _userWorkouts,
     );
     notifyListeners();

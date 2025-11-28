@@ -15,7 +15,7 @@ class SessionOverviewScreen extends StatefulWidget {
 
 class _SessionOverviewScreenState extends State<SessionOverviewScreen> {
   // grabs the sessionList from MVP_dummy_data.dart.
-  final currentSessionList = defaultSessions;
+  final currentSessionList = kDefaultSessions;
 
   @override
   Widget build(BuildContext context) {

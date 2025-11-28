@@ -4,48 +4,65 @@ class Exercise {
   Exercise({
     String? id,
     required this.title,
-    this.subtitle,
-    this.label,
-    required this.reps,
-    required this.sets,
-    required this.timeBetweenSets,
-    this.timeForReps,
-    this.load,
     this.description,
-  }) : id = id ?? Uuid().v4();
+    required this.label,
+    required this.sets,
+    required this.reps,
+    required this.timeBetweenSets,
+    required this.timePerRep,
+    required this.timeBetweenReps,
+    required this.load,
+    this.rpe,
+    this.equipment,
+    this.muscleGroups,
+    this.difficulty,
+  }) : id = id ?? const Uuid().v4();
 
   final String id;
   final String title;
-  final String? subtitle;
-  final String? label;
-  int reps = 1;
-  int sets = 1;
-  final int timeBetweenSets;
-  final int? timeForReps;
-  final double? load;
   final String? description;
+  final String label;
+  final int sets;
+  final int reps;
+  final int timeBetweenSets;
+  final int timePerRep;
+  final int timeBetweenReps;
+  final String load;
+  final int? rpe;
+  final String? equipment;
+  final String? muscleGroups;
+  final String? difficulty;
 
   Map<String, dynamic> toJson() => {
     'title': title,
-    'subtitle': subtitle,
-    'label': label,
-    'reps': reps,
-    'sets': sets,
-    'timeBetweenSets': timeBetweenSets,
-    'timeForReps': timeForReps,
-    'load': load,
     'description': description,
+    'label': label,
+    'sets': sets,
+    'reps': reps,
+    'timeBetweenSets': timeBetweenSets,
+    'timePerRep': timePerRep,
+    'timeBetweenReps': timeBetweenReps,
+    'load': load,
+    'rpe': rpe,
+    'equipment': equipment,
+    'muscleGroups': muscleGroups,
+    'difficulty': difficulty,
   };
 
   factory Exercise.fromJson(Map<String, dynamic> json) => Exercise(
+    id: json['id'],
     title: json['title'],
-    subtitle: json['subtitle'],
-    label: json['label'],
-    reps: json['reps'],
-    sets: json['sets'],
-    timeBetweenSets: json['timeBetweenSets'],
-    timeForReps: json['timeForReps'],
-    load: json['load'] != null ? (json['load'] as num).toDouble() : null,
     description: json['description'],
+    label: json['label'],
+    sets: json['sets'],
+    reps: json['reps'],
+    timeBetweenSets: json['timeBetweenSets'],
+    timePerRep: json['timePerRep'],
+    timeBetweenReps: json['timeBetweenReps'],
+    load: json['load'],
+    rpe: json['rpe'],
+    equipment: json['equipment'],
+    muscleGroups: json['muscleGroups'],
+    difficulty: json['difficulty'],
   );
 }

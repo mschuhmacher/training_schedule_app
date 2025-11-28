@@ -16,7 +16,7 @@ class WeekScreen extends StatefulWidget {
 
 class _WeekScreenState extends State<WeekScreen> {
   // grabs the sessionList from dummy_data.dart.
-  final currentSessionList = defaultSessions;
+  final currentSessionList = kDefaultSessions;
 
   @override
   Widget build(BuildContext context) {

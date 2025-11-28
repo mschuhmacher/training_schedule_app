@@ -146,10 +146,7 @@ class _ActiveSessionBottomBarState extends State<ActiveSessionBottomBar> {
                     final finishedSession = Session(
                       id: activeSession.id,
                       title: activeSession.title,
-                      label:
-                          labelController.text.isEmpty
-                              ? null
-                              : labelController.text,
+                      label: labelController.text,
                       description:
                           descriptionController.text.isEmpty
                               ? null

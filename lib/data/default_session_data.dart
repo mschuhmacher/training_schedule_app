@@ -1,19 +1,19 @@
 import 'package:training_schedule_app/data/default_workout_data.dart';
 import 'package:training_schedule_app/models/session.dart';
 
-final List<Session> defaultSessions = [
+final List<Session> kDefaultSessions = [
   Session(
     title: 'Projecting session',
     description: 'Flash tries and projecting',
     date: DateTime.now(),
     label: 'Limit',
     list:
-        defaultWorkouts
+        kDefaultWorkouts
             .where(
               (w) => [
-                'Warm-up',
-                'Flashen en projecten',
-                'Strength training - full body',
+                'General Full-Body Warm-up',
+                'Footwork Fundamentals',
+                'Max Fingerboard Strength',
               ].contains(w.title),
             )
             .toList(),
@@ -22,30 +22,32 @@ final List<Session> defaultSessions = [
     title: 'Powerendurance training',
     description: 'Powerendurance',
     date: DateTime.now(),
+    label: 'Powerendurance',
     list:
-        defaultWorkouts
+        kDefaultWorkouts
             .where(
               (w) => [
-                'Warm-up',
-                'Fingerboard',
-                'Powerendurance',
-                'Strength training - basic',
+                'Climbing-Specific Warm-up',
+                'Fingerboard Strength Builder',
+                'Boulder Pyramid Endurance',
+                'Full-Body Strength Session',
               ].contains(w.title),
             )
             .toList(),
   ),
   Session(
-    title: 'Whatever you want',
-    description: 'Unstructured climbing',
+    title: 'Power',
+    description: 'Training power',
     date: DateTime.now(),
+    label: 'Power',
     list:
-        defaultWorkouts
+        kDefaultWorkouts
             .where(
               (w) => [
-                'Warm-up',
-                'Fingerboard',
-                'Vrij klimmen',
-                'Strength training - back',
+                'Climbing-Specific Warm-up',
+                'Combined Limit Strength',
+                'Dynamic Climbing Power',
+                'Upper Body Powerv',
               ].contains(w.title),
             )
             .toList(),

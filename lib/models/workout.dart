@@ -1,26 +1,30 @@
 import 'package:training_schedule_app/models/exercise.dart';
 import 'package:uuid/uuid.dart';
 
-// TODO: add unique identifier
-
 class Workout {
   Workout({
     String? id,
     required this.title,
     this.subtitle,
-    this.label,
+    required this.label,
     this.description,
     this.date,
     required this.list,
-  }) : id = id ?? Uuid().v4();
+    this.difficulty,
+    this.equipment,
+    required this.timeBetweenExercises,
+  }) : id = id ?? const Uuid().v4();
 
   final String id;
   final String title;
   final String? subtitle;
-  final String? label;
+  final String label;
   final String? description;
   final DateTime? date;
   final List<Exercise> list;
+  final String? difficulty;
+  final String? equipment;
+  final int timeBetweenExercises;
 
   Map<String, dynamic> toJson() => {
     'id': id,
@@ -30,18 +34,24 @@ class Workout {
     'description': description,
     'date': date?.toIso8601String(),
     'list': list.map((e) => e.toJson()).toList(),
+    'difficulty': difficulty,
+    'equipment': equipment,
+    'restBetweenExercises': timeBetweenExercises,
   };
 
   factory Workout.fromJson(Map<String, dynamic> json) => Workout(
     id: json['id'],
     title: json['title'] ?? 'Untitled workout',
     subtitle: json['subtitle'],
-    label: json['label'],
+    label: json['label'] ?? 'Other',
     description: json['description'],
     date: json['date'] != null ? DateTime.tryParse(json['date']) : null,
     list:
         (json['list'] as List<dynamic>? ?? [])
             .map((e) => Exercise.fromJson(e))
             .toList(),
+    difficulty: json['difficulty'],
+    equipment: json['equipment'],
+    timeBetweenExercises: json['restBetweenExercises'] ?? 60,
   );
 }
