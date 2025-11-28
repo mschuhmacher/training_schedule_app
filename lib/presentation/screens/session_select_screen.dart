@@ -59,12 +59,18 @@ class _SessionSelectScreenState extends State<SessionSelectScreen> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30.0),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      currentSessionList[sessionStateData.sessionIndex].title,
-                      style: context.h3,
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.75,
+                      child: Text(
+                        currentSessionList[sessionStateData.sessionIndex].title,
+                        style: context.h3,
+                        overflow: TextOverflow.ellipsis,
+                        softWrap: true,
+                      ),
                     ),
+                    Spacer(),
                     Icon(sessionLabel?.icon, color: sessionLabel?.color),
                   ],
                 ),

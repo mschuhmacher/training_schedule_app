@@ -4,8 +4,6 @@
 // 
 // FEATURES TO BUILD
 // DATA:
-// - expand list of exercises and workouts
-// - revisit data fields per model (session, workout, exercise)?
 //
 // INTERACTION:
 // - edit preset sessions
@@ -13,6 +11,14 @@
 // 
 // UI:
 // - add timer to active screen
+// - add supersets functionality
+// - overhaul session select workflow
+//     - bottom navigation bar with:
+//        - homescreen for logged workouts
+//        - edit sessions / workouts / exercises screen
+//        - profile page
+//     - scrollable list with horizontal scroll per section (label)
+//     - toggle for starting a session or only a workout or exercise
 // 
 // workflow: start session --> no saved sessions yet --> 
 // add sessions from preset list or add your own --> save savedSessions locally

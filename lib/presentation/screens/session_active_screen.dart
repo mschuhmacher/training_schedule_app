@@ -64,26 +64,17 @@ class _ActiveSessionScreenState extends State<ActiveSessionScreen> {
 
         return Scaffold(
           appBar: AppBar(
-            title: Row(
-              children: [
-                Spacer(flex: 1),
-                Text(activeSession.title, style: context.h4),
-                Expanded(
-                  flex: 1,
-                  child: Container(
-                    alignment: Alignment.centerRight,
-                    child: IconButton(
-                      onPressed: () {
-                        _showCloseConfirmationDialog(context);
-                      },
-                      icon: Icon(Icons.close),
-                    ),
-                  ),
-                ),
-              ],
+            leading: IconButton(
+              onPressed: () {
+                _showCloseConfirmationDialog(context);
+              },
+              icon: Icon(Icons.close),
+            ),
+            title: Padding(
+              padding: const EdgeInsets.only(right: 16.0),
+              child: Text(activeSession.title, style: context.h4),
             ),
             centerTitle: true,
-            automaticallyImplyLeading: false,
           ),
           body: Center(
             child: Column(
@@ -112,42 +103,37 @@ class _ActiveSessionScreenState extends State<ActiveSessionScreen> {
                     ),
                   ),
                 ),
-
+                SizedBox(height: 1),
                 Expanded(
                   flex: 12,
-                  child: Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.primary,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(150), // large curve
+                  child: Stack(
+                    children: [
+                      Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.primary,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(150), // large curve
+                          ),
+                        ),
+                        child: null,
                       ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(
-                        60.0,
-                        12.0,
-                        24.0,
-                        12.0,
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(
+                          60.0,
+                          72.0,
+                          24.0,
+                          12.0,
+                        ),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: exerciseWidgets,
+                          ),
+                        ),
                       ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children:
-                            <Widget>[
-                              SizedBox(height: 60),
-                              // Text(
-                              //   activeWorkout.title,
-                              //   style: context.title?.copyWith(
-                              //     color:
-                              //         Theme.of(context).colorScheme.onPrimary,
-                              //   ),
-                              // ),
-                              SizedBox(height: 16),
-                            ] +
-                            exerciseWidgets,
-                      ),
-                    ),
+                    ],
                   ),
                 ),
               ],

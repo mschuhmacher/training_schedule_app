@@ -11,9 +11,9 @@ final List<Session> kDefaultSessions = [
         kDefaultWorkouts
             .where(
               (w) => [
-                'General Full-Body Warm-up',
-                'Footwork Fundamentals',
-                'Max Fingerboard Strength',
+                'Climbing-Specific Warm-up',
+                'Flash and limit bouldering',
+                'Full-Body Strength Session',
               ].contains(w.title),
             )
             .toList(),
@@ -30,7 +30,8 @@ final List<Session> kDefaultSessions = [
                 'Climbing-Specific Warm-up',
                 'Fingerboard Strength Builder',
                 'Boulder Pyramid Endurance',
-                'Full-Body Strength Session',
+                'Push & Antagonist Training',
+                'Quick Core Maintenance',
               ].contains(w.title),
             )
             .toList(),
@@ -47,9 +48,29 @@ final List<Session> kDefaultSessions = [
                 'Climbing-Specific Warm-up',
                 'Combined Limit Strength',
                 'Dynamic Climbing Power',
-                'Upper Body Powerv',
+                'Upper Body Power',
               ].contains(w.title),
             )
+            .toList(),
+  ),
+  Session(
+    title: 'Daily fingerboard and stretching',
+    description: 'Quick light fingerboard and stretching',
+    date: DateTime.now(),
+    label: 'Daily maintenance',
+    list:
+        kDefaultWorkouts
+            .where((w) => ['Daily Mobility & Light Hangs'].contains(w.title))
+            .toList(),
+  ),
+  Session(
+    title: 'Daily evening stretch',
+    description: 'Relaxed stretching at the end of the day',
+    date: DateTime.now(),
+    label: 'Daily maintenance',
+    list:
+        kDefaultWorkouts
+            .where((w) => ['Evening Stretch & Recovery'].contains(w.title))
             .toList(),
   ),
 ];

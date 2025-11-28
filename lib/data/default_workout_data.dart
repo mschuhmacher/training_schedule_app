@@ -207,7 +207,7 @@ List<Workout> kDefaultWorkouts = [
     list: [
       _findExercise('Pull-ups'),
       _findExercise('Push-ups'),
-      _findExercise('Hanging Leg Raises'),
+      _findExercise('Toes to Bar'),
       _findExercise('Pike Push-ups'),
       _findExercise('No Monies'),
     ],
@@ -366,11 +366,11 @@ List<Workout> kDefaultWorkouts = [
   ),
 
   // ============================================================================
-  // LIMIT BOULDERING / FINGER STRENGTH
+  // FINGER STRENGTH
   // ============================================================================
   Workout(
     title: 'Max Fingerboard Strength',
-    label: 'Limit',
+    label: 'Finger strength',
     description: 'Maximum finger strength development',
     difficulty: 'Advanced',
     equipment: 'Hangboard',
@@ -629,6 +629,21 @@ List<Workout> kDefaultWorkouts = [
   ),
 
   Workout(
+    title: 'Daily Mobility & Light Hangs',
+    label: 'Daily maintenance',
+    description: 'Quick daily routine for light fingerboarding and mobility',
+    difficulty: 'Beginner',
+    equipment: 'Hangboard',
+    timeBetweenExercises: 30,
+    list: [
+      _findExercise('Recruitment pulls'),
+      _findExercise('Standing Forward Fold (Wide-legged)'),
+      _findExercise('Recruitment pulls'),
+      _findExercise('Shoulder Dislocates'),
+    ],
+  ),
+
+  Workout(
     title: 'Evening Stretch & Recovery',
     label: 'Daily maintenance',
     description: '15-minute evening routine for recovery and relaxation',
@@ -637,10 +652,10 @@ List<Workout> kDefaultWorkouts = [
     timeBetweenExercises: 20,
     list: [
       _findExercise('Cat-Cow Stretch'),
-      _findExercise('Hip Flexor Stretch'),
-      _findExercise('Seated Forward Fold'),
       _findExercise('Pigeon Pose'),
       _findExercise('Shoulder Dislocates'),
+      _findExercise('Standing Forward Fold (Wide-legged)'),
+      _findExercise('Seated Forward Fold (Single leg)'),
     ],
   ),
 
@@ -703,5 +718,18 @@ List<Workout> kDefaultWorkouts = [
       _findExercise('External Rotations'),
       _findExercise('Face Pulls'),
     ],
+  ),
+
+  // ============================================================================
+  // LIMIT
+  // ============================================================================
+  Workout(
+    title: 'Flash and limit bouldering',
+    label: 'Limit',
+    description: 'Focussing on trying hard',
+    difficulty: 'Intermediate',
+    equipment: 'Climbing wall',
+    timeBetweenExercises: 300,
+    list: [_findExercise('Flash'), _findExercise('Limit bouldering')],
   ),
 ];

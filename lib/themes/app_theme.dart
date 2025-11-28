@@ -7,6 +7,12 @@ final ThemeData lightAppTheme = ThemeData(
   colorScheme: AppColorsLight.colorScheme,
   textTheme: appTextTheme,
   fontFamily: 'Poppins',
+
+  appBarTheme: const AppBarTheme(
+    scrolledUnderElevation: 0,
+    backgroundColor: Colors.transparent,
+  ),
+
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       backgroundColor: AppColorsLight.colorScheme.primary,
@@ -62,6 +68,12 @@ final ThemeData darkAppTheme = ThemeData(
   colorScheme: AppColorsDark.colorScheme,
   textTheme: appTextTheme,
   fontFamily: 'Poppins',
+
+  appBarTheme: const AppBarTheme(
+    scrolledUnderElevation: 0,
+    backgroundColor: Colors.transparent,
+  ),
+
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       backgroundColor: AppColorsDark.colorScheme.primary,
