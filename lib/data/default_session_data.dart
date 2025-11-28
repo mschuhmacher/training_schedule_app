@@ -11,9 +11,9 @@ final List<Session> kDefaultSessions = [
         kDefaultWorkouts
             .where(
               (w) => [
-                'Climbing-Specific Warm-up',
+                'General Warm-up',
                 'Flash and limit bouldering',
-                'Full-Body Strength Session',
+                'Full-Body Strength Workout',
               ].contains(w.title),
             )
             .toList(),
@@ -27,7 +27,7 @@ final List<Session> kDefaultSessions = [
         kDefaultWorkouts
             .where(
               (w) => [
-                'Climbing-Specific Warm-up',
+                'General Warm-up',
                 'Fingerboard Strength Builder',
                 'Boulder Pyramid Endurance',
                 'Push & Antagonist Training',
@@ -45,10 +45,28 @@ final List<Session> kDefaultSessions = [
         kDefaultWorkouts
             .where(
               (w) => [
-                'Climbing-Specific Warm-up',
+                'General Warm-up',
                 'Combined Limit Strength',
                 'Dynamic Climbing Power',
                 'Upper Body Power',
+              ].contains(w.title),
+            )
+            .toList(),
+  ),
+  Session(
+    title: 'Full body strength training',
+    description: 'No climbing, just strength and finger training',
+    date: DateTime.now(),
+    label: 'Strength',
+    list:
+        kDefaultWorkouts
+            .where(
+              (w) => [
+                'General Warm-up',
+                'Weighted pull-ups, pick-ups, hamstring stretch',
+                'Handstand Progression Training',
+                'Dips and front lever',
+                'Barbell Strength Training',
               ].contains(w.title),
             )
             .toList(),

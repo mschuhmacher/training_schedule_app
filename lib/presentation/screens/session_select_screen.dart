@@ -67,7 +67,7 @@ class _SessionSelectScreenState extends State<SessionSelectScreen> {
                         currentSessionList[sessionStateData.sessionIndex].title,
                         style: context.h3,
                         overflow: TextOverflow.ellipsis,
-                        softWrap: true,
+                        softWrap: false,
                       ),
                     ),
                     Spacer(),

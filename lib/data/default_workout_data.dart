@@ -13,7 +13,23 @@ List<Workout> kDefaultWorkouts = [
   // WARM-UPS
   // ============================================================================
   Workout(
-    title: 'General Full-Body Warm-up',
+    title: 'General Warm-up',
+    label: 'Warm-up',
+    description: 'Finger and major muscle groups warm-up',
+    difficulty: 'Beginner',
+    equipment: 'None',
+    timeBetweenExercises: 15,
+    list: [
+      _findExercise('Repeaters'),
+      _findExercise('Band-assisted pull-ups'),
+      _findExercise('Push-ups'),
+      _findExercise('No Monies'),
+      _findExercise('External Rotations'),
+    ],
+  ),
+
+  Workout(
+    title: 'Basic Warm-up',
     label: 'Warm-up',
     description: 'Complete warm-up for any training session',
     difficulty: 'Beginner',
@@ -198,7 +214,7 @@ List<Workout> kDefaultWorkouts = [
   ),
 
   Workout(
-    title: 'Full-Body Strength Session',
+    title: 'Full-Body Strength Workout',
     label: 'Strength',
     description: 'Balanced full-body workout combining push, pull, and core',
     difficulty: 'Intermediate',
@@ -236,10 +252,47 @@ List<Workout> kDefaultWorkouts = [
     equipment: 'Barbell, Bench',
     timeBetweenExercises: 180,
     list: [
-      _findExercise('Deadlift'),
       _findExercise('Bench press'),
-      _findExercise('Military press'),
       _findExercise('Romanian deadlift'),
+      _findExercise('Seated overhead dumbbell press'),
+    ],
+  ),
+
+  Workout(
+    title: 'Weighted pull-ups, pick-ups, hamstring stretch',
+    label: 'Strength',
+    description: 'Superset of 3 exercises',
+    difficulty: 'Intermediate',
+    equipment: 'Weight belt, pull-up bar, loading pin',
+    timeBetweenExercises: 0,
+    list: [
+      _findExercise('Weighted Pull-ups'),
+      _findExercise('Pick-ups'),
+      _findExercise('Standing Forward Fold (Wide-legged)'),
+    ],
+  ),
+
+  Workout(
+    title: 'Dips and front lever',
+    label: 'Strength',
+    description: 'Superset of 2',
+    difficulty: 'Intermediate',
+    equipment: 'Parallel bars, pull-up bar',
+    timeBetweenExercises: 180,
+    list: [_findExercise('Dips'), _findExercise('Front Lever Progressions')],
+  ),
+
+  Workout(
+    title: 'Barbell Strength Training',
+    label: 'Strength',
+    description: 'Traditional compound lifts for overall strength',
+    difficulty: 'Intermediate',
+    equipment: 'Barbell, Bench',
+    timeBetweenExercises: 180,
+    list: [
+      _findExercise('Bench press'),
+      _findExercise('Romanian deadlift'),
+      _findExercise('Seated overhead dumbbell press'),
     ],
   ),
 
@@ -506,7 +559,7 @@ List<Workout> kDefaultWorkouts = [
     equipment: 'Wall',
     timeBetweenExercises: 90,
     list: [
-      _findExercise('Pike Push-ups'),
+      _findExercise('Freestanding Handstand'),
       _findExercise('Handstand Hold (Wall)'),
       _findExercise('Handstand Taps (Wall)'),
       _findExercise('Crow Pose'),
