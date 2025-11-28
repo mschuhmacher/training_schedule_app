@@ -34,7 +34,12 @@ class MyLabelDropdownButton extends StatelessWidget {
                 children: [
                   Icon(entry.value.icon, color: entry.value.color, size: 20),
                   const SizedBox(width: 8),
-                  Text(entry.value.name),
+                  Expanded(
+                    child: Text(
+                      entry.value.name,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
                 ],
               ),
             );

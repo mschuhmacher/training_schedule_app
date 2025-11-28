@@ -119,7 +119,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
             surfaceTintColor:
                 Colors
                     .transparent, //disables Material3 overlay. I.e. doesn't change the color of the appBar when the ListView scrolls
-          ), //TODO: add close button?
+          ),
           body: Form(
             key: _formKey,
             child: Padding(
@@ -128,7 +128,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                 // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buildFormFields(),
+                  _buildFormFields(), // TODO: fix spacing issues
                   SizedBox(height: 16),
                   _buildSearchFilterAddRow(context),
                   Expanded(flex: 3, child: _buildListView(filteredPresetItems)),
@@ -229,7 +229,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                               : null,
                 ),
               ),
-              SizedBox(width: 24),
+              SizedBox(width: 16),
               Expanded(
                 child: MyLabelDropdownButton(
                   value:
@@ -251,40 +251,39 @@ class _AddItemScreenState extends State<AddItemScreen> {
             ],
           ),
           SizedBox(height: 16),
-          Expanded(
-            child: TextFormField(
-              controller: _descriptionController,
-              autofocus: true,
-              decoration: InputDecoration(
-                fillColor: Theme.of(context).colorScheme.surfaceBright,
-                labelText: 'Description',
-                labelStyle: context.bodyMedium,
+          Row(
+            children: [
+              Expanded(
+                flex: 3,
+                child: TextFormField(
+                  controller: _descriptionController,
+                  autofocus: true,
+                  decoration: InputDecoration(
+                    fillColor: Theme.of(context).colorScheme.surfaceBright,
+                    labelText: 'Description',
+                    labelStyle: context.bodyMedium,
+                  ),
+                ),
               ),
-              maxLines: 10,
-            ),
-          ),
-
-          widget.itemName == 'workout'
-              ? Column(
-                children: [
-                  SizedBox(height: 16),
-                  Expanded(
-                    child: TextFormField(
-                      controller: _timeBetweenExercisesController,
-                      autofocus: true,
-                      keyboardType: TextInputType.number,
-                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                      decoration: InputDecoration(
-                        fillColor: Theme.of(context).colorScheme.surfaceBright,
-                        labelText: 'Time between exercises',
-                        labelStyle: context.bodyMedium,
-                      ),
-                      maxLines: 10,
+              if (widget.itemName == 'workout') ...[
+                SizedBox(width: 16),
+                Expanded(
+                  child: TextFormField(
+                    controller: _timeBetweenExercisesController,
+                    autofocus: true,
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                    decoration: InputDecoration(
+                      fillColor: Theme.of(context).colorScheme.surfaceBright,
+                      labelText:
+                          'Time between exercises', //TODO: too long, fix this
+                      labelStyle: context.bodyMedium,
                     ),
                   ),
-                ],
-              )
-              : SizedBox.shrink(),
+                ),
+              ],
+            ],
+          ),
         ],
       ),
     );
