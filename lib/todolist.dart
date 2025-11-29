@@ -8,6 +8,9 @@
 // INTERACTION:
 // - edit preset sessions
 // - edit sets or reps during workout
+// - add loading screen
+// - add app icon
+// - change app name
 // 
 // UI:
 // - add timer to active screen
@@ -16,7 +19,10 @@
 //     - bottom navigation bar with:
 //        - homescreen for logged workouts
 //        - edit sessions / workouts / exercises screen
-//        - profile page
+//        - profile page 
+//            - app theme toggle
+//            - clear logs
+//            - privacy statement
 //     - scrollable list with horizontal scroll per section (label)
 //     - toggle for starting a session or only a workout or exercise
 // 
