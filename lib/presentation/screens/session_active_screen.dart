@@ -38,6 +38,8 @@ class _ActiveSessionScreenState extends State<ActiveSessionScreen> {
                           color: Theme.of(context).colorScheme.onPrimary,
                           fontWeight: FontWeight.bold,
                         ),
+                        softWrap: true,
+                        maxLines: 2,
                       ),
                       SizedBox(height: 4),
                       Text(
@@ -51,13 +53,26 @@ class _ActiveSessionScreenState extends State<ActiveSessionScreen> {
                 )
                 .toList();
         List<Widget> workoutNames =
-            activeSession.list.map((name) => Text(name.title)).toList();
+            activeSession.list
+                .map(
+                  (name) => Text(
+                    name.title,
+                    style: context.bodyMedium,
+                    softWrap: true,
+                    maxLines: 2,
+                    textAlign: TextAlign.end,
+                  ),
+                )
+                .toList();
         // Highlight the title of the current block in a list of block titles
         for (int i = 0; i < workoutNames.length; i++) {
           if (i == sessionStateData.workoutIndex) {
             workoutNames[i] = Text(
               activeSession.list[i].title,
               style: context.h3,
+              softWrap: true,
+              maxLines: 2,
+              textAlign: TextAlign.end,
             );
           }
         }
@@ -81,31 +96,29 @@ class _ActiveSessionScreenState extends State<ActiveSessionScreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 SizedBox(height: 24),
-                Expanded(
-                  flex: 5,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(12.0, 12.0, 36.0, 12.0),
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: FractionallySizedBox(
-                        widthFactor: 0.9,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: List.from(workoutNames)..addAll([
-                            Text(
-                              '\n ${activeWorkout.description}',
-                              textAlign: TextAlign.end,
-                            ),
-                          ]),
-                          // Create new list from block names and add the block description to it with a whiteline in between
-                        ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(12.0, 12.0, 36.0, 12.0),
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: FractionallySizedBox(
+                      widthFactor: 0.95,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: List.from(workoutNames)..addAll([
+                          Text(
+                            '\n ${activeWorkout.description}',
+                            style: context.bodyMedium,
+                            textAlign: TextAlign.end,
+                          ),
+                          SizedBox(height: 8),
+                        ]),
+                        // Create new list from block names and add the block description to it with a whiteline in between
                       ),
                     ),
                   ),
                 ),
-                SizedBox(height: 1),
                 Expanded(
-                  flex: 12,
+                  // flex: 12,
                   child: Stack(
                     children: [
                       Container(
