@@ -85,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 24, top: 12),
+                  padding: const EdgeInsets.only(left: 24, top: 24),
                   child: Text('Hey, ready to climb?', style: context.h1),
                 ),
 
