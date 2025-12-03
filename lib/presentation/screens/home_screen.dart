@@ -24,26 +24,9 @@ class _HomeScreenState extends State<HomeScreen> {
   final Map<int, GlobalKey> _iconButtonKeys = {};
 
   @override
-  void initState() {
-    super.initState();
-    Future.microtask(() async {
-      if (!mounted) return;
-      await Provider.of<SessionLogProvider>(context, listen: false).init();
-
-      if (!mounted) return;
-      await Provider.of<PresetProvider>(context, listen: false).init();
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Consumer<SessionLogProvider>(
       builder: (BuildContext context, sessionLogData, Widget? child) {
-        if (sessionLogData.isLoading) {
-          return const Scaffold(
-            body: Center(child: CircularProgressIndicator()),
-          );
-        }
         // Reverse the list to show the latest sessions first
         List<Session> selectedSessions =
             sessionLogData.selectedSessions.reversed.toList();

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
+import 'package:training_schedule_app/presentation/screens/loading_screen.dart';
 
 import 'package:training_schedule_app/providers/preset_provider.dart';
 import 'package:training_schedule_app/providers/session_log_provider.dart';
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
       theme: lightAppTheme,
       darkTheme: darkAppTheme,
       themeMode: ThemeMode.system,
-      home: HomeScreen(),
+      home: const LoadingScreen(),
     );
   }
 }

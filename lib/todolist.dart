@@ -11,6 +11,7 @@
 // - add loading screen
 // - add app icon
 // - change app name
+// - when completing / logging session, autofill label with the label from the session, so users don't have to edit
 // 
 // UI:
 // - add timer to active screen
