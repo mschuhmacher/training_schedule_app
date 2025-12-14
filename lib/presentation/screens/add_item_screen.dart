@@ -113,89 +113,98 @@ class _AddItemScreenState extends State<AddItemScreen> {
                 .where((item) => _selectedItemIds.contains(item.id))
                 .toList();
 
-        return Scaffold(
-          appBar: AppBar(
-            title: Text('New ${widget.itemName}', style: context.h4),
-            surfaceTintColor:
-                Colors
-                    .transparent, //disables Material3 overlay. I.e. doesn't change the color of the appBar when the ListView scrolls
-          ),
-          body: Form(
-            key: _formKey,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Column(
-                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildFormFields(), // TODO: fix spacing issues
-                  SizedBox(height: 16),
-                  _buildSearchFilterAddRow(context),
-                  Expanded(flex: 3, child: _buildListView(filteredPresetItems)),
-                  SizedBox(height: 8),
-                  SizedBox(
-                    //TODO: extract widget?
-                    height: 50,
-                    child: Center(
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(textStyle: context.h4),
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            final title = _titleController.text.trim();
-                            final label = _itemLabelController.text.trim();
-                            final description =
-                                _descriptionController.text.trim();
-                            final timeBetweenExercises =
-                                _timeBetweenExercisesController.text.trim();
-
-                            if (widget.itemName == 'session') {
-                              final newSession = Session(
-                                title: title,
-                                label: label,
-                                description: description,
-                                list:
-                                    selectedPresetItems
-                                        .cast<Workout>()
-                                        .toList(),
-                              );
-                              presetData.addPresetSession(newSession);
-                            } else if (widget.itemName == 'workout') {
-                              final newWorkout = Workout(
-                                title: title,
-                                label: label,
-                                description: description,
-                                timeBetweenExercises: int.parse(
-                                  timeBetweenExercises,
-                                ),
-                                list:
-                                    selectedPresetItems
-                                        .cast<Exercise>()
-                                        .toList(),
-                              );
-                              presetData.addPresetWorkout(newWorkout);
-                            }
-
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Form submitted successfully!'),
-                              ),
-                            );
-
-                            Navigator.pop(context);
-                          }
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 24,
-                            vertical: 4,
+        return GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
+          child: Scaffold(
+            resizeToAvoidBottomInset: false,
+            appBar: AppBar(
+              title: Text('New ${widget.itemName}', style: context.h4),
+              surfaceTintColor:
+                  Colors
+                      .transparent, //disables Material3 overlay. I.e. doesn't change the color of the appBar when the ListView scrolls
+            ),
+            body: Form(
+              key: _formKey,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Column(
+                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildFormFields(), // TODO: fix spacing issues
+                    SizedBox(height: 16),
+                    _buildSearchFilterAddRow(context),
+                    Expanded(
+                      flex: 3,
+                      child: _buildListView(filteredPresetItems),
+                    ),
+                    SizedBox(height: 8),
+                    SizedBox(
+                      //TODO: extract widget?
+                      height: 50,
+                      child: Center(
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            textStyle: context.h4,
                           ),
-                          child: Text('Save ${widget.itemName}'),
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              final title = _titleController.text.trim();
+                              final label = _itemLabelController.text.trim();
+                              final description =
+                                  _descriptionController.text.trim();
+                              final timeBetweenExercises =
+                                  _timeBetweenExercisesController.text.trim();
+
+                              if (widget.itemName == 'session') {
+                                final newSession = Session(
+                                  title: title,
+                                  label: label,
+                                  description: description,
+                                  list:
+                                      selectedPresetItems
+                                          .cast<Workout>()
+                                          .toList(),
+                                );
+                                presetData.addPresetSession(newSession);
+                              } else if (widget.itemName == 'workout') {
+                                final newWorkout = Workout(
+                                  title: title,
+                                  label: label,
+                                  description: description,
+                                  timeBetweenExercises: int.parse(
+                                    timeBetweenExercises,
+                                  ),
+                                  list:
+                                      selectedPresetItems
+                                          .cast<Exercise>()
+                                          .toList(),
+                                );
+                                presetData.addPresetWorkout(newWorkout);
+                              }
+
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('Form submitted successfully!'),
+                                ),
+                              );
+
+                              Navigator.pop(context);
+                            }
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 24,
+                              vertical: 4,
+                            ),
+                            child: Text('Save ${widget.itemName}'),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(height: 50),
-                ],
+                    SizedBox(height: 50),
+                  ],
+                ),
               ),
             ),
           ),
