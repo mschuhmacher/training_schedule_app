@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
-import 'package:training_schedule_app/_obsolete/obsolete_exercise.dart';
 import 'package:training_schedule_app/models/exercise.dart';
 import 'package:training_schedule_app/models/session.dart';
-import 'package:training_schedule_app/_obsolete/obsolete_workout.dart';
 import 'package:training_schedule_app/models/workout.dart';
 import 'package:training_schedule_app/presentation/widgets/add_exercise_modal_sheet.dart';
 import 'package:training_schedule_app/presentation/widgets/label_dropdownbutton.dart';
@@ -38,6 +36,8 @@ class _AddItemScreenState extends State<AddItemScreen> {
 
   String _query = '';
   late final String listItemName;
+
+  bool _isListTileExpanded = false;
 
   @override
   void initState() {
@@ -140,7 +140,6 @@ class _AddItemScreenState extends State<AddItemScreen> {
                     ),
                     SizedBox(height: 8),
                     SizedBox(
-                      //TODO: extract widget?
                       height: 50,
                       child: Center(
                         child: ElevatedButton(
@@ -213,88 +212,86 @@ class _AddItemScreenState extends State<AddItemScreen> {
     );
   }
 
-  Expanded _buildFormFields() {
-    return Expanded(
-      flex: 2,
-      child: Column(
-        children: [
-          SizedBox(height: 16),
-          Row(
-            children: [
-              Expanded(
-                flex: 1,
-                child: TextFormField(
-                  controller: _titleController,
-                  autofocus: true,
-                  decoration: InputDecoration(
-                    fillColor: Theme.of(context).colorScheme.surfaceBright,
-                    labelText: 'Title',
-                    labelStyle: context.bodyMedium,
-                  ),
-                  validator:
-                      (value) =>
-                          value == null || value.isEmpty
-                              ? 'Please enter a title'
-                              : null,
+  Column _buildFormFields() {
+    return Column(
+      children: [
+        SizedBox(height: 16),
+        Row(
+          children: [
+            Expanded(
+              flex: 1,
+              child: TextFormField(
+                controller: _titleController,
+                autofocus: true,
+                decoration: InputDecoration(
+                  fillColor: Theme.of(context).colorScheme.surfaceBright,
+                  labelText: 'Title',
+                  labelStyle: context.bodyMedium,
+                ),
+                validator:
+                    (value) =>
+                        value == null || value.isEmpty
+                            ? 'Please enter a title'
+                            : null,
+              ),
+            ),
+            SizedBox(width: 16),
+            Expanded(
+              child: MyLabelDropdownButton(
+                value:
+                    _itemLabelController.text.isNotEmpty
+                        ? _itemLabelController.text
+                        : null,
+                onChanged: (value) {
+                  setState(() {
+                    _itemLabelController.text = value ?? '';
+                  });
+                },
+                validator:
+                    (value) =>
+                        value == null || value.isEmpty
+                            ? 'Please select a label'
+                            : null,
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 16),
+        Row(
+          children: [
+            Expanded(
+              flex: 3,
+              child: TextFormField(
+                controller: _descriptionController,
+                autofocus: true,
+                decoration: InputDecoration(
+                  fillColor: Theme.of(context).colorScheme.surfaceBright,
+                  labelText: 'Description',
+                  labelStyle: context.bodyMedium,
                 ),
               ),
+            ),
+            if (widget.itemName == 'workout') ...[
               SizedBox(width: 16),
               Expanded(
-                child: MyLabelDropdownButton(
-                  value:
-                      _itemLabelController.text.isNotEmpty
-                          ? _itemLabelController.text
-                          : null,
-                  onChanged: (value) {
-                    setState(() {
-                      _itemLabelController.text = value ?? '';
-                    });
-                  },
-                  validator:
-                      (value) =>
-                          value == null || value.isEmpty
-                              ? 'Please select a label'
-                              : null,
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 16),
-          Row(
-            children: [
-              Expanded(
-                flex: 3,
                 child: TextFormField(
-                  controller: _descriptionController,
+                  controller: _timeBetweenExercisesController,
                   autofocus: true,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   decoration: InputDecoration(
                     fillColor: Theme.of(context).colorScheme.surfaceBright,
-                    labelText: 'Description',
+                    labelText:
+                        'Time between exercises', //TODO: too long, fix this
                     labelStyle: context.bodyMedium,
                   ),
                 ),
               ),
-              if (widget.itemName == 'workout') ...[
-                SizedBox(width: 16),
-                Expanded(
-                  child: TextFormField(
-                    controller: _timeBetweenExercisesController,
-                    autofocus: true,
-                    keyboardType: TextInputType.number,
-                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                    decoration: InputDecoration(
-                      fillColor: Theme.of(context).colorScheme.surfaceBright,
-                      labelText:
-                          'Time between exercises', //TODO: too long, fix this
-                      labelStyle: context.bodyMedium,
-                    ),
-                  ),
-                ),
-              ],
             ],
-          ),
-        ],
-      ),
+          ],
+        ),
+        SizedBox(height: 24),
+      ],
     );
   }
 
@@ -461,6 +458,8 @@ class _AddItemScreenState extends State<AddItemScreen> {
               boxShadow: context.shadowSmall,
             ),
             child: ListTile(
+              contentPadding: EdgeInsets.fromLTRB(8, 8, 16, 0),
+              minVerticalPadding: 0,
               leading: Checkbox(
                 value: _selectedItemIds.contains(filteredPresetItems[index].id),
                 onChanged: (bool? value) {
@@ -477,13 +476,47 @@ class _AddItemScreenState extends State<AddItemScreen> {
                 filteredPresetItems[index].title,
                 style: context.titleMedium,
               ),
-              subtitle:
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
                   filteredPresetItems[index].description != null
                       ? Text(
                         filteredPresetItems[index].description!,
                         style: context.bodyMedium,
                       )
                       : SizedBox.shrink(),
+                  if (_isListTileExpanded &&
+                      filteredPresetItems[index] is Workout) ...<Widget>[
+                    SizedBox(height: 2),
+                    Text('Exercises:'),
+                    for (final exercise in filteredPresetItems[index].list)
+                      Text(exercise.title),
+                  ] else if (_isListTileExpanded &&
+                      filteredPresetItems[index] is Exercise) ...<Widget>[
+                    SizedBox(height: 2),
+                    Text(
+                      'Load:',
+                    ), //TODO: edit to display more useful information
+                    Text(filteredPresetItems[index].load),
+                  ],
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: IconButton(
+                      visualDensity: VisualDensity.compact,
+                      icon: Icon(
+                        _isListTileExpanded
+                            ? Icons.expand_less
+                            : Icons.expand_more,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _isListTileExpanded = !_isListTileExpanded;
+                        });
+                      },
+                    ),
+                  ),
+                ],
+              ),
               trailing: Icon(Icons.edit), //TODO: make editable
             ),
           ),
