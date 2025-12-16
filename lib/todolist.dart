@@ -8,7 +8,6 @@
 // INTERACTION:
 // - edit preset sessions
 // - edit sets or reps during workout
-// - add loading screen
 // - add app icon
 // - change app name
 // - when completing / logging session, autofill label with the label from the session, so users don't have to edit
@@ -16,6 +15,12 @@
 // UI:
 // - add timer to active screen
 // - add supersets functionality
+
+
+
+// IDEAS:
+// - user can start only a workout or exercise
+//     -toggle for starting a session or only a workout or exercise
 // - overhaul session select workflow
 //     - bottom navigation bar with:
 //        - homescreen for logged workouts
@@ -24,11 +29,12 @@
 //            - app theme toggle
 //            - clear logs
 //            - privacy statement
-//     - scrollable list with horizontal scroll per section (label)
-//     - toggle for starting a session or only a workout or exercise
+//     - Grid view of different labels / phases of exercises
+//        - Warm-up, Climbing, Gym, Stretching, Skills, Daily?
+//        - Click on grid item to go to all workouts of that type
+//        - Can only add new workouts within this screen
+//        - scrollable list with horizontal scroll per section (label)??
 // 
-// workflow: start session --> no saved sessions yet --> 
-// add sessions from preset list or add your own --> save savedSessions locally
 // 
 // BUGS:
 
