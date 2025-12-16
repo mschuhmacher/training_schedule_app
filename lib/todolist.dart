@@ -10,7 +10,6 @@
 // - edit sets or reps during workout
 // - add app icon
 // - change app name
-// - when completing / logging session, autofill label with the label from the session, so users don't have to edit
 // 
 // UI:
 // - add timer to active screen
@@ -21,6 +20,7 @@
 // IDEAS:
 // - user can start only a workout or exercise
 //     -toggle for starting a session or only a workout or exercise
+//
 // - overhaul session select workflow
 //     - bottom navigation bar with:
 //        - homescreen for logged workouts

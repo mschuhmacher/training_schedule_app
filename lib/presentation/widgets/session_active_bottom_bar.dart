@@ -74,7 +74,7 @@ class _ActiveSessionBottomBarState extends State<ActiveSessionBottomBar> {
     Session activeSession,
     SessionLogProvider sessionLogData,
   ) {
-    final labelController = TextEditingController();
+    final labelController = TextEditingController(text: activeSession.label);
     final descriptionController = TextEditingController();
 
     showDialog(
@@ -100,10 +100,10 @@ class _ActiveSessionBottomBarState extends State<ActiveSessionBottomBar> {
                 ),
                 SizedBox(height: 24),
                 MyLabelDropdownButton(
-                  value:
-                      labelController.text.isNotEmpty
-                          ? labelController.text
-                          : null,
+                  value: activeSession.label,
+                  // labelController.text.isNotEmpty
+                  //     ? labelController.text
+                  //     : null,
                   onChanged: (value) {
                     setState(() {
                       labelController.text = value ?? '';
