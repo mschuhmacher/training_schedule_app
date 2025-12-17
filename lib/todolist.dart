@@ -1,25 +1,42 @@
 // GENERAL APPROACH
-// UI overview to view training schedules:
-// Homescreen which shows almost nothing. Navigation options to training plans 
-// Training plan >> week >> day (session) >> exercises 
-// Currently got a nice UI to show the sessions and their exercises
-
-// STATUS
-// think about what the weekScreen and sessionScreen are for. What is their goal, what do they display?
-
+// HomeScreen shows a start session button, a calendar, and a list of historical sessions
+// 
+// 
 // FEATURES TO BUILD
-// VIEWS:
-// - Homescreen
-// - training plan
-// - active training plan
-// - week screen
-// BACK-END:
-// - offline local storage (SQLite or Hive)
-// - page routing
-// - state mgmt solution 
+// DATA:
+//
 // INTERACTION:
-// - adding new training plan / session / workout (copy from previous build?)
+// - edit preset sessions
+// - edit sets or reps during workout
+// - add app icon
+// - change app name
+// - when completing / logging session, autofill label with the label from the session, so users don't have to edit
+// 
+// UI:
+// - add timer to active screen
+// - add supersets functionality
 
+
+
+// IDEAS:
+// - user can start only a workout or exercise
+//     -toggle for starting a session or only a workout or exercise
+// - overhaul session select workflow
+//     - bottom navigation bar with:
+//        - homescreen for logged workouts
+//        - edit sessions / workouts / exercises screen
+//        - profile page 
+//            - app theme toggle
+//            - clear logs
+//            - privacy statement
+//     - Grid view of different labels / phases of exercises
+//        - Warm-up, Climbing, Gym, Stretching, Skills, Daily?
+//        - Click on grid item to go to all workouts of that type
+//        - Can only add new workouts within this screen
+//        - scrollable list with horizontal scroll per section (label)??
+// 
+// 
+// BUGS:
 
 
 
@@ -28,10 +45,15 @@
 
 
 // LATER STAGE
-// - workout screen which shows the current session and exercises with timers / progressions
+// - timers / progressions
 // - timers without adding sessions/exercises first
 // - user profiles
-// - online mode (cloud storage)
+// - online mode (cloud storage)?
+
+// IDEAS
+// user profiles, can search and add friends
+// user can create public and private sessions
+// user can add sessions from others (great for teams and coaches)
 
 
 
