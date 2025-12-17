@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:training_schedule_app/models/exercise.dart';
 import 'package:training_schedule_app/models/workout.dart';
 import 'package:training_schedule_app/providers/preset_provider.dart';
 import 'package:training_schedule_app/presentation/widgets/session_active_bottom_bar.dart';
@@ -32,13 +33,18 @@ class _ActiveSessionScreenState extends State<ActiveSessionScreen> {
 
         // Initialize the timer once when the screen first builds.
         if (!_timerInitialized) {
-          sessionStateData.start(activeSession);
-          _timerInitialized = true;
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            // Guard again in case the widget unmounted before the callback.
+            if (!mounted || _timerInitialized) return;
+            sessionStateData.start(activeSession);
+            _timerInitialized = true;
+          });
         }
 
         final progress = sessionStateData.progress;
 
         Workout activeWorkout = activeSession.list[progress.workoutIndex];
+        Exercise activeExercise = activeWorkout.list[progress.exerciseIndex];
 
         List<Widget> exerciseWidgets =
             activeWorkout.list
@@ -124,25 +130,7 @@ class _ActiveSessionScreenState extends State<ActiveSessionScreen> {
                             style: context.bodyMedium,
                             textAlign: TextAlign.end,
                           ),
-                          SizedBox(height: 8),
-                          Text(
-                            'Phase: ${sessionStateData.phase.name} • '
-                            'Set ${progress.currentSet}, Rep ${progress.currentRep}',
-                            style: Theme.of(
-                              context,
-                            ).textTheme.bodySmall?.copyWith(
-                              color: Theme.of(context).colorScheme.onPrimary,
-                            ),
-                            textAlign: TextAlign.end,
-                          ),
-                          Text(
-                            'Remaining: ${_formatDuration(sessionStateData.remaining)}',
-                            style: context.bodyLarge.copyWith(
-                              color: Theme.of(context).colorScheme.onPrimary,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            textAlign: TextAlign.end,
-                          ),
+
                           SizedBox(height: 8),
                         ]),
                         // Create new list from block names and add the block description to it with a whiteline in between
@@ -175,7 +163,28 @@ class _ActiveSessionScreenState extends State<ActiveSessionScreen> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: exerciseWidgets,
+                            children: [
+                              ...exerciseWidgets,
+                              SizedBox(height: 16),
+                              Text(
+                                '${activeExercise.title} • Set ${progress.currentSet}/${activeExercise.sets} • '
+                                'Rep ${progress.currentRep}/${activeExercise.reps}',
+                                style: context.bodyMedium.copyWith(
+                                  color:
+                                      Theme.of(context).colorScheme.onPrimary,
+                                ),
+                                textAlign: TextAlign.end,
+                              ),
+                              Text(
+                                'Phase: ${sessionStateData.phase.name} • Remaining: ${_formatDuration(sessionStateData.remaining)}',
+                                style: context.bodyLarge.copyWith(
+                                  color:
+                                      Theme.of(context).colorScheme.onPrimary,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                textAlign: TextAlign.end,
+                              ),
+                            ],
                           ),
                         ),
                       ),
