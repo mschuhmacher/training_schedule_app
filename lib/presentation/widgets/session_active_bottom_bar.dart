@@ -35,7 +35,12 @@ class _ActiveSessionBottomBarState extends State<ActiveSessionBottomBar> {
                 children: [
                   sessionStateData.workoutIndex > 0
                       ? GestureDetector(
-                        onTap: sessionStateData.decrementWorkoutIndex,
+                        onTap: () {
+                          sessionStateData.jumpToWorkout(
+                            sessionStateData.workoutIndex - 1,
+                            activeSession,
+                          );
+                        },
                         child: MyArrowButton(icon: Icons.arrow_back, size: 40),
                       )
                       : SizedBox.shrink(),
@@ -44,7 +49,12 @@ class _ActiveSessionBottomBarState extends State<ActiveSessionBottomBar> {
                           sessionStateData.workoutIndex <
                               activeSession.list.length - 1)
                       ? GestureDetector(
-                        onTap: sessionStateData.incrementWorkoutIndex,
+                        onTap: () {
+                          sessionStateData.jumpToWorkout(
+                            sessionStateData.workoutIndex + 1,
+                            activeSession,
+                          );
+                        },
                         child: MyArrowButton(
                           icon: Icons.arrow_forward,
                           size: 40,

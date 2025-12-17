@@ -14,6 +14,14 @@ class ActiveSessionScreen extends StatefulWidget {
 }
 
 class _ActiveSessionScreenState extends State<ActiveSessionScreen> {
+  bool _timerInitialized = false;
+
+  String _formatDuration(Duration d) {
+    final minutes = d.inMinutes.remainder(60).toString().padLeft(2, '0');
+    final seconds = d.inSeconds.remainder(60).toString().padLeft(2, '0');
+    return '$minutes:$seconds';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer2<PresetProvider, SessionStateProvider>(
@@ -22,8 +30,15 @@ class _ActiveSessionScreenState extends State<ActiveSessionScreen> {
         final activeSession =
             presetData.presetSessions[sessionStateData.sessionIndex];
 
-        Workout activeWorkout =
-            activeSession.list[sessionStateData.workoutIndex];
+        // Initialize the timer once when the screen first builds.
+        if (!_timerInitialized) {
+          sessionStateData.start(activeSession);
+          _timerInitialized = true;
+        }
+
+        final progress = sessionStateData.progress;
+
+        Workout activeWorkout = activeSession.list[progress.workoutIndex];
 
         List<Widget> exerciseWidgets =
             activeWorkout.list
@@ -33,7 +48,7 @@ class _ActiveSessionScreenState extends State<ActiveSessionScreen> {
                     children: [
                       Text(
                         name.title,
-                        style: context.titleMedium?.copyWith(
+                        style: context.titleMedium.copyWith(
                           color: Theme.of(context).colorScheme.onPrimary,
                           fontWeight: FontWeight.bold,
                         ),
@@ -43,7 +58,7 @@ class _ActiveSessionScreenState extends State<ActiveSessionScreen> {
                       SizedBox(height: 4),
                       Text(
                         '${name.description} \n',
-                        style: context.bodyMedium?.copyWith(
+                        style: context.bodyMedium.copyWith(
                           color: Theme.of(context).colorScheme.onPrimary,
                         ),
                       ),
@@ -65,7 +80,7 @@ class _ActiveSessionScreenState extends State<ActiveSessionScreen> {
                 .toList();
         // Highlight the title of the current block in a list of block titles
         for (int i = 0; i < workoutNames.length; i++) {
-          if (i == sessionStateData.workoutIndex) {
+          if (i == progress.workoutIndex) {
             workoutNames[i] = Text(
               activeSession.list[i].title,
               style: context.h3,
@@ -107,6 +122,25 @@ class _ActiveSessionScreenState extends State<ActiveSessionScreen> {
                           Text(
                             '\n ${activeWorkout.description}',
                             style: context.bodyMedium,
+                            textAlign: TextAlign.end,
+                          ),
+                          SizedBox(height: 8),
+                          Text(
+                            'Phase: ${sessionStateData.phase.name} • '
+                            'Set ${progress.currentSet}, Rep ${progress.currentRep}',
+                            style: Theme.of(
+                              context,
+                            ).textTheme.bodySmall?.copyWith(
+                              color: Theme.of(context).colorScheme.onPrimary,
+                            ),
+                            textAlign: TextAlign.end,
+                          ),
+                          Text(
+                            'Remaining: ${_formatDuration(sessionStateData.remaining)}',
+                            style: context.bodyLarge.copyWith(
+                              color: Theme.of(context).colorScheme.onPrimary,
+                              fontWeight: FontWeight.bold,
+                            ),
                             textAlign: TextAlign.end,
                           ),
                           SizedBox(height: 8),
