@@ -167,7 +167,7 @@ class _ActiveSessionScreenState extends State<ActiveSessionScreen> {
                               ...exerciseWidgets,
                               SizedBox(height: 16),
                               Text(
-                                '${activeExercise.title} • Set ${progress.currentSet}/${activeExercise.sets} • '
+                                '${activeExercise.title}: Set ${progress.currentSet}/${activeExercise.sets} • '
                                 'Rep ${progress.currentRep}/${activeExercise.reps}',
                                 style: context.bodyMedium.copyWith(
                                   color:
